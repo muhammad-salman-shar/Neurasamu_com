@@ -37,6 +37,7 @@ const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = se
 /* ---------- Toasts ---------- */
 const toastRegion = $('#toastRegion');
 function toast(msg, icon){
+  if (!toastRegion) return;
   const el = document.createElement('div');
   el.className = 'toast';
   el.innerHTML =
@@ -75,14 +76,17 @@ const spyLinks = $$('#mainNav a, .rail a');
 function onScroll(){
   const max = document.documentElement.scrollHeight - innerHeight;
   const p = max > 0 ? Math.min(1, scrollY / max) : 0;
-  progress.style.transform = 'scaleX(' + p + ')';
-  railFill.style.height = (p * 100) + '%';
-  header.classList.toggle('scrolled', scrollY > 10);
+  if (progress) progress.style.transform = 'scaleX(' + p + ')';
+  if (railFill) railFill.style.height = (p * 100) + '%';
+  if (header) header.classList.toggle('scrolled', scrollY > 10);
 }
-addEventListener('scroll', onScroll, { passive: true });
-onScroll();
+if (header || progress || railFill){
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
 
 function setSpy(id){
+  if (!spyLinks.length) return;
   spyLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
 }
 const spyIO = new IntersectionObserver(es => {
@@ -777,6 +781,6 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
 });
 
 /* ---------- Year ---------- */
- $('#year').textContent = new Date().getFullYear();
+ const yearEl = $('#year'); if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 })();
