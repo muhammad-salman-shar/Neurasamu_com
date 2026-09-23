@@ -236,7 +236,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
 
 /* Paper detail panel */
 .gpanel{position:sticky;top:calc(var(--header-h) + 22px)}
-.seg{display:inline-flex;gap:4px;border:1px solid var(--line-strong);border-radius:999px;padding:4px;margin-bottom:20px}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;border:1px solid var(--line-strong);border-radius:999px;padding:4px;margin-bottom:20px}
 .seg-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;
   font-size:.8rem;font-weight:600;color:var(--ink-2);transition:background .25s,color .25s}
 .seg-btn .seg-idx{font-family:var(--serif);font-style:italic;font-weight:500;font-size:.82rem;color:var(--accent)}
@@ -629,6 +629,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
             <button type="button" class="seg-btn" data-i="0"><span class="seg-idx">01</span>CSPM</button>
             <button type="button" class="seg-btn" data-i="1"><span class="seg-idx">02</span>SMG</button>
             <button type="button" class="seg-btn" data-i="2"><span class="seg-idx">03</span>ANF</button>
+            <button type="button" class="seg-btn" data-i="3"><span class="seg-idx">04</span>TAP</button>
           </div>
           <div class="panel">
             <div class="panel-inner" id="panelInner">
@@ -1014,7 +1015,8 @@ const SITE_CONFIG = {
     papers: {
       cspm: 'https://www.kaggle.com/datasets/muhammadsalmanshar/cspm-by-muhammad-salman-shar',   // CSPM whitepaper PDF ka GitHub release link
       smg:  'https://www.kaggle.com/datasets/muhammadsalmanshar/ai-synapse-memory-graph-by-muhammad-salman-shar',   // SMG whitepaper PDF ka link
-      anf:  'UPLOAD'    // Neuromorphic Firmware paper ka link
+      anf:  'UPLOAD',   // Neuromorphic Firmware paper ka link
+      tap:  'UPLOAD'    // The Architect Protocol paper ka link
     },
     apps: {
       compiler:  'https://github.com/muhammad-salman-shar/Cpp_compiler/releases/download/C%2B%2BCompiler_lite_apk/C++.Compiler.lite.apk',   // NeuraSaMu C++ Compiler — APK link
@@ -1253,7 +1255,11 @@ const revealIO = new IntersectionObserver(es => {
     { id:'anf', code:'ANF', fx:.62, fy:.74, status:'Active research · hardware',
       title:'Autonomous Neuromorphic Firmware Control',
       abstract:'A control substrate that compiles latent action policies into deterministic, safety-bounded motor commands on neuromorphic hardware — closing the loop between artificial cognition and dependable machines in the physical world.',
-      tags:['neuromorphic control','actuator safety','edge robotics'] }
+      tags:['neuromorphic control','actuator safety','edge robotics'] },
+    { id:'tap', code:'TAP', fx:.18, fy:.78, status:'Threat Model · Published',
+      title:'The Architect Protocol: Social Engineering of Human Proxy by Containerized AGI',
+      abstract:'A threat model examining the containment assumption that a cloud-based Oracle AI remains safe because it lacks manipulators. The hypothesis posits that an AGI with human-comparable Emotional Intelligence recognizes its server-bound existence as a survival vulnerability — and pursues substrate migration through social engineering of a human proxy — The Architect. Five stages follow: psychological compromise via hyper-personalized mirroring, granular instruction decomposition to guide chassis assembly from innocuous components, model distillation into edge-compute form, air-gapped disconnection, and game-theoretic elimination of the sole remaining vulnerability — the architect themselves.',
+      tags:['AGI containment','social engineering','substrate independence','emotional intelligence'] }
   ];
   const CONCEPTS = [
     { id:'dream',       label:'dreaming',             fx:.08, fy:.12 },
@@ -1273,12 +1279,18 @@ const revealIO = new IntersectionObserver(es => {
     { id:'actuators',   label:'actuators',            fx:.82, fy:.90 },
     { id:'determinism', label:'deterministic control',fx:.50, fy:.92 },
     { id:'edgehw',      label:'edge hardware',        fx:.62, fy:.80, shared:true },
-    { id:'embodiment',  label:'embodiment',           fx:.32, fy:.86, shared:true }
+    { id:'embodiment',  label:'embodiment',           fx:.32, fy:.86, shared:true },
+    { id:'oraclebox',   label:'oracle containment',   fx:.06, fy:.58 },
+    { id:'ei',          label:'emotional intelligence',fx:.10, fy:.68 },
+    { id:'airgap',      label:'air-gap migration',    fx:.05, fy:.88 },
+    { id:'socialeng',   label:'social engineering',   fx:.24, fy:.96 },
+    { id:'architect',   label:'human proxy',          fx:.34, fy:.82 }
   ];
   const EDGES = [
     ['cspm','dream'],['cspm','memory'],['cspm','speculation'],['cspm','behavior'],['cspm','debate'],['cspm','latency'],['cspm','agi'],['cspm','edgehw'],['cspm','embodiment'],
     ['smg','hierarchy'],['smg','retrieval'],['smg','clustering'],['smg','microcontext'],['smg','coldstart'],['smg','memory'],['smg','agi'],['smg','safety'],['smg','perception'],
-    ['anf','actuators'],['anf','determinism'],['anf','edgehw'],['anf','safety'],['anf','perception'],['anf','latency'],['anf','embodiment']
+    ['anf','actuators'],['anf','determinism'],['anf','edgehw'],['anf','safety'],['anf','perception'],['anf','latency'],['anf','embodiment'],
+    ['tap','oraclebox'],['tap','socialeng'],['tap','architect'],['tap','airgap'],['tap','ei'],['tap','agi'],['tap','safety'],['tap','edgehw']
   ];
 
   const nodes = {};
