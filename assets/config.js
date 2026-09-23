@@ -9,7 +9,7 @@
 
 const SITE_CONFIG = {
 
-  EMAIL: 'muhammadsalmansharbaloch@gmail.com',   // form submissions yahan aati hain
+  EMAIL: 'neurasamuai@gmail.com',   // form submissions yahan aati hain
 
   FORMSPREE: {
     apply: '',   // e.g. 'https://formspree.io/f/abcdwxyz'  (lab application wala form)
