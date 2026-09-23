@@ -1049,7 +1049,7 @@ function toast(msg, icon){
 /* ---------- SITE_CONFIG se links lagao (data-asset wale buttons) ---------- */
 function applyConfig(){
   $$('[data-asset]').forEach(a => {
-    const v = a.dataset.asset.split('.').reduce((o, k) => o && o[k], SITE_CONFIG);
+    const v = a.dataset.asset.split('.').reduce((o, k) => o && o[k], SITE_CONFIG.LINKS);
     if (typeof v === 'string' && v) a.setAttribute('href', v);
   });
 }
