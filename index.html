@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F6F3EC">
+<meta name="description" content="NeuraSaMu — Pakistan's first frontier laboratory for AGI, ASI and autonomous robotics. We teach machines to dream.">
+<title>NeuraSaMu — We teach machines to dream</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:wght@400..700&family=Noto+Nastaliq+Urdu:wght@400..700&display=swap" rel="stylesheet">
+<!-- PDF receipt ke liye — ye ek hi external script hai (free, open-source) -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+/* ============================================================
+   NEURASAMU — "Machines that dream"
+   Paper + Ink editorial system, Nastaliq accents, mind-graph site
+   ============================================================ */
+:root{
+  --paper:#F6F3EC;
+  --paper-2:#EFEBE0;
+  --card:#FBFAF4;
+  --ink:#171410;
+  --ink-2:#5B5546;
+  --ink-3:#7E7663;
+  --line:rgba(23,20,16,.14);
+  --line-strong:rgba(23,20,16,.32);
+  --accent:#0E5C45;
+  --accent-2:#12805E;
+  --accent-soft:rgba(14,92,69,.08);
+  --dark:#15120C;
+  --on-dark:#F3EFE6;
+  --on-dark-2:#B0A892;
+  --line-dark:rgba(243,239,230,.14);
+  --green-dark:#4CB68E;
+  --danger:#B3261E;
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Instrument Sans',-apple-system,'Segoe UI',sans-serif;
+  --urdu:'Noto Nastaliq Urdu',serif;
+  --e:cubic-bezier(.19,1,.22,1);
+  --header-h:72px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink-2);
+  font:400 1rem/1.7 var(--sans);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+body.locked{overflow:hidden}
+[hidden]{display:none!important}
+img,svg{display:block}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:inherit}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--paper)}
+::-webkit-scrollbar-thumb{background:rgba(23,20,16,.22);border-radius:8px;border:2px solid var(--paper)}
+
+/* Kaghaz ka grain — halka sa texture poore page par */
+body::after{
+  content:'';position:fixed;inset:0;z-index:500;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.container{width:100%;max-width:1200px;margin-inline:auto;padding-inline:clamp(20px,5vw,56px)}
+section[id]{scroll-margin-top:calc(var(--header-h) + 12px)}
+.icon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+.skip-link{position:fixed;top:12px;left:12px;z-index:700;transform:translateY(-300%);
+  background:var(--ink);color:var(--paper);font-weight:600;font-size:.85rem;padding:10px 16px;border-radius:8px;text-decoration:none;transition:transform .2s}
+.skip-link:focus{transform:none}
+
+/* ---------- Type ---------- */
+h1,h2,h3{font-family:var(--serif);color:var(--ink);font-weight:500;letter-spacing:-.02em;font-optical-sizing:auto}
+h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
+.lede{font-size:clamp(1rem,1.3vw,1.1rem);line-height:1.75;max-width:46ch}
+
+.sec-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.sec-eyebrow .idx{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--accent);font-size:1rem}
+.sec-eyebrow .lbl{font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+.sec-eyebrow .rule{flex:1;height:1px;background:var(--line)}
+.sec-head{display:grid;grid-template-columns:1fr .8fr;gap:clamp(28px,4vw,56px);align-items:end}
+.sec-head .lede{justify-self:end;padding-bottom:6px}
+
+.section{padding-block:clamp(88px,11vw,150px)}
+.band-dark{background:var(--dark);color:var(--on-dark-2)}
+.band-dark h2,.band-dark h3{color:var(--on-dark)}
+.band-dark .sec-eyebrow .rule{background:var(--line-dark)}
+.band-dark .sec-eyebrow .idx{color:var(--green-dark)}
+.band-dark .sec-eyebrow .lbl{color:rgba(243,239,230,.5)}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:.9rem;letter-spacing:-.01em;line-height:1;
+  padding:14px 24px;border-radius:999px;border:1px solid transparent;text-decoration:none;white-space:nowrap;
+  transition:background .25s,color .25s,border-color .25s,transform .25s var(--e)}
+.btn .icon{width:15px;height:15px;transition:transform .25s var(--e)}
+.btn:hover .icon{transform:translateX(3px)}
+.btn--primary{background:var(--ink);color:var(--paper)}
+.btn--primary:hover{background:var(--accent);transform:translateY(-1px)}
+.btn--ghost{border-color:var(--line-strong);color:var(--ink)}
+.btn--ghost:hover{border-color:var(--ink);background:rgba(23,20,16,.045)}
+.btn--sm{padding:11px 18px;font-size:.83rem}
+.text-link{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-weight:600;font-size:.92rem;text-decoration:none}
+.text-link .icon{width:14px;height:14px;transition:transform .25s var(--e)}
+.text-link:hover{color:var(--accent-2)}
+.text-link:hover .icon{transform:translateX(3px)}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:110;background:var(--accent);
+  transform:scaleX(0);transform-origin:left}
+.site-header{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--header-h);
+  background:rgba(246,243,236,.8);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+.site-header.scrolled{border-bottom-color:var(--line);background:rgba(246,243,236,.92)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:28px;height:var(--header-h)}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+.brand .mark{width:26px;height:26px}
+.mark circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.4}
+.mark .c2{fill:var(--accent);stroke:var(--accent)}
+.brand-name{font-family:var(--serif);font-weight:600;font-size:1.15rem;letter-spacing:-.02em;color:var(--ink)}
+.main-nav{display:flex;gap:6px}
+.main-nav a{position:relative;padding:9px 13px;font-size:.85rem;font-weight:500;color:var(--ink-2);text-decoration:none;transition:color .2s;border-radius:8px}
+.main-nav a:hover{color:var(--ink)}
+.main-nav a::after{content:'';position:absolute;left:13px;right:13px;bottom:4px;height:1.5px;background:var(--accent);
+  transform:scaleX(0);transform-origin:left;transition:transform .3s var(--e)}
+.main-nav a.active{color:var(--ink)}
+.main-nav a.active::after{transform:scaleX(1)}
+.header-cta{flex:none}
+.menu-btn{display:none;width:44px;height:44px;border:1px solid var(--line-strong);border-radius:12px;place-items:center;color:var(--ink)}
+.menu-btn .ic-close{display:none}
+.menu-btn[aria-expanded="true"] .ic-open{display:none}
+.menu-btn[aria-expanded="true"] .ic-close{display:block}
+
+/* ---------- Mobile menu ---------- */
+.menu{position:fixed;inset:0;z-index:95;background:var(--paper);padding:calc(var(--header-h) + 32px) clamp(20px,6vw,48px) 40px;
+  display:flex;flex-direction:column;visibility:hidden;opacity:0;transition:opacity .35s var(--e),visibility .35s}
+.menu.open{visibility:visible;opacity:1}
+.menu a{font-family:var(--serif);font-size:clamp(2rem,8vw,2.9rem);letter-spacing:-.02em;color:var(--ink);text-decoration:none;
+  padding:14px 0;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:18px;
+  opacity:0;transform:translateY(16px);transition:opacity .5s var(--e),transform .5s var(--e)}
+.menu.open a{opacity:1;transform:none}
+.menu a .idx{font-family:var(--sans);font-style:normal;font-size:.75rem;font-weight:600;letter-spacing:.14em;color:var(--accent)}
+.menu-foot{margin-top:auto;font-size:.85rem;color:var(--ink-3)}
+.menu-foot a{font-family:var(--sans);font-size:.85rem;border:none;padding:0;color:var(--accent);display:inline;opacity:1;transform:none}
+
+/* ============================================================
+   Hero — "We teach machines to dream."
+   ============================================================ */
+#hero{position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:100svh;padding-top:calc(var(--header-h) + 16px)}
+#inkField{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-ghost{position:absolute;top:4%;right:-2%;z-index:1;pointer-events:none;user-select:none;
+  font-family:var(--urdu);font-size:clamp(11rem,26vw,26rem);line-height:1.75;color:rgba(23,20,16,.055)}
+.hero-note{position:absolute;top:22%;right:clamp(18px,4vw,64px);z-index:1;writing-mode:vertical-rl;
+  font-size:.62rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-3)}
+.hero-main{position:relative;z-index:2;flex:1;display:flex;align-items:center}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;font-size:.7rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+.hero-eyebrow .tick{width:26px;height:1.5px;background:var(--accent)}
+.hero h1{margin-top:30px;font-size:clamp(3.3rem,8.6vw,7.3rem);font-weight:480;line-height:.99;letter-spacing:-.028em}
+.hero h1 span{display:block}
+.hero h1 .l2{margin-left:clamp(1.5rem,7vw,8rem)}
+.hero h1 .l3{margin-left:clamp(3rem,14vw,16rem)}
+.dream{position:relative;font-style:italic;color:var(--accent)}
+.dream .scribble{position:absolute;left:1%;bottom:-.04em;width:98%;height:.16em;overflow:visible}
+.scribble path{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linecap:round;
+  vector-effect:non-scaling-stroke;stroke-dasharray:300;stroke-dashoffset:300;
+  animation:draw 1.1s cubic-bezier(.65,0,.35,1) 1.1s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero-lede{margin-top:32px;max-width:56ch;font-size:clamp(1rem,1.4vw,1.15rem);line-height:1.75}
+.hero-actions{margin-top:38px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.hero-meta{position:relative;z-index:2;border-top:1px solid var(--line)}
+.meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(26px,4.5vw,64px);padding-block:20px}
+.meta-row div dt{font-size:.64rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.meta-row div dd{margin-top:5px;font-size:.92rem;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.meta-cue{margin-left:auto;display:flex;align-items:center;gap:12px;text-decoration:none;
+  font-size:.66rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);transition:color .2s}
+.meta-cue:hover{color:var(--accent)}
+.cue-line{width:1px;height:28px;background:var(--line-strong);position:relative;overflow:hidden}
+.cue-line::after{content:'';position:absolute;left:0;top:-100%;width:1px;height:100%;background:var(--accent);
+  animation:cueDrop 2.2s var(--e) infinite}
+@keyframes cueDrop{0%{top:-100%}65%,100%{top:100%}}
+
+/* ============================================================
+   Abstract — journal-style
+   ============================================================ */
+.abstract{border-block:1px solid var(--line)}
+.abstract-inner{display:grid;grid-template-columns:190px 1fr;gap:clamp(28px,5vw,64px);padding-block:clamp(44px,6vw,72px)}
+.abstract-label{font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);line-height:2}
+.abstract-label b{display:block;color:var(--accent);font-weight:600}
+.abstract-body{font-family:var(--serif);font-size:clamp(1.2rem,2vw,1.5rem);line-height:1.6;color:var(--ink);letter-spacing:-.005em;max-width:62ch}
+.abstract-body .dropcap{float:left;font-size:4.4rem;line-height:.78;padding:6px 14px 0 0;color:var(--accent);font-weight:500}
+.keywords{margin-top:26px;font-size:.78rem;font-weight:500;letter-spacing:.02em;color:var(--ink-3)}
+.keywords b{color:var(--accent);font-weight:600}
+
+/* ============================================================
+   Research — living mind graph
+   ============================================================ */
+.research-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.92fr);
+  gap:clamp(28px,4vw,56px);align-items:start;margin-top:clamp(36px,5vw,60px)}
+.graph-frame{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--card)}
+.graph-bar{display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:1px solid var(--line);
+  font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
+.graph-bar .hint{margin-left:auto;color:var(--accent);letter-spacing:.12em}
+.graph-stage{position:relative;height:clamp(420px,56vw,580px)}
+#graphSvg{display:block;width:100%;height:100%}
+#graphSvg text{user-select:none}
+.gnode{cursor:grab;touch-action:none}
+.gnode:active{cursor:grabbing}
+.gedge{stroke:rgba(23,20,16,.14);stroke-width:1;transition:stroke .35s,opacity .35s}
+.gedge.dim{opacity:.22}
+.gedge.on{stroke:var(--accent);stroke-width:1.6;opacity:1}
+.gnode-paper .body{fill:var(--card);stroke:var(--ink);stroke-width:1.4;transition:stroke .3s}
+.gnode-paper .code{font:600 12.5px var(--sans);letter-spacing:.06em;fill:var(--ink)}
+.gnode-paper .hit{pointer-events:all}
+.gnode-paper.sel .body{stroke:var(--accent);stroke-width:1.8}
+.gnode-paper .ring{fill:none;stroke:var(--accent);stroke-width:1.1;opacity:0;
+  transform-box:fill-box;transform-origin:center}
+.gnode-paper.sel .ring{animation:ringPulse 2.6s ease-out infinite}
+@keyframes ringPulse{0%{transform:scale(1);opacity:.75}70%,100%{transform:scale(1.55);opacity:0}}
+.gnode-paper:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
+.gnode-concept .dot{fill:rgba(23,20,16,.5);stroke:none;transition:fill .3s}
+.gnode-concept .label{font:500 10.5px var(--sans);fill:rgba(23,20,16,.38);transition:fill .3s}
+.gnode-concept .hit{pointer-events:all}
+.gnode-concept.lit .dot{fill:var(--ink)}
+.gnode-concept.lit .label{fill:var(--ink)}
+.gnode-concept.shared .dot{fill:var(--card);stroke:var(--accent);stroke-width:1.4}
+.gnode-concept.shared.lit .dot{fill:var(--accent)}
+
+/* Paper detail panel */
+.gpanel{position:sticky;top:calc(var(--header-h) + 22px)}
+.seg{display:inline-flex;gap:4px;border:1px solid var(--line-strong);border-radius:999px;padding:4px;margin-bottom:20px}
+.seg-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;
+  font-size:.8rem;font-weight:600;color:var(--ink-2);transition:background .25s,color .25s}
+.seg-btn .seg-idx{font-family:var(--serif);font-style:italic;font-weight:500;font-size:.82rem;color:var(--accent)}
+.seg-btn:hover{color:var(--ink)}
+.seg-btn.on{background:var(--ink);color:var(--paper)}
+.seg-btn.on .seg-idx{color:var(--green-dark)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:clamp(24px,3vw,34px)}
+.panel-inner.swap{animation:panelIn .5s var(--e)}
+@keyframes panelIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.panel-top{display:flex;align-items:center;gap:16px}
+.panel-idx{font-family:var(--serif);font-style:italic;font-size:2.6rem;font-weight:500;color:var(--accent);opacity:.28;line-height:1}
+.status{display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:999px;
+  border:1px solid var(--line-strong);font-size:.62rem;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-2)}
+.status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.panel h3{margin-top:16px;font-size:clamp(1.4rem,2.2vw,1.8rem);line-height:1.15}
+.panel .abs{margin-top:14px;font-size:.95rem;line-height:1.7}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.tag{padding:5px 12px;border:1px solid var(--line);border-radius:999px;font-size:.72rem;font-weight:500;color:var(--ink-2)}
+.panel .btn{margin-top:24px}
+.panel-meta{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:.78rem;color:var(--ink-3)}
+
+/* ============================================================
+   Vision — dark band
+   ============================================================ */
+#vision{position:relative;overflow:hidden}
+.v-ghost{position:absolute;top:2%;right:-2%;pointer-events:none;user-select:none;
+  font-family:var(--urdu);font-size:clamp(9rem,20vw,19rem);line-height:1.8;color:rgba(243,239,230,.045)}
+.v-quote{max-width:920px;margin-top:8px}
+.v-quote p{font-family:var(--serif);font-size:clamp(1.7rem,3.8vw,3rem);line-height:1.18;letter-spacing:-.02em;color:var(--on-dark)}
+.v-quote em{font-style:italic;color:var(--green-dark)}
+.v-quote footer{margin-top:28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.sig{font-family:var(--urdu);font-size:1.55rem;line-height:2;color:var(--green-dark)}
+.v-who{font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--on-dark-2)}
+.v-cols{margin-top:clamp(56px,8vw,96px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px)}
+.v-cols h3{font-family:var(--sans);font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--green-dark);margin-bottom:16px}
+.v-cols p{font-size:.98rem;line-height:1.75}
+.v-cols p + p{margin-top:14px}
+.v-cols strong{color:var(--on-dark);font-weight:600}
+.tenets{margin-top:clamp(64px,9vw,110px);border-top:1px solid var(--line-dark)}
+.tenet{display:grid;grid-template-columns:90px minmax(0,1fr);gap:clamp(18px,3vw,40px);
+  padding:clamp(26px,3.5vw,38px) 6px;border-bottom:1px solid var(--line-dark);border-radius:12px;transition:background .3s}
+.tenet:hover{background:rgba(243,239,230,.03)}
+.tenet-num{font-family:var(--serif);font-style:italic;font-size:clamp(1.7rem,2.6vw,2.3rem);font-weight:500;color:var(--green-dark);line-height:1}
+.tenet h3{font-size:clamp(1.15rem,2vw,1.4rem)}
+.tenet p{margin-top:8px;font-size:.95rem;max-width:60ch}
+.trace{margin-top:clamp(64px,9vw,104px);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,44px)}
+.trace-item{position:relative;border-top:1px solid var(--line-dark);padding-top:22px}
+.trace-kicker{position:absolute;top:-9px;left:0;padding-right:14px;background:var(--dark);
+  font-size:.66rem;font-weight:700;letter-spacing:.16em;color:var(--green-dark)}
+.trace-item h3{font-family:var(--sans);font-size:.98rem;font-weight:600;letter-spacing:-.01em;margin-top:8px}
+.trace-item p{margin-top:10px;font-size:.9rem}
+
+/* ============================================================
+   Instruments — spec table
+   ============================================================ */
+.inst-list{margin-top:clamp(36px,5vw,56px);border-top:1px solid var(--line)}
+.inst-row{display:grid;grid-template-columns:56px minmax(0,1.5fr) minmax(0,.9fr) auto;
+  gap:clamp(20px,3vw,40px);align-items:center;padding:clamp(24px,3vw,36px) 10px;
+  border-bottom:1px solid var(--line);border-radius:14px;transition:background .3s}
+.inst-row:hover{background:rgba(23,20,16,.035)}
+.inst-icon{width:54px;height:54px;border:1px solid var(--line-strong);border-radius:14px;
+  display:grid;place-items:center;color:var(--ink-2);transition:border-color .3s,color .3s}
+.inst-icon .icon{width:22px;height:22px}
+.inst-row:hover .inst-icon{border-color:var(--accent);color:var(--accent)}
+.inst-row h3{font-size:clamp(1.25rem,2.2vw,1.6rem)}
+.inst-desc{margin-top:6px;font-size:.93rem;max-width:52ch}
+.inst-meta div{padding-block:3px}
+.inst-meta dt{font-size:.6rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.inst-meta dd{font-size:.85rem;font-weight:600;color:var(--ink);margin-top:2px}
+.inst-note{margin-top:28px;display:flex;gap:10px;align-items:center;font-size:.82rem;color:var(--ink-3)}
+.inst-note .icon{width:15px;height:15px;color:var(--accent)}
+
+/* ============================================================
+   Bureau — paid intelligence
+   ============================================================ */
+#bureau{background:var(--paper-2);border-block:1px solid var(--line)}
+.bureau-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:start;margin-top:8px}
+.coverage{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:13px 34px;list-style:none}
+.coverage li{display:flex;gap:11px;align-items:flex-start;font-size:.92rem;font-weight:500;color:var(--ink);line-height:1.5}
+.coverage .icon{width:17px;height:17px;color:var(--accent);margin-top:3px}
+.terms{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:clamp(24px,3vw,34px)}
+.terms-head{display:flex;align-items:center;gap:10px;padding-bottom:18px;border-bottom:1px solid var(--line);
+  font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+.terms-row{display:flex;gap:15px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line)}
+.terms-row:last-of-type{border-bottom:none}
+.terms-row .icon{width:18px;height:18px;color:var(--accent);margin-top:3px}
+.terms-row h4{font-size:.92rem;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.terms-row p{margin-top:4px;font-size:.85rem;line-height:1.6}
+.terms .btn{margin-top:20px;width:100%;justify-content:center}
+.terms-cap{margin-top:12px;text-align:center;font-size:.74rem;color:var(--ink-3)}
+
+/* ============================================================
+   Contact — join the graph
+   ============================================================ */
+.contact-grid{display:grid;grid-template-columns:.88fr 1.12fr;gap:clamp(32px,5vw,72px);align-items:start;margin-top:clamp(36px,5vw,56px)}
+.direct-label{font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+.direct-mail{display:inline-block;margin-top:14px;font-size:clamp(1.05rem,1.9vw,1.35rem);font-weight:600;
+  letter-spacing:-.015em;color:var(--ink);text-decoration:none;word-break:break-all;transition:color .2s}
+.direct-mail:hover{color:var(--accent)}
+.direct-notes{margin-top:26px;padding-top:22px;border-top:1px solid var(--line);font-size:.9rem;line-height:1.7}
+.direct-notes p + p{margin-top:10px}
+.raabta{margin-top:30px;display:flex;align-items:center;gap:16px}
+.raabta span[lang="ur"]{font-family:var(--urdu);font-size:1.5rem;line-height:2;color:var(--accent)}
+.raabta small{font-size:.72rem;color:var(--ink-3);letter-spacing:.04em}
+
+.form-card{background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:clamp(24px,3.4vw,40px);box-shadow:0 1px 0 rgba(23,20,16,.03),0 32px 64px -48px rgba(23,20,16,.28)}
+.modes{display:inline-flex;gap:4px;border:1px solid var(--line-strong);border-radius:999px;padding:4px}
+.mode-btn{padding:9px 18px;border-radius:999px;font-size:.82rem;font-weight:600;color:var(--ink-2);
+  transition:background .25s,color .25s}
+.mode-btn:hover{color:var(--ink)}
+.mode-btn.on{background:var(--ink);color:var(--paper)}
+.mode-desc{margin-top:14px;font-size:.86rem;color:var(--ink-3)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field--full{grid-column:1/-1}
+.field label{font-size:.83rem;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.field input,.field select,.field textarea{width:100%;background:#FDFCF8;border:1px solid rgba(23,20,16,.24);
+  border-radius:11px;padding:12px 14px;color:var(--ink);font:500 .92rem/1.5 var(--sans);letter-spacing:-.01em;
+  transition:border-color .2s,box-shadow .2s}
+.field textarea{resize:vertical;min-height:120px}
+.field ::placeholder{color:#9A9280}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-soft)}
+.select-wrap{position:relative}
+.select-wrap select{appearance:none;-webkit-appearance:none;padding-right:42px;cursor:pointer}
+.select-caret{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--ink-3);pointer-events:none}
+.ferr{display:none;font-size:.76rem;font-weight:500;color:var(--danger)}
+.field.has-error .ferr{display:block}
+.field.has-error input,.field.has-error select,.field.has-error textarea{border-color:var(--danger)}
+.field--check{flex-direction:row;flex-wrap:wrap;align-items:flex-start;gap:12px}
+.field--check input[type="checkbox"]{appearance:none;-webkit-appearance:none;flex:none;width:18px;height:18px;
+  margin-top:2px;border-radius:5px;border:1px solid var(--line-strong);background:#FDFCF8;cursor:pointer;
+  display:grid;place-items:center;transition:background .15s,border-color .15s}
+.field--check input[type="checkbox"]::after{content:'';width:5px;height:9px;transform:rotate(45deg) translate(-1px,-1px);
+  border:solid #F6F3EC;border-width:0 2px 2px 0;opacity:0}
+.field--check input[type="checkbox"]:checked{background:var(--accent);border-color:var(--accent)}
+.field--check input[type="checkbox"]:checked::after{opacity:1}
+.field--check label{font-size:.83rem;font-weight:400;color:var(--ink-2);line-height:1.6;cursor:pointer}
+.field--check .ferr{flex-basis:100%}
+.falert{margin-top:18px;padding:11px 14px;border-radius:10px;border:1px solid rgba(179,38,30,.35);
+  background:rgba(179,38,30,.06);color:var(--danger);font-size:.85rem;font-weight:500}
+.ffoot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-top:26px}
+.fnote{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--ink-3)}
+.fnote .icon{width:14px;height:14px;color:var(--accent)}
+.btn[disabled]{opacity:.6;cursor:default;transform:none}
+.fsuccess{padding:12px 4px;display:grid;gap:8px}
+.success-ic{width:44px;height:44px;border-radius:50%;background:var(--accent-soft);color:var(--accent);
+  display:grid;place-items:center;margin-bottom:10px}
+.success-ic .icon{width:20px;height:20px}
+.fsuccess h3{font-size:1.4rem}
+.fsuccess p{font-size:.94rem;max-width:52ch}
+.fsuccess-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:14px}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.site-footer{background:var(--dark);color:var(--on-dark-2)}
+.f-top{padding-block:clamp(64px,8vw,104px) clamp(40px,5vw,64px)}
+.f-line{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(18px,3vw,36px)}
+.f-en{font-family:var(--serif);font-weight:500;font-size:clamp(2.2rem,5.4vw,4.4rem);letter-spacing:-.025em;line-height:1;color:var(--on-dark)}
+.f-ur{font-family:var(--urdu);font-size:clamp(1.5rem,3vw,2.3rem);line-height:2;color:var(--green-dark)}
+.f-cap{margin-top:14px;font-size:.78rem;letter-spacing:.04em;color:var(--on-dark-2)}
+.f-grid{display:grid;grid-template-columns:1.4fr .8fr .9fr;gap:44px;padding-block:clamp(40px,5vw,56px);
+  border-top:1px solid var(--line-dark)}
+.f-brand p{margin-top:16px;font-size:.9rem;max-width:32ch}
+.f-brand .mark circle{fill:var(--dark);stroke:var(--on-dark)}
+.f-label{font-size:.64rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--on-dark-2);margin-bottom:16px}
+.f-link{display:block;padding-block:5px;color:var(--on-dark-2);text-decoration:none;font-size:.9rem;transition:color .2s}
+.f-link:hover{color:var(--on-dark)}
+.f-bottom{display:flex;flex-wrap:wrap;gap:10px 32px;justify-content:space-between;
+  padding-block:24px;border-top:1px solid var(--line-dark);font-size:.78rem;color:var(--on-dark-2)}
+
+/* ============================================================
+   Rail — left mind-map minimap (desktop)
+   ============================================================ */
+.rail{position:fixed;left:28px;top:50%;transform:translateY(-50%);z-index:90;
+  display:flex;flex-direction:column;gap:30px;align-items:center}
+.rail-track{position:absolute;top:4px;bottom:4px;left:50%;width:1px;background:var(--line);transform:translateX(-50%)}
+.rail-fill{position:absolute;top:0;left:0;width:100%;height:0;background:var(--accent)}
+.rail-dot{position:relative;width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(23,20,16,.35);
+  background:var(--paper);transition:border-color .3s,background .3s,transform .3s}
+.rail-dot:hover{border-color:var(--ink)}
+.rail-dot.active{border-color:var(--accent);background:var(--accent);transform:scale(1.25)}
+.rail-dot span{position:absolute;left:20px;top:50%;transform:translate(-6px,-50%);white-space:nowrap;
+  font-size:.62rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);
+  opacity:0;transition:opacity .25s,transform .25s;pointer-events:none}
+.rail-dot:hover span,.rail-dot.active span{opacity:1;transform:translate(0,-50%)}
+
+/* ============================================================
+   Toasts
+   ============================================================ */
+.toast-region{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:600;
+  display:flex;flex-direction:column;gap:10px;width:min(92vw,480px);pointer-events:none}
+.toast{pointer-events:auto;display:flex;align-items:flex-start;gap:12px;
+  background:var(--dark);border:1px solid rgba(243,239,230,.16);border-radius:13px;
+  padding:13px 13px 13px 16px;color:var(--on-dark);font-size:.87rem;line-height:1.55;
+  box-shadow:0 18px 48px rgba(21,18,12,.3);animation:toastIn .4s var(--e)}
+.toast.is-leaving{opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
+.toast .icon{width:16px;height:16px;color:var(--green-dark);margin-top:2px}
+.toast-close{margin-left:auto;color:var(--on-dark-2);padding:5px;border-radius:7px;transition:color .2s}
+.toast-close:hover{color:var(--on-dark)}
+.toast-close .icon{width:13px;height:13px;color:currentColor;margin:0}
+@keyframes toastIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ============================================================
+   Reveal
+   ============================================================ */
+[data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .85s var(--e),transform .85s var(--e)}
+[data-reveal].in{opacity:1;transform:none}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width:1199px){ .rail,.hero-note{display:none} }
+@media (max-width:960px){
+  .main-nav,.header-cta{display:none}
+  .menu-btn{display:grid}
+  .sec-head{grid-template-columns:1fr;align-items:start}
+  .sec-head .lede{justify-self:start}
+  .research-grid,.v-cols,.bureau-grid,.contact-grid{grid-template-columns:1fr}
+  .gpanel{position:static}
+  .abstract-inner{grid-template-columns:1fr;gap:20px}
+  .trace{grid-template-columns:1fr;gap:30px}
+  .v-ghost{opacity:.7}
+}
+@media (max-width:640px){
+  .inst-row{grid-template-columns:54px 1fr;row-gap:18px}
+  .inst-meta{grid-column:2;display:flex;gap:26px}
+  .inst-meta div{padding:0}
+  .inst-actions{grid-column:1/-1}
+  .inst-actions .btn{width:100%;justify-content:center}
+  .fgrid,.coverage,.f-grid{grid-template-columns:1fr}
+  .hero-meta .meta-row{gap:20px}
+  .meta-cue{margin-left:0}
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  [data-reveal]{opacity:1;transform:none}
+  .scribble path{animation:none;stroke-dashoffset:0}
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ---------- SVG icon library ---------- -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 14.5V6.5A2.5 2.5 0 0 1 7.5 4h8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7.5 8 5.5 8-5.5"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/><rect x="10" y="10" width="4" height="4" rx="1"/><path d="M9.5 3.5V6M14.5 3.5V6M9.5 18v2.5M14.5 18v2.5M3.5 9.5H6M3.5 14.5H6M18 9.5h2.5M18 14.5h2.5"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8.5A1.5 1.5 0 0 1 5.5 7H8l1.7-2.4h4.6L16 7h2.5A1.5 1.5 0 0 1 20 8.5V18a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18z"/><circle cx="12" cy="13" r="3.4"/></symbol>
+  <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12.5h4l3-8 4 15 3-7h4"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M6.5 3.5h7L18 8v12.5h-11.5z"/><path d="M13.5 3.5V8H18M9.5 12.5h5M9.5 16h5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.6c0 4.3-2.9 7.3-7 8.9-4.1-1.6-7-4.6-7-8.9V6z"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 10.5 13.5M21 3l-6.8 18-3.7-8.3L2.2 9z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.4v.2"/></symbol>
+</svg>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- ======================= Header ======================= -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="#hero" class="brand" aria-label="NeuraSaMu — home">
+      <svg class="mark" viewBox="0 0 26 26" aria-hidden="true">
+        <path d="M6.5 19.5 13 6.5l7 9" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <circle cx="6.5" cy="19.5" r="2.4"/><circle class="c2" cx="13" cy="6.5" r="2.4"/><circle cx="20" cy="15.5" r="2.4"/>
+      </svg>
+      <span class="brand-name">NeuraSaMu</span>
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="Primary">
+      <a href="#research">Research</a>
+      <a href="#vision">Vision</a>
+      <a href="#instruments">Instruments</a>
+      <a href="#bureau">Bureau</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="btn btn--primary btn--sm header-cta">Join the lab</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+      <svg class="icon ic-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="icon ic-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="menu" id="menu" aria-label="Mobile">
+  <a href="#research" style="transition-delay:.06s"><span class="idx">01</span>Research</a>
+  <a href="#vision" style="transition-delay:.12s"><span class="idx">02</span>Vision</a>
+  <a href="#instruments" style="transition-delay:.18s"><span class="idx">03</span>Instruments</a>
+  <a href="#bureau" style="transition-delay:.24s"><span class="idx">04</span>Bureau</a>
+  <a href="#contact" style="transition-delay:.3s"><span class="idx">05</span>Contact</a>
+  <p class="menu-foot">NeuraSaMu · <a href="mailto:muhammadsalmansharbaloch@gmail.com">muhammadsalmansharbaloch@gmail.com</a></p>
+</nav>
+
+<!-- ======================= Left rail minimap ======================= -->
+<nav class="rail" id="rail" aria-label="Sections">
+  <div class="rail-track" aria-hidden="true"><div class="rail-fill" id="railFill"></div></div>
+  <a class="rail-dot" href="#research"><span>Research</span></a>
+  <a class="rail-dot" href="#vision"><span>Vision</span></a>
+  <a class="rail-dot" href="#instruments"><span>Instruments</span></a>
+  <a class="rail-dot" href="#bureau"><span>Bureau</span></a>
+  <a class="rail-dot" href="#contact"><span>Contact</span></a>
+</nav>
+
+<main id="main">
+
+  <!-- ======================= Hero ======================= -->
+  <section id="hero" aria-label="NeuraSaMu — introduction">
+    <canvas id="inkField" aria-hidden="true"></canvas>
+    <div class="hero-ghost" lang="ur" aria-hidden="true" data-reveal="1">خواب</div>
+    <div class="hero-note" aria-hidden="true">KHAWĀB — DREAM</div>
+
+    <div class="hero-main">
+      <div class="container">
+        <p class="hero-eyebrow" data-reveal><span class="tick" aria-hidden="true"></span>NeuraSaMu · Frontier Intelligence Laboratory · Pakistan · Est. 09.2023</p>
+        <h1 data-reveal="1">
+          <span class="l1">We teach</span>
+          <span class="l2">machines</span>
+          <span class="l3">to <em class="dream">dream<svg class="scribble" viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8c20-6 38 4 58-2s38-2 58 2" vector-effect="non-scaling-stroke"/></svg></em>.</span>
+        </h1>
+        <p class="hero-lede" data-reveal="2">Pakistan's first frontier laboratory for artificial general intelligence, superintelligence, and autonomous robotics — building minds that keep working while the world sleeps, and hands that act where it matters.</p>
+        <div class="hero-actions" data-reveal="3">
+          <a class="btn btn--primary" href="#research">Enter the lab <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="btn btn--ghost" href="#contact">Join the graph</a>
+          <a class="text-link" href="#vision">Our story <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-meta" data-reveal="4">
+      <div class="container meta-row">
+        <dl><div><dt>Founded</dt><dd>September 2023</dd></div></dl>
+        <dl><div><dt>Founder &amp; CEO</dt><dd>Muhammad Salman Shar</dd></div></dl>
+        <dl><div><dt>Discipline</dt><dd>AGI · ASI · Robotics</dd></div></dl>
+        <a class="meta-cue" href="#abstract"><span class="cue-line" aria-hidden="true"></span>Scroll</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= Abstract ======================= -->
+  <section id="abstract" class="abstract" aria-label="Abstract">
+    <div class="container abstract-inner" data-reveal>
+      <p class="abstract-label"><b>Abstract</b>NSM — 01<br>Frontier Laboratory<br>Karachi → Lahore → World</p>
+      <div>
+        <p class="abstract-body"><span class="dropcap" aria-hidden="true">N</span>euraSaMu exists to close the distance between thought and action. Founded in September 2023 by Muhammad Salman Shar, the laboratory studies continuous cognition — systems that infer, consolidate, and plan beneath the threshold of interaction — and engineers it into physical automation and beneficial technology for human life. Its corpus spans three architectures: continuous subconscious processing, topological knowledge representation, and neuromorphic actuator control.</p>
+        <p class="keywords"><b>Keywords —</b> artificial general intelligence · superintelligence · embodied robotics · continuous inference · synthetic cognition</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= Research — the living mind graph ======================= -->
+  <section id="research" class="section" aria-labelledby="researchTitle">
+    <div class="container">
+      <header class="sec-head">
+        <div data-reveal>
+          <div class="sec-eyebrow"><span class="idx">01</span><span class="lbl">Research</span><span class="rule"></span></div>
+          <h2 id="researchTitle">Thought, drawn as a graph.</h2>
+        </div>
+        <p class="lede" data-reveal="1">Our architecture SMG represents cognition as a navigable graph — so we made the research section one. Drag the nodes. Click a paper. The graph is the table of contents.</p>
+      </header>
+
+      <div class="research-grid">
+        <div class="graph-frame" data-reveal>
+          <div class="graph-bar"><span class="live-dot" aria-hidden="true"></span>Fig. 01 — Synthetic Mind Graph · Live<span class="hint">drag · click a paper</span></div>
+          <div class="graph-stage" id="graphStage">
+            <svg id="graphSvg" role="application" aria-label="Interactive mind graph of NeuraSaMu research. Use the buttons beside it to read each paper.">
+              <defs>
+                <pattern id="dotGrid" width="22" height="22" patternUnits="userSpaceOnUse">
+                  <circle cx="1.2" cy="1.2" r="1.1" fill="rgba(23,20,16,.09)"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#dotGrid)"/>
+              <g id="gEdges"></g>
+              <g id="gNodes"></g>
+            </svg>
+          </div>
+        </div>
+
+        <aside class="gpanel" data-reveal="1" aria-live="polite">
+          <div class="seg" role="group" aria-label="Select a paper">
+            <button type="button" class="seg-btn" data-i="0"><span class="seg-idx">01</span>CSPM</button>
+            <button type="button" class="seg-btn" data-i="1"><span class="seg-idx">02</span>SMG</button>
+            <button type="button" class="seg-btn" data-i="2"><span class="seg-idx">03</span>ANF</button>
+          </div>
+          <div class="panel">
+            <div class="panel-inner" id="panelInner">
+              <div class="panel-top"><span class="panel-idx" id="pIdx">01</span><span class="status" id="pStatus"></span></div>
+              <h3 id="pTitle"></h3>
+              <p class="abs" id="pAbs"></p>
+              <div class="tags" id="pTags"></div>
+              <a class="btn btn--primary btn--sm" href="UPLOAD" id="pBtn">Read whitepaper <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+              <p class="panel-meta" id="pMeta"></p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= Vision — dark band ======================= -->
+  <section id="vision" class="section band-dark" aria-labelledby="visionTitle">
+    <div class="v-ghost" lang="ur" aria-hidden="true">مقصد</div>
+    <div class="container">
+      <div class="sec-eyebrow" data-reveal><span class="idx">02</span><span class="lbl">Vision</span><span class="rule"></span></div>
+
+      <blockquote class="v-quote" data-reveal="1">
+        <p>If a country can imagine a superintelligence, it should be able to build one <em>at home</em>.</p>
+        <footer>
+          <span class="sig" lang="ur" dir="rtl">محمد سلمان شر</span>
+          <span class="v-who">Muhammad Salman Shar — Founder &amp; Chief Executive Officer</span>
+        </footer>
+      </blockquote>
+
+      <div class="v-cols">
+        <div data-reveal>
+          <h3>The inception</h3>
+          <p>In September 2023, <strong>Muhammad Salman Shar</strong> — the youngest founder and computer-science researcher in Pakistan's AGI domain — established NeuraSaMu as the country's first frontier laboratory for artificial general intelligence, superintelligence, and robotics.</p>
+          <p>Before the lab, the discipline had no address in Pakistan. Now it does.</p>
+        </div>
+        <div data-reveal="1">
+          <h3>The conviction</h3>
+          <p>Theory that never touches the physical world is decoration. Every architecture we study is engineered toward utility — automation delivered, decisions improved, human effort returned.</p>
+          <p>And the capability to build it belongs here: <strong>sovereign models, sovereign tools, sovereign talent.</strong></p>
+        </div>
+      </div>
+
+      <div class="tenets">
+        <article class="tenet" data-reveal>
+          <span class="tenet-num" aria-hidden="true">01</span>
+          <div><h3>Radical practical utility</h3><p>A system is judged by what it changes in the physical world — not by its benchmarks alone.</p></div>
+        </article>
+        <article class="tenet" data-reveal>
+          <span class="tenet-num" aria-hidden="true">02</span>
+          <div><h3>Sovereign computing research</h3><p>Frontier capability should be built, owned, and stewarded in Pakistan — not rented.</p></div>
+        </article>
+        <article class="tenet" data-reveal>
+          <span class="tenet-num" aria-hidden="true">03</span>
+          <div><h3>Multi-layer safe alignment</h3><p>Verified intent, bounded action, human override — at every tier, from language down to the actuator.</p></div>
+        </article>
+      </div>
+
+      <div class="trace">
+        <div class="trace-item" data-reveal>
+          <span class="trace-kicker">09 · 2023</span>
+          <h3>The founding</h3>
+          <p>NeuraSaMu is established — AGI gains a research address in Pakistan.</p>
+        </div>
+        <div class="trace-item" data-reveal="1">
+          <span class="trace-kicker">2024</span>
+          <h3>The corpus</h3>
+          <p>Three architectures formalized — CSPM, SMG, and neuromorphic firmware control.</p>
+        </div>
+        <div class="trace-item" data-reveal="2">
+          <span class="trace-kicker">Now</span>
+          <h3>The embodiment</h3>
+          <p>Physical control substrates, native instruments, and intelligence engagements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= Instruments ======================= -->
+  <section id="instruments" class="section" aria-labelledby="instTitle">
+    <div class="container">
+      <header class="sec-head">
+        <div data-reveal>
+          <div class="sec-eyebrow"><span class="idx">03</span><span class="lbl">Instruments</span><span class="rule"></span></div>
+          <h2 id="instTitle">Tools the lab ships.</h2>
+        </div>
+        <p class="lede" data-reveal="1">Native builds for low-overhead execution at the edge — written by the same researchers who need them.</p>
+      </header>
+
+      <div class="inst-list">
+        <article class="inst-row" data-reveal>
+          <span class="inst-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cpu"/></svg></span>
+          <div>
+            <h3>NeuraSaMu C++ Compiler</h3>
+            <p class="inst-desc">A high-performance native client compiler for low-overhead mobile execution — build on the device, for the device.</p>
+          </div>
+          <dl class="inst-meta">
+            <div><dt>Platform</dt><dd>Android</dd></div>
+            <div><dt>Type</dt><dd>Native toolchain</dd></div>
+          </dl>
+          <div class="inst-actions"><a class="btn btn--ghost btn--sm" href="UPLOAD" data-asset="apps.compiler">Download APK <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg></a></div>
+        </article>
+
+        <article class="inst-row" data-reveal="1">
+          <span class="inst-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-camera"/></svg></span>
+          <div>
+            <h3>Akira Camera</h3>
+            <p class="inst-desc">A low-latency vision and snapshot engine built for edge computing and robotic perception pipelines.</p>
+          </div>
+          <dl class="inst-meta">
+            <div><dt>Platform</dt><dd>Android</dd></div>
+            <div><dt>Type</dt><dd>Vision engine</dd></div>
+          </dl>
+          <div class="inst-actions"><a class="btn btn--ghost btn--sm" href="UPLOAD" data-asset="apps.akira">Download APK <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg></a></div>
+        </article>
+
+        <article class="inst-row" data-reveal="2">
+          <span class="inst-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-activity"/></svg></span>
+          <div>
+            <h3>Robotic Telemetry Suite</h3>
+            <p class="inst-desc">Joint state, sensor streams, and actuator health — a live console for embodied machines.</p>
+          </div>
+          <dl class="inst-meta">
+            <div><dt>Platform</dt><dd>Cross-platform</dd></div>
+            <div><dt>Type</dt><dd>Telemetry</dd></div>
+          </dl>
+          <div class="inst-actions"><a class="btn btn--ghost btn--sm" href="UPLOAD" data-asset="apps.telemetry">Acquire access <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
+        </article>
+      </div>
+
+      <p class="inst-note"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-info"/></svg>Release binaries are distributed via GitHub — links activate per release.</p>
+    </div>
+  </section>
+
+  <!-- ======================= Bureau ======================= -->
+  <section id="bureau" class="section" aria-labelledby="bureauTitle">
+    <div class="container">
+      <header class="sec-head">
+        <div data-reveal>
+          <div class="sec-eyebrow"><span class="idx">04</span><span class="lbl">The Bureau</span><span class="rule"></span></div>
+          <h2 id="bureauTitle">Know where disruption lands — before capital does.</h2>
+        </div>
+        <p class="lede" data-reveal="1">A confidential intelligence unit inside the lab. Institutional-grade analysis of AI and robotics markets — for investors, founders, and enterprises weighing decisions before capital is committed.</p>
+      </header>
+
+      <div class="bureau-grid">
+        <div data-reveal>
+          <p style="font-size:1.05rem;max-width:52ch">Every engagement is prepared from scratch by the researchers themselves — not a sales desk — and delivered as privileged correspondence.</p>
+          <ul class="coverage">
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Technical feasibility &amp; maturity</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Disruption exposure mapping</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Competitive moat analysis</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Profitability &amp; timeline horizon</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Risk register &amp; failure modes</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Capital deployment sequencing</li>
+          </ul>
+        </div>
+
+        <aside class="terms" data-reveal="1">
+          <p class="terms-head"><span class="live-dot" aria-hidden="true"></span>Engagement terms</p>
+          <div class="terms-row"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-file"/></svg><div><h4>Custom deliverable</h4><p>Every analysis is built from scratch for your target space — no templates, no recycled briefs.</p></div></div>
+          <div class="terms-row"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-lock"/></svg><div><h4>Privileged handling</h4><p>Intakes and deliverables are treated as confidential correspondence throughout.</p></div></div>
+          <div class="terms-row"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg><div><h4>Institutional clearance</h4><p>A clearance fee is invoiced via email before analysis begins.</p></div></div>
+          <div class="terms-row"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-send"/></svg><div><h4>Direct line</h4><p>Prepared and delivered by the lab's own researchers.</p></div></div>
+          <a class="btn btn--primary" href="#contact" id="bureauCta" data-mode="intel">Request an evaluation <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <p class="terms-cap">Response within two business days.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= Contact ======================= -->
+  <section id="contact" class="section" aria-labelledby="contactTitle">
+    <div class="container">
+      <header class="sec-head">
+        <div data-reveal>
+          <div class="sec-eyebrow"><span class="idx">05</span><span class="lbl">Contact</span><span class="rule"></span></div>
+          <h2 id="contactTitle">Join the graph.</h2>
+        </div>
+        <p class="lede" data-reveal="1">Every laboratory is a network of people before it is a network of ideas. Add yourself as a node — or write directly.</p>
+      </header>
+
+      <div class="contact-grid">
+        <div data-reveal>
+          <p class="direct-label">Direct line</p>
+          <a class="direct-mail" href="mailto:muhammadsalmansharbaloch@gmail.com">muhammadsalmansharbaloch@gmail.com</a>
+          <div style="margin-top:18px"><button type="button" class="btn btn--ghost btn--sm" id="copyEmail"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg> Copy address</button></div>
+          <div class="direct-notes">
+            <p>Fellowship and partnership applications are reviewed on a rolling basis — include a portfolio and a clear statement of intent.</p>
+            <p>Base — Pakistan · remote-first.</p>
+          </div>
+          <div class="raabta">
+            <span lang="ur">رابطہ</span>
+            <small>raabta — “connection”</small>
+          </div>
+        </div>
+
+        <div class="form-card" data-reveal="1">
+          <div class="modes" role="group" aria-label="Purpose of contact">
+            <button type="button" class="mode-btn" data-mode="apply" aria-pressed="true">Apply to the lab</button>
+            <button type="button" class="mode-btn" data-mode="intel" aria-pressed="false">Request intelligence</button>
+          </div>
+          <p class="mode-desc" id="modeDesc">Fellowship, engineering, and partnership applications.</p>
+
+          <form id="labForm" novalidate>
+            <div class="fgrid">
+              <div class="field">
+                <label for="fName">Name</label>
+                <input id="fName" name="Name" type="text" required autocomplete="name" placeholder="Full name">
+                <p class="ferr"></p>
+              </div>
+              <div class="field">
+                <label for="fEmail">Email address</label>
+                <input id="fEmail" name="Email" type="email" required autocomplete="email" placeholder="name@example.com">
+                <p class="ferr"></p>
+              </div>
+            </div>
+
+            <div class="fgrid" id="fieldsApply">
+              <div class="field">
+                <label for="fCat">Application category</label>
+                <div class="select-wrap">
+                  <select id="fCat" name="Application category" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option>Research Fellowship</option>
+                    <option>Engineering</option>
+                    <option>Strategic Partnership</option>
+                    <option>Press &amp; General</option>
+                  </select>
+                  <svg class="select-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9.5 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <p class="ferr"></p>
+              </div>
+              <div class="field">
+                <label for="fUrl">GitHub / portfolio URL</label>
+                <input id="fUrl" name="GitHub / portfolio URL" type="url" autocomplete="url" placeholder="https://github.com/you">
+                <p class="ferr"></p>
+              </div>
+              <div class="field field--full">
+                <label for="fSop">Statement of purpose</label>
+                <textarea id="fSop" name="Statement of purpose" required placeholder="What do you want to build or research — and what have you already shipped?"></textarea>
+                <p class="ferr"></p>
+              </div>
+            </div>
+
+            <div class="fgrid" id="fieldsIntel" hidden>
+              <div class="field">
+                <label for="fOrg">Organization &amp; target sector</label>
+                <input id="fOrg" name="Organization & target sector" type="text" required placeholder="e.g. Industrial robotics, logistics">
+                <p class="ferr"></p>
+              </div>
+              <div class="field">
+                <label for="fTier">Capital / budget tier</label>
+                <div class="select-wrap">
+                  <select id="fTier" name="Capital / budget tier" required>
+                    <option value="" disabled selected>Select a tier</option>
+                    <option>Under $50K</option>
+                    <option>$50K – $250K</option>
+                    <option>$250K – $1M</option>
+                    <option>$1M – $10M</option>
+                    <option>$10M+ / Institutional</option>
+                  </select>
+                  <svg class="select-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9.5 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <p class="ferr"></p>
+              </div>
+              <div class="field field--full">
+                <label for="fAudit">Objective &amp; risk audit</label>
+                <textarea id="fAudit" name="Objective & risk audit" required placeholder="The decision you are evaluating — target market, planned deployment, known risks, timeline, and the questions this analysis must answer."></textarea>
+                <p class="ferr"></p>
+              </div>
+              <div class="field field--check field--full">
+                <input type="checkbox" id="fAck" name="Clearance acknowledgement" required>
+                <label for="fAck">I understand engagements are custom and an institutional clearance fee — invoiced by email — applies before analysis begins.</label>
+                <p class="ferr"></p>
+              </div>
+            </div>
+
+            <p class="falert" id="formAlert" role="alert" hidden>Please review the highlighted fields.</p>
+            <div class="ffoot">
+              <p class="fnote"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-lock"/></svg>Confidential — a PDF receipt is issued on submit.</p>
+              <button type="submit" class="btn btn--primary" id="fSubmit"><span id="fSubmitLabel">Submit application</span> <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-send"/></svg></button>
+            </div>
+          </form>
+
+          <div class="fsuccess" id="formSuccess" hidden>
+            <span class="success-ic"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>
+            <h3>Received.</h3>
+            <p id="successBody"></p>
+            <div class="fsuccess-actions">
+              <button type="button" class="btn btn--ghost btn--sm" id="successPdf"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg> Download official PDF</button>
+              <button type="button" class="text-link" data-reset>Submit another <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ======================= Footer ======================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="f-top">
+      <div class="f-line" data-reveal>
+        <span class="f-en">The journey continues.</span>
+        <span class="f-ur" lang="ur" dir="rtl">سفر جاری ہے</span>
+      </div>
+      <p class="f-cap" data-reveal="1">safar jārī hai — “the journey continues”</p>
+    </div>
+    <div class="f-grid">
+      <div class="f-brand">
+        <a href="#hero" class="brand" aria-label="NeuraSaMu — back to top">
+          <svg class="mark" viewBox="0 0 26 26" aria-hidden="true">
+            <path d="M6.5 19.5 13 6.5l7 9" fill="none" stroke="currentColor" stroke-width="1.4"/>
+            <circle cx="6.5" cy="19.5" r="2.4"/><circle class="c2" cx="13" cy="6.5" r="2.4"/><circle cx="20" cy="15.5" r="2.4"/>
+          </svg>
+          <span class="brand-name">NeuraSaMu</span>
+        </a>
+        <p>Pakistan's first frontier laboratory for artificial general intelligence, superintelligence, and autonomous robotics.</p>
+      </div>
+      <nav aria-label="Footer">
+        <p class="f-label">Navigate</p>
+        <a class="f-link" href="#research">Research</a>
+        <a class="f-link" href="#vision">Vision</a>
+        <a class="f-link" href="#instruments">Instruments</a>
+        <a class="f-link" href="#bureau">Bureau</a>
+        <a class="f-link" href="#contact">Contact</a>
+      </nav>
+      <div>
+        <p class="f-label">Contact</p>
+        <a class="f-link" href="mailto:muhammadsalmansharbaloch@gmail.com">muhammadsalmansharbaloch@gmail.com</a>
+        <p class="f-link" style="cursor:default">neurasamu.com</p>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© <span id="year">2025</span> NeuraSaMu · All rights reserved</span>
+      <span>Dreamed &amp; built in Pakistan.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast-region" id="toastRegion" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ════════════════════════════════════════════════════════════
+   SITE_CONFIG — YAHAN SE POORI WEBSITE CONTROL HOTI HAI
+   ────────────────────────────────────────────────────────────
+   1) FORMSPREE (email bhejne ka system):
+      - formspree.io par jao → "New Form" banao → email verify karo
+      - jo URL mile (https://formspree.io/f/xxxxxxx) neeche quotes
+        mein paste kar do — bas, submissions seedha Gmail par.
+      - Ek hi URL dono modes ke liye chalega; alag chaaho to alag bhi.
+      - Khali chhoro → form mailto: (email app) se chalega.
+        Fallback hamesha mailto hai — user kabhi stuck nahi hoga.
+
+   2) LINKS.papers (research PDFs download links):
+      - GitHub repo → Releases → "Draft a new release" → PDF upload
+        → Publish → "Assets" ke neeche se link copy → yahan paste.
+
+   3) LINKS.apps (APK download links):
+      - Wahi process: GitHub Releases mein APK upload → link paste.
+        (APK hamesha Releases mein — repo mein nahi, size bachta hai.)
+
+   4) Jab tak kisi link ki value 'UPLOAD' hai, button dabane par
+      website "reserved" ka polite message dikhayegi — koi error nahi.
+   ════════════════════════════════════════════════════════════ */
+const SITE_CONFIG = {
+
+  EMAIL: 'muhammadsalmansharbaloch@gmail.com',   // form submissions yahan aati hain
+
+  FORMSPREE: {
+    apply: '',   // e.g. 'https://formspree.io/f/abcdwxyz'  (lab application wala form)
+    intel: ''    // e.g. 'https://formspree.io/f/xyzwabcd'  (market intelligence wala)
+  },
+
+  LINKS: {
+    papers: {
+      cspm: 'UPLOAD',   // CSPM whitepaper PDF ka GitHub release link
+      smg:  'UPLOAD',   // SMG whitepaper PDF ka link
+      anf:  'UPLOAD'    // Neuromorphic Firmware paper ka link
+    },
+    apps: {
+      compiler:  'UPLOAD',   // NeuraSaMu C++ Compiler — APK link
+      akira:     'UPLOAD',   // Akira Camera — APK link
+      telemetry: 'UPLOAD'    // Robotic Telemetry Suite — acquire link
+    }
+    /* PHOTOS / FUTURE ASSETS: jab zaroorat ho, repo mein assets/photos/
+       folder bana kar files daalo aur yahan paths/links add kar do. */
+  }
+};
+
+/* ---------- Helpers ---------- */
+const $  = (s, c) => (c || document).querySelector(s);
+const $$ = (s, c) => Array.from((c || document).querySelectorAll(s));
+const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
+
+/* ---------- Toasts ---------- */
+const toastRegion = $('#toastRegion');
+function toast(msg, icon){
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.innerHTML =
+    '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-' + (icon || 'info') + '"/></svg>' +
+    '<span>' + msg + '</span>' +
+    '<button type="button" class="toast-close" aria-label="Dismiss"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-close"/></svg></button>';
+  const kill = () => { el.classList.add('is-leaving'); setTimeout(() => el.remove(), 320); };
+  el.querySelector('.toast-close').addEventListener('click', kill);
+  toastRegion.appendChild(el);
+  setTimeout(kill, 4800);
+}
+
+/* ---------- SITE_CONFIG se links lagao (data-asset wale buttons) ---------- */
+function applyConfig(){
+  $$('[data-asset]').forEach(a => {
+    const v = a.dataset.asset.split('.').reduce((o, k) => o && o[k], SITE_CONFIG);
+    if (typeof v === 'string' && v) a.setAttribute('href', v);
+  });
+}
+applyConfig();
+
+/* ---------- Reserved release links (UPLOAD) ---------- */
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href="UPLOAD"]');
+  if (!a) return;
+  e.preventDefault();
+  toast('This link is reserved — it will be wired to its official GitHub release.', 'info');
+});
+
+/* ============================================================
+   Header state · progress · scrollspy · rail
+   ============================================================ */
+const header = $('#siteHeader'), progress = $('#progress'), railFill = $('#railFill');
+const spyLinks = $$('#mainNav a, .rail a');
+
+function onScroll(){
+  const max = document.documentElement.scrollHeight - innerHeight;
+  const p = max > 0 ? Math.min(1, scrollY / max) : 0;
+  progress.style.transform = 'scaleX(' + p + ')';
+  railFill.style.height = (p * 100) + '%';
+  header.classList.toggle('scrolled', scrollY > 10);
+}
+addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+function setSpy(id){
+  spyLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+}
+const spyIO = new IntersectionObserver(es => {
+  es.forEach(en => { if (en.isIntersecting) setSpy(en.target.id); });
+}, { rootMargin: '-40% 0px -55% 0px' });
+['research','vision','instruments','bureau','contact'].forEach(id => {
+  const el = document.getElementById(id); if (el) spyIO.observe(el);
+});
+
+/* ============================================================
+   Mobile menu
+   ============================================================ */
+const menuBtn = $('#menuBtn'), menu = $('#menu');
+function setMenu(open){
+  menu.classList.toggle('open', open);
+  menuBtn.setAttribute('aria-expanded', String(open));
+  menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  document.body.classList.toggle('locked', open);
+}
+menuBtn.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+ $$('#menu a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
+/* ============================================================
+   Scroll reveal
+   ============================================================ */
+const revealIO = new IntersectionObserver(es => {
+  es.forEach(en => {
+    if (!en.isIntersecting) return;
+    const el = en.target;
+    el.classList.add('in');
+    revealIO.unobserve(el);
+    setTimeout(() => { el.style.transitionDelay = ''; }, 1000);
+  });
+}, { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+ $$('[data-reveal]').forEach(el => {
+  const d = +(el.dataset.reveal || 0);
+  if (d && !prefersReduced) el.style.transitionDelay = (d * 90) + 'ms';
+  revealIO.observe(el);
+});
+
+/* ============================================================
+   Hero — zinda ink flow-field (value-noise, cursor vortex)
+   ============================================================ */
+(function inkField(){
+  const cv = $('#inkField'), hero = $('#hero');
+  if (!cv || !hero) return;
+  const ctx = cv.getContext('2d', { alpha: false });
+  const P = [246, 243, 236];
+  let W = 0, H = 0, parts = [], raf = 0, t = 0, last = 0, visible = true;
+  const mouse = { x: -9999, y: -9999 };
+
+  function hash(x, y){ const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return n - Math.floor(n); }
+  function noise(x, y){
+    const ix = Math.floor(x), iy = Math.floor(y), fx = x - ix, fy = y - iy;
+    const u = fx * fx * (3 - 2 * fx), v = fy * fy * (3 - 2 * fy);
+    const a = hash(ix, iy), b = hash(ix + 1, iy), c = hash(ix, iy + 1), d = hash(ix + 1, iy + 1);
+    return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+  }
+  function angleAt(x, y){
+    const n = noise(x * 0.0016 + t * 0.05, y * 0.0016 - t * 0.04) * 0.72
+            + noise(x * 0.0042 - t * 0.03, y * 0.0042 + t * 0.05) * 0.28;
+    return n * Math.PI * 4;
+  }
+  function spawn(p, init){
+    p.x = Math.random() * W; p.y = Math.random() * H; p.px = p.x; p.py = p.y;
+    p.sp = 0.35 + Math.random() * 0.85;
+    p.life = init ? 40 + Math.random() * 260 : 130 + Math.random() * 320;
+    p.tier = Math.random() < 0.045 ? 3 : (Math.random() < 0.5 ? 0 : (Math.random() < 0.6 ? 1 : 2));
+  }
+  function resize(){
+    const r = hero.getBoundingClientRect();
+    W = r.width; H = r.height;
+    const dpr = Math.min(devicePixelRatio || 1, 1.5);
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = 'rgb(' + P.join(',') + ')'; ctx.fillRect(0, 0, W, H);
+    const n = Math.min(700, Math.max(240, Math.round(W * H / 3200)));
+    parts = Array.from({ length: n }, () => { const p = {}; spawn(p, true); return p; });
+    if (prefersReduced) still();
+  }
+  const STROKES = ['rgba(23,20,16,0.055)','rgba(23,20,16,0.10)','rgba(23,20,16,0.16)','rgba(14,92,69,0.30)'];
+
+  function step(dt, fade){
+    t += 0.008 * dt;
+    if (fade){ ctx.fillStyle = 'rgba(246,243,236,0.05)'; ctx.fillRect(0, 0, W, H); }
+    const buckets = [[], [], [], []];
+    for (const p of parts){
+      let a = angleAt(p.x, p.y);
+      const dx = p.x - mouse.x, dy = p.y - mouse.y, d = Math.hypot(dx, dy);
+      if (d < 170 && d > 0.5){
+        const w = 1 - d / 170;
+        const swirl = Math.atan2(dy, dx) + Math.PI / 2;
+        const ca = Math.cos(a), sa = Math.sin(a), cs = Math.cos(swirl), ss = Math.sin(swirl);
+        a = Math.atan2(sa * (1 - w) + ss * w, ca * (1 - w) + cs * w);
+        p.x += (dx / d) * w * 0.7; p.y += (dy / d) * w * 0.7;
+      }
+      p.px = p.x; p.py = p.y;
+      p.x += Math.cos(a) * p.sp * dt; p.y += Math.sin(a) * p.sp * dt;
+      p.life -= dt;
+      if (p.life <= 0 || p.x < -20 || p.x > W + 20 || p.y < -20 || p.y > H + 20){ spawn(p); continue; }
+      buckets[p.tier].push(p);
+    }
+    for (let i = 0; i < 4; i++){
+      if (!buckets[i].length) continue;
+      ctx.strokeStyle = STROKES[i]; ctx.lineWidth = i === 3 ? 1.2 : 1;
+      ctx.beginPath();
+      for (const p of buckets[i]){ ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); }
+      ctx.stroke();
+    }
+  }
+  function loop(now){
+    const dt = Math.min(2.5, (now - last) / 16.7 || 1); last = now;
+    step(dt, true);
+    raf = visible && !document.hidden ? requestAnimationFrame(loop) : 0;
+  }
+  function still(){ for (let i = 0; i < 380; i++) step(1.2, false); }
+
+  hero.addEventListener('pointermove', e => {
+    const r = cv.getBoundingClientRect();
+    mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+  });
+  hero.addEventListener('pointerleave', () => { mouse.x = mouse.y = -9999; });
+  hero.addEventListener('pointerdown', e => {
+    if (e.target.closest('a,button')) return;
+    const r = cv.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
+    for (const p of parts){
+      const dx = p.x - mx, dy = p.y - my, d = Math.hypot(dx, dy);
+      if (d < 240 && d > 1){
+        const w = 1 - d / 240;
+        p.px = p.x; p.py = p.y;
+        p.x += (dx / d) * w * 10 * (0.4 + Math.random());
+        p.y += (dy / d) * w * 10 * (0.4 + Math.random());
+        if (Math.random() < w * 0.5) p.tier = 2;
+        p.life = Math.min(p.life + 90, 360);
+      }
+    }
+  });
+
+  new IntersectionObserver(en => {
+    visible = en[0].isIntersecting;
+    if (visible && !raf && !prefersReduced && !document.hidden){ last = performance.now(); raf = requestAnimationFrame(loop); }
+  }).observe(hero);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && visible && !raf && !prefersReduced){ last = performance.now(); raf = requestAnimationFrame(loop); }
+  });
+  addEventListener('resize', debounce(resize, 160));
+  resize();
+  if (!prefersReduced){ last = performance.now(); raf = requestAnimationFrame(loop); }
+})();
+
+/* ============================================================
+   Research — draggable Synthetic Mind Graph (SVG physics)
+   ============================================================ */
+(function mindGraph(){
+  const stage = $('#graphStage'), svg = $('#graphSvg');
+  if (!stage || !svg) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const gE = $('#gEdges'), gN = $('#gNodes');
+
+  const PAPERS = [
+    { id:'cspm', code:'CSPM', fx:.22, fy:.30, status:'Flagship · Published',
+      title:'Continuous Subconscious Processing Model',
+      abstract:'A background-inference architecture in which a cognitive system keeps processing between explicit interactions — consolidating episodic traces into persistent memory without supervision. Where conventional models respond, CSPM ruminates: reasoning continuously, with measurable gains in long-horizon planning and cross-session stability.',
+      tags:['continuous inference','memory consolidation','subconscious processing'] },
+    { id:'smg', code:'SMG', fx:.70, fy:.24, status:'Active research',
+      title:'Synthetic Mind Graphs',
+      abstract:'A topological representation of cognition: concepts, procedures, and sensory anchors become nodes in a navigable graph rather than coordinates in a flat embedding. SMG gives planners and multi-modal robots a shared structure for transfer, abstraction, and grounded action.',
+      tags:['cognitive topology','knowledge representation','multi-modal transfer'] },
+    { id:'anf', code:'ANF', fx:.62, fy:.74, status:'Active research · hardware',
+      title:'Autonomous Neuromorphic Firmware Control',
+      abstract:'A control substrate that compiles latent action policies into deterministic, safety-bounded motor commands on neuromorphic hardware — closing the loop between artificial cognition and dependable machines in the physical world.',
+      tags:['neuromorphic control','actuator safety','edge robotics'] }
+  ];
+  const CONCEPTS = [
+    { id:'dream',      label:'dreaming',        fx:.08, fy:.12 },
+    { id:'memory',     label:'memory',          fx:.35, fy:.08 },
+    { id:'inference',  label:'background inference', fx:.06, fy:.46 },
+    { id:'horizon',    label:'long-horizon',    fx:.30, fy:.52 },
+    { id:'agi',        label:'AGI',             fx:.47, fy:.16, shared:true },
+    { id:'topology',   label:'topology',        fx:.92, fy:.10 },
+    { id:'transfer',   label:'transfer',        fx:.88, fy:.40 },
+    { id:'abstraction',label:'abstraction',     fx:.60, fy:.06 },
+    { id:'safety',     label:'safety bounds',   fx:.80, fy:.54, shared:true },
+    { id:'perception', label:'perception',      fx:.90, fy:.66, shared:true },
+    { id:'actuators',  label:'actuators',       fx:.82, fy:.88 },
+    { id:'determinism',label:'deterministic control', fx:.50, fy:.92 },
+    { id:'edgehw',     label:'edge hardware',   fx:.38, fy:.84 },
+    { id:'embodiment', label:'embodiment',      fx:.34, fy:.72, shared:true }
+  ];
+  const EDGES = [
+    ['cspm','dream'],['cspm','memory'],['cspm','inference'],['cspm','horizon'],['cspm','agi'],['cspm','embodiment'],
+    ['smg','topology'],['smg','transfer'],['smg','abstraction'],['smg','agi'],['smg','perception'],['smg','safety'],
+    ['anf','actuators'],['anf','determinism'],['anf','edgehw'],['anf','safety'],['anf','perception']
+  ];
+
+  const nodes = {};
+  function addNode(o){
+    nodes[o.id] = Object.assign({ x:0, y:0, vx:0, vy:0, drag:false,
+      ph: Math.random() * 6.28, ws: 0.4 + Math.random() * 0.5 }, o);
+  }
+  PAPERS.forEach((p, i) => addNode({ id:p.id, kind:'paper', paperIdx:i, fx:p.fx, fy:p.fy }));
+  CONCEPTS.forEach(c => addNode({ id:c.id, kind:'concept', shared:!!c.shared, label:c.label, fx:c.fx, fy:c.fy }));
+  const list = Object.values(nodes);
+
+  function el(tag, attrs, parent){
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    (parent || svg).appendChild(e); return e;
+  }
+
+  const edgeEls = EDGES.map(([a, b]) => ({ a, b, el: el('line', { class:'gedge' }, gE) }));
+
+  for (const n of list){
+    const g = el('g', { class:'gnode gnode-' + n.kind + (n.shared ? ' shared' : ''), 'data-id': n.id }, gN);
+    if (n.kind === 'paper'){
+      g.setAttribute('tabindex', '0');
+      g.setAttribute('role', 'button');
+      g.setAttribute('aria-label', PAPERS[n.paperIdx].title + ' — select to read');
+      el('circle', { class:'hit', r:34, fill:'none' }, g);
+      el('circle', { class:'ring', r:27 }, g);
+      el('circle', { class:'body', r:27 }, g);
+      const t = el('text', { class:'code', y:4.5, 'text-anchor':'middle' }, g);
+      t.textContent = n.id.toUpperCase();
+    } else {
+      el('circle', { class:'hit', r:18, fill:'none' }, g);
+      el('circle', { class:'dot', r:4.5 }, g);
+      const t = el('text', { class:'label', y:17, 'text-anchor':'middle' }, g);
+      t.textContent = n.label;
+    }
+    n.el = g;
+  }
+
+  let W = 0, H = 0, raf = 0, time = 0, visible = false;
+  function resize(){
+    W = stage.clientWidth; H = stage.clientHeight;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    for (const n of list){
+      n.ax = n.fx * W; n.ay = n.fy * H;
+      if (prefersReduced){ n.x = n.ax; n.y = n.ay; }
+      else { n.x = n.ax + (Math.random() - 0.5) * W * 0.7; n.y = n.ay + (Math.random() - 0.5) * H * 0.7; }
+    }
+    render();
+  }
+  function physics(){
+    time += 0.016;
+    for (const n of list){
+      if (n.drag){ n.vx = n.vy = 0; continue; }
+      n.vx += (n.ax - n.x) * 0.014; n.vy += (n.ay - n.y) * 0.014;
+      if (!prefersReduced){
+        n.vx += Math.sin(time * n.ws + n.ph) * 0.02;
+        n.vy += Math.cos(time * n.ws * 0.83 + n.ph * 1.3) * 0.02;
+      }
+      n.vx *= 0.86; n.vy *= 0.86;
+      n.x += n.vx; n.y += n.vy;
+    }
+    for (let i = 0; i < list.length; i++){
+      for (let j = i + 1; j < list.length; j++){
+        const a = list[i], b = list[j];
+        const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy) || 0.01;
+        const min = (a.kind === 'paper' ? 34 : 14) + (b.kind === 'paper' ? 34 : 14) + 18;
+        if (d < min){
+          const f = (min - d) / d * 0.18;
+          if (!a.drag){ a.vx += dx * f; a.vy += dy * f; }
+          if (!b.drag){ b.vx -= dx * f; b.vy -= dy * f; }
+        }
+      }
+    }
+  }
+  function render(){
+    for (const e of edgeEls){
+      const a = nodes[e.a], b = nodes[e.b];
+      e.el.setAttribute('x1', a.x); e.el.setAttribute('y1', a.y);
+      e.el.setAttribute('x2', b.x); e.el.setAttribute('y2', b.y);
+    }
+    for (const n of list) n.el.setAttribute('transform', 'translate(' + n.x + ',' + n.y + ')');
+  }
+  function loop(){ physics(); render(); raf = visible && !document.hidden ? requestAnimationFrame(loop) : 0; }
+  function wake(){ if (!raf && !prefersReduced){ raf = requestAnimationFrame(loop); } }
+
+  /* ---- Selection + panel ---- */
+  const segBtns = $$('.seg-btn');
+  const panelInner = $('#panelInner');
+  let sel = 0;
+  function select(i){
+    sel = i;
+    const pid = PAPERS[i].id;
+    const adj = new Set([pid]);
+    EDGES.forEach(([a, b]) => { if (a === pid) adj.add(b); if (b === pid) adj.add(a); });
+    for (const n of list){
+      if (n.kind === 'paper') n.el.classList.toggle('sel', n.paperIdx === i);
+      else n.el.classList.toggle('lit', adj.has(n.id));
+    }
+    for (const e of edgeEls){
+      const on = e.a === pid || e.b === pid;
+      e.el.classList.toggle('on', on);
+      e.el.classList.toggle('dim', !on);
+    }
+    segBtns.forEach(b => {
+      const on = +b.dataset.i === i;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    const p = PAPERS[i];
+    $('#pIdx').textContent = '0' + (i + 1);
+    $('#pStatus').textContent = p.status;
+    $('#pTitle').textContent = p.title;
+    $('#pAbs').textContent = p.abstract;
+    $('#pTags').innerHTML = p.tags.map(t => '<span class="tag">' + t + '</span>').join('');
+    // Paper ka download link SITE_CONFIG se aata hai
+    $('#pBtn').setAttribute('href', (SITE_CONFIG.LINKS.papers && SITE_CONFIG.LINKS.papers[p.id]) || 'UPLOAD');
+    $('#pMeta').textContent = (adj.size - 1) + ' adjacent concepts — drag the node to reshape the graph.';
+    panelInner.classList.remove('swap'); void panelInner.offsetWidth; panelInner.classList.add('swap');
+  }
+  segBtns.forEach(b => b.addEventListener('click', () => select(+b.dataset.i)));
+
+  /* ---- Drag & click ---- */
+  let moved = 0, lx = 0, ly = 0;
+  for (const n of list){
+    const g = n.el;
+    g.addEventListener('pointerdown', e => {
+      n.drag = true; moved = 0; lx = e.clientX; ly = e.clientY;
+      g.setPointerCapture(e.pointerId);
+      e.preventDefault(); wake();
+    });
+    g.addEventListener('pointermove', e => {
+      if (!n.drag) return;
+      const r = svg.getBoundingClientRect();
+      n.x = e.clientX - r.left; n.y = e.clientY - r.top;
+      moved += Math.abs(e.clientX - lx) + Math.abs(e.clientY - ly);
+      lx = e.clientX; ly = e.clientY;
+      if (prefersReduced) render();
+    });
+    const up = () => {
+      if (!n.drag) return;
+      if (moved < 6 && n.kind === 'paper') select(n.paperIdx);
+      n.drag = false;
+    };
+    g.addEventListener('pointerup', up);
+    g.addEventListener('pointercancel', up);
+    if (n.kind === 'paper'){
+      g.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); select(n.paperIdx); }
+      });
+    }
+  }
+
+  new IntersectionObserver(en => {
+    visible = en[0].isIntersecting;
+    if (visible) wake(); else if (raf){ cancelAnimationFrame(raf); raf = 0; }
+  }, { threshold: .05 }).observe(stage);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && visible) wake(); });
+  addEventListener('resize', debounce(resize, 160));
+
+  resize();
+  select(0);
+  if (prefersReduced){ physics(); render(); }
+})();
+
+/* ============================================================
+   PDF Receipt — jsPDF se official document
+   (submit hote hi khud download; dobara bhi ho sakta hai)
+   ============================================================ */
+function makeRef(){
+  const d = new Date(), p = n => String(n).padStart(2, '0');
+  return 'NSM-' + d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + '-' +
+         Math.random().toString(36).slice(2, 6).toUpperCase();
+}
+function buildPDF(sub){
+  if (!(window.jspdf && window.jspdf.jsPDF)){
+    toast('The PDF could not be generated — your submission continues by email.', 'info');
+    return false;
+  }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit:'pt', format:'a4' });
+  const W = 595.28, H = 841.89, M = 52;
+  const CW = W - M * 2;
+  const INK = [23,20,16], GRAY = [126,118,99], GREEN = [14,92,69], FAINT = [210,205,193];
+  const isApply = sub.mode === 'apply';
+  const docTitle = isApply ? 'OFFICIAL APPLICATION RECEIPT' : 'MARKET INTELLIGENCE — INTAKE RECEIPT';
+
+  // PDF fonts sirf Latin support karte hain — non-Latin characters hata do
+  const clean = v => String(v == null ? '' : v).replace(/\s+/g, ' ').replace(/[^\x20-\x7E]/g, '').trim() || '—';
+  const val = k => clean(sub.data[k]);
+  const rule = () => { doc.setDrawColor.apply(doc, FAINT); doc.setLineWidth(0.8); doc.line(M, y, W - M, y); };
+
+  /* ---- Header: brand mark + wordmark + status box ---- */
+  doc.setDrawColor.apply(doc, INK); doc.setLineWidth(1.1);
+  doc.line(58, 78, 70, 60); doc.line(70, 60, 82, 68);
+  doc.setFillColor(255,255,255);
+  doc.circle(58, 78, 4, 'FD'); doc.circle(82, 68, 4, 'FD');
+  doc.setFillColor.apply(doc, GREEN); doc.circle(70, 60, 4.2, 'F');
+  doc.setFont('times','bold'); doc.setFontSize(17); doc.setTextColor.apply(doc, INK);
+  doc.text('NeuraSaMu', 94, 72);
+  doc.setFont('helvetica','normal'); doc.setFontSize(6.5); doc.setTextColor.apply(doc, GRAY);
+  doc.text('FRONTIER INTELLIGENCE LABORATORY', 94, 84, { charSpace: 1.4 });
+
+  const bx = W - M - 132;
+  doc.setDrawColor.apply(doc, GREEN); doc.setLineWidth(1);
+  doc.roundedRect(bx, 52, 132, 52, 6, 6);
+  doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor.apply(doc, GREEN);
+  doc.text('STATUS', bx + 13, 68, { charSpace: 1.5 });
+  doc.setFontSize(11); doc.setTextColor.apply(doc, INK);
+  doc.text('SUBMITTED', bx + 13, 84);
+  doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor.apply(doc, GRAY);
+  doc.text(clean(sub.when), bx + 13, 97);
+
+  let y = 122; rule();
+  doc.setFont('helvetica','bold'); doc.setFontSize(14); doc.setTextColor.apply(doc, INK);
+  doc.text(docTitle, M, 150, { charSpace: 0.8 });
+  doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor.apply(doc, GRAY);
+  doc.text('Generated by neurasamu.com — this document confirms your submission to the NeuraSaMu office. Keep it for your records.', M, 165, { maxWidth: CW - 140 });
+  y = 180; rule();
+
+  /* ---- Meta row ---- */
+  doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor.apply(doc, GRAY);
+  doc.text('REFERENCE', M, 202, { charSpace: 1.2 });
+  doc.text('DATE', M + 190, 202, { charSpace: 1.2 });
+  doc.text('PURPOSE', M + 360, 202, { charSpace: 1.2 });
+  doc.setFontSize(9.5); doc.setTextColor.apply(doc, INK);
+  doc.text(sub.ref, M, 217);
+  doc.text(clean(sub.when), M + 190, 217);
+  doc.text(isApply ? 'Lab application' : 'Market intelligence', M + 360, 217);
+  y = 232; rule();
+  y = 254;
+
+  /* ---- Fields ---- */
+  const FIELDS = isApply ? [
+    { l:'APPLICANT NAME', k:'Name' },
+    { l:'EMAIL', k:'Email' },
+    { l:'CATEGORY', k:'Application category' },
+    { l:'PORTFOLIO', k:'GitHub / portfolio URL' },
+    { l:'STATEMENT OF PURPOSE', k:'Statement of purpose', full:true }
+  ] : [
+    { l:'PRINCIPAL / CLIENT', k:'Name' },
+    { l:'EMAIL', k:'Email' },
+    { l:'ORGANIZATION & TARGET SECTOR', k:'Organization & target sector' },
+    { l:'CAPITAL / BUDGET TIER', k:'Capital / budget tier' },
+    { l:'OBJECTIVE & RISK AUDIT', k:'Objective & risk audit', full:true },
+    { l:'CLEARANCE', k:'Clearance acknowledgement' }
+  ];
+
+  function ensureSpace(h){
+    if (y + h > H - 82){
+      doc.addPage();
+      doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor.apply(doc, GRAY);
+      doc.text('NeuraSaMu — ' + docTitle + ' · ' + sub.ref, M, M + 4);
+      y = M + 22;
+    }
+  }
+  function drawLabel(t, x){
+    doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor.apply(doc, GRAY);
+    doc.text(t, x, y, { charSpace: 1.1 });
+  }
+  function drawValue(lines, x, w){
+    doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.setTextColor.apply(doc, INK);
+    let vy = y + 14;
+    for (const ln of lines.slice(0, 14)){ doc.text(ln, x, vy); vy += 13.5; }
+    return vy - 13.5;
+  }
+  let pending = null;
+  function half(a, b){
+    const colW = CW / 2 - 12;
+    const la = doc.splitTextToSize(val(a.k), colW);
+    const lb = b ? doc.splitTextToSize(val(b.k), colW) : [''];
+    const rowH = Math.max(la.length, lb.length) * 13.5 + 34;
+    ensureSpace(rowH);
+    drawLabel(a.l, M);
+    const endA = drawValue(la, M, colW);
+    if (b){
+      drawLabel(b.l, M + CW / 2 + 12);
+      const endB = drawValue(lb, M + CW / 2 + 12, colW);
+      y = Math.max(endA, endB) + 22;
+    } else y = endA + 22;
+  }
+  for (const f of FIELDS){
+    if (f.full){
+      if (pending){ half(pending, null); pending = null; }
+      const lines = doc.splitTextToSize(val(f.k), CW);
+      ensureSpace(lines.length * 13.5 + 34);
+      drawLabel(f.l, M);
+      const end = drawValue(lines, M, CW);
+      y = end + 24;
+    } else if (pending){ half(pending, f); pending = null; }
+    else pending = f;
+  }
+  if (pending) half(pending, null);
+
+  /* ---- Next steps box ---- */
+  const note = isApply
+    ? 'The office reviews applications on a rolling basis. Keep this receipt and quote its reference in any follow-up correspondence with the laboratory.'
+    : 'All evaluations are custom engagements. An institutional clearance fee will be invoiced to your email before analysis begins. Quote this receipt reference with your settlement.';
+  const nLines = doc.splitTextToSize(note, CW - 30);
+  const boxH = 52 + nLines.length * 12;
+  ensureSpace(boxH + 24);
+  doc.setDrawColor(223,218,205); doc.setLineWidth(1);
+  doc.setFillColor(250,249,244);
+  doc.roundedRect(M, y, CW, boxH, 8, 8, 'FD');
+  doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor.apply(doc, GREEN);
+  doc.text('NEXT STEPS', M + 15, y + 20, { charSpace: 1.4 });
+  doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor.apply(doc, INK);
+  let ny = y + 36;
+  for (const ln of nLines){ doc.text(ln, M + 15, ny); ny += 12; }
+
+  /* ---- Footer har page par ---- */
+  const total = doc.getNumberOfPages();
+  for (let i = 1; i <= total; i++){
+    doc.setPage(i);
+    doc.setDrawColor.apply(doc, FAINT); doc.setLineWidth(0.8);
+    doc.line(M, H - 64, W - M, H - 64);
+    doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(150,144,128);
+    doc.text('NeuraSaMu — Confidential correspondence · neurasamu.com', M, H - 48);
+    doc.text('Page ' + i + ' of ' + total, W - M, H - 48, { align: 'right' });
+  }
+
+  doc.setProperties({ title: 'NeuraSaMu Receipt ' + sub.ref, creator: 'neurasamu.com' });
+  doc.save('NeuraSaMu_' + (isApply ? 'Application' : 'Intake') + '_' + sub.ref + '.pdf');
+  toast('Official receipt PDF downloaded.', 'check');
+  return true;
+}
+
+/* ============================================================
+   Contact — dual-mode form + PDF + Formspree/mailto dispatch
+   ============================================================ */
+const form = $('#labForm'), success = $('#formSuccess'), formAlert = $('#formAlert');
+const modeBtns = $$('.mode-btn');
+let mode = 'apply';
+let lastSub = null; // dobara PDF download karne ke liye
+
+function setErr(field, el, msg){
+  if (!field) return;
+  field.classList.toggle('has-error', !!msg);
+  el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+  const err = field.querySelector('.ferr'); if (err) err.textContent = msg;
+}
+function clearErrors(){
+  $$('.field', form).forEach(f => f.classList.remove('has-error'));
+  $$('[aria-invalid]', form).forEach(el => el.removeAttribute('aria-invalid'));
+}
+function setMode(m){
+  mode = m;
+  modeBtns.forEach(b => {
+    const on = b.dataset.mode === m;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', String(on));
+  });
+  $('#fieldsApply').hidden = m !== 'apply';
+  $('#fieldsIntel').hidden = m !== 'intel';
+  $('#modeDesc').textContent = m === 'apply'
+    ? 'Fellowship, engineering, and partnership applications.'
+    : 'Confidential market-intelligence engagement — a clearance fee is invoiced by email before analysis begins.';
+  $('#fSubmitLabel').textContent = m === 'apply' ? 'Submit application' : 'Submit for clearance review';
+  clearErrors(); formAlert.hidden = true;
+}
+modeBtns.forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+
+const bureauCta = $('#bureauCta');
+if (bureauCta) bureauCta.addEventListener('click', () => setMode('intel'));
+
+function validate(){
+  let ok = true, first = null;
+  $$('#labForm [name]').forEach(el => {
+    if (el.closest('[hidden]')) return;
+    const field = el.closest('.field');
+    let msg = '';
+    const v = (el.value || '').trim();
+    if (el.type === 'checkbox'){ if (el.required && !el.checked) msg = 'Please acknowledge this to continue.'; }
+    else if (el.required && !v) msg = 'This field is required.';
+    else if (v && el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) msg = 'Enter a valid email address.';
+    else if (v && el.type === 'url'){
+      try { const u = new URL(v); if (u.protocol !== 'http:' && u.protocol !== 'https:') throw 0; }
+      catch (e){ msg = 'Enter a full URL, e.g. https://github.com/you'; }
+    }
+    setErr(field, el, msg);
+    if (msg){ ok = false; if (!first) first = el; }
+  });
+  if (first){ first.focus(); first.scrollIntoView({ block:'center', behavior: prefersReduced ? 'auto' : 'smooth' }); }
+  return ok;
+}
+form.addEventListener('input', e => {
+  const field = e.target.closest && e.target.closest('.field');
+  if (field && field.classList.contains('has-error')) setErr(field, e.target, '');
+});
+
+function busy(on){
+  const b = $('#fSubmit');
+  b.disabled = on;
+  $('#fSubmitLabel').textContent = on ? 'Dispatching…' : (mode === 'apply' ? 'Submit application' : 'Submit for clearance review');
+}
+function finish(kind){
+  form.hidden = true;
+  $('#successPdf').hidden = !(lastSub && lastSub.pdfOk);
+  $('#successBody').textContent = kind === 'endpoint'
+    ? 'Your receipt PDF has been downloaded and your submission has been received. The office will reply within two business days — quote reference ' + lastSub.ref + ' in any follow-up.'
+    : 'Your receipt PDF has been downloaded, and your email client should now be open with the submission pre-filled. If it did not open, send your details to ' + SITE_CONFIG.EMAIL + ' — and quote reference ' + lastSub.ref + '.';
+  success.hidden = false;
+  success.scrollIntoView({ block:'center', behavior: prefersReduced ? 'auto' : 'smooth' });
+}
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  formAlert.hidden = true;
+  if (!validate()){ formAlert.hidden = false; return; }
+
+  // Data ikattha karo
+  const data = {};
+  $$('#labForm [name]').forEach(el => {
+    if (el.closest('[hidden]')) return;
+    if (el.type === 'checkbox'){ if (el.checked) data[el.name] = 'Agreed'; }
+    else if ((el.value || '').trim()) data[el.name] = el.value.trim();
+  });
+
+  // Receipt record banao + PDF turant download
+  const ref = makeRef();
+  const when = new Date().toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  lastSub = { mode, data, ref, when };
+  lastSub.pdfOk = buildPDF(lastSub);
+
+  const isApply = mode === 'apply';
+  const subject = isApply
+    ? 'NeuraSaMu — ' + (data['Application category'] || 'Application') + ' — ' + (data['Name'] || 'Applicant')
+    : 'NeuraSaMu — Intelligence engagement — ' + (data['Name'] || 'Client');
+  const body = ['Sent from neurasamu.com — ' + (isApply ? 'lab application' : 'intelligence enquiry'),
+    'Reference: ' + ref, '']
+    .concat(Object.keys(data).map(k => k + ':\n' + data[k])).join('\n\n');
+
+  // 1) Formspree (agar SITE_CONFIG mein URL di hai)
+  const endpoint = (SITE_CONFIG.FORMSPREE[mode] || '').trim();
+  if (endpoint){
+    busy(true);
+    try {
+      const r = await fetch(endpoint, {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (r.ok){ toast('Submission received.', 'check'); finish('endpoint'); return; }
+      throw new Error('bad status');
+    } catch (err){
+      toast('Could not reach the server — falling back to email dispatch.', 'info');
+    } finally { busy(false); }
+  }
+
+  // 2) mailto: fallback — hamesha kaam karta hai
+  const mailtoUrl = 'mailto:' + SITE_CONFIG.EMAIL +
+    '?subject=' + encodeURIComponent(subject) +
+    '&body=' + encodeURIComponent(body);
+  toast('Opening your email client with the submission pre-filled.', 'mail');
+  setTimeout(() => { location.href = mailtoUrl; }, lastSub.pdfOk ? 600 : 0);
+  finish('mailto');
+});
+
+ $('#successPdf').addEventListener('click', () => { if (lastSub) buildPDF(lastSub); });
+
+const resetBtn = success.querySelector('[data-reset]');
+if (resetBtn) resetBtn.addEventListener('click', () => {
+  lastSub = null;
+  success.hidden = true; form.hidden = false; form.reset(); clearErrors();
+});
+
+/* ---------- Copy email ---------- */
+const copyBtn = $('#copyEmail');
+if (copyBtn) copyBtn.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(SITE_CONFIG.EMAIL);
+    toast('Email address copied.', 'check');
+  } catch (err) {
+    const t = document.createElement('textarea');
+    t.value = SITE_CONFIG.EMAIL; t.style.position = 'fixed'; t.style.opacity = '0';
+    document.body.appendChild(t); t.select();
+    try { document.execCommand('copy'); toast('Email address copied.', 'check'); }
+    catch (e2){ toast('Copy failed — the address is shown beside the button.', 'info'); }
+    t.remove();
+  }
+});
+
+/* ---------- Year ---------- */
+ $('#year').textContent = new Date().getFullYear();
+
+})();
+</script>
+</body>
+</html>
