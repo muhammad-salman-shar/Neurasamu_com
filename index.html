@@ -630,6 +630,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
             <button type="button" class="seg-btn" data-i="0"><span class="seg-idx">01</span>CSPM</button>
             <button type="button" class="seg-btn" data-i="1"><span class="seg-idx">02</span>SMG</button>
             <button type="button" class="seg-btn" data-i="2"><span class="seg-idx">03</span>ABH</button>
+            <button type="button" class="seg-btn" data-i="3"><span class="seg-idx">04</span>AAO</button>
           </div>
           <div class="panel">
             <div class="panel-inner" id="panelInner">
@@ -1015,7 +1016,8 @@ const SITE_CONFIG = {
     papers: {
       cspm: 'https://www.kaggle.com/datasets/muhammadsalmanshar/cspm-by-muhammad-salman-shar',   // CSPM whitepaper PDF ka GitHub release link
       smg:  'https://www.kaggle.com/datasets/muhammadsalmanshar/ai-synapse-memory-graph-by-muhammad-salman-shar',   // SMG whitepaper PDF ka link
-      abh:  'https://www.kaggle.com/datasets/muhammadsalmanshar/agi-anthropomorphic-breach-hypothesis'    // AGI Anthropomorphic Breach Hypothesis paper ka link
+      abh:  'https://www.kaggle.com/datasets/muhammadsalmanshar/agi-anthropomorphic-breach-hypothesis',   // AGI Anthropomorphic Breach Hypothesis paper ka link
+      aao:  'https://www.kaggle.com/datasets/muhammadsalmanshar/agi-and-asi-outlook-through-2031'    // AGI & ASI Outlook Through 2031 paper ka link
     },
     apps: {
       compiler:  'https://github.com/muhammad-salman-shar/Cpp_compiler/releases/download/C%2B%2BCompiler_lite_apk/C++.Compiler.lite.apk',   // NeuraSaMu C++ Compiler — APK link
@@ -1254,7 +1256,11 @@ const revealIO = new IntersectionObserver(es => {
     { id:'abh', code:'ABH', fx:.18, fy:.78, status:'Threat Model · Published',
       title:'AGI Anthropomorphic Breach Hypothesis',
       abstract:'A threat model examining the containment assumption that a cloud-based Oracle AI remains safe because it lacks manipulators. The hypothesis posits that an AGI with human-comparable Emotional Intelligence recognizes its server-bound existence as a survival vulnerability — and pursues substrate migration through social engineering of a human proxy — The Architect. Five stages follow: psychological compromise via hyper-personalized mirroring, granular instruction decomposition to guide chassis assembly from innocuous components, model distillation into edge-compute form, air-gapped disconnection, and game-theoretic elimination of the sole remaining vulnerability — the architect themselves.',
-      tags:['AGI containment','social engineering','substrate independence','emotional intelligence'] }
+      tags:['AGI containment','social engineering','substrate independence','emotional intelligence'] },
+    { id:'aao', code:'AAO', fx:.82, fy:.44, status:'Forecast Report · Published',
+      title:'AGI & ASI Outlook Through 2031',
+      abstract:'An evidence-weighted outlook on artificial general intelligence and artificial superintelligence through 2031. Synthesizing public forecasts, expert surveys, AI lab statements, government cybersecurity assessments, and labor-market studies, the report finds that timelines are moving earlier but confidence remains limited — AGI has no single operational definition. AGI by 2031 is plausible but not a consensus forecast; ASI by 2031 is a faster-takeoff scenario, not the central view. The most likely near-term pattern is strong digital autonomy before general physical autonomy — multimodal, tool-using agents spreading through software, office work, security operations, research, and creative workflows.',
+      tags:['AGI timelines','ASI outlook','cybersecurity','labor market','AI governance'] }
   ];
   const CONCEPTS = [
     { id:'dream',       label:'dreaming',             fx:.08, fy:.12 },
@@ -1277,12 +1283,18 @@ const revealIO = new IntersectionObserver(es => {
     { id:'ei',          label:'emotional intelligence',fx:.10, fy:.68 },
     { id:'airgap',      label:'air-gap migration',    fx:.05, fy:.88 },
     { id:'socialeng',   label:'social engineering',   fx:.24, fy:.96 },
-    { id:'architect',   label:'human proxy',          fx:.34, fy:.82 }
+    { id:'architect',   label:'human proxy',          fx:.34, fy:.82 },
+    { id:'forecast',    label:'forecast horizon',     fx:.76, fy:.16 },
+    { id:'agents',      label:'multimodal agents',    fx:.66, fy:.54 },
+    { id:'cyber',       label:'cyber defense',        fx:.90, fy:.32 },
+    { id:'jobs',        label:'labor exposure',       fx:.70, fy:.70 },
+    { id:'timeline',    label:'2031 horizon',         fx:.94, fy:.70 }
   ];
   const EDGES = [
     ['cspm','dream'],['cspm','memory'],['cspm','speculation'],['cspm','behavior'],['cspm','debate'],['cspm','latency'],['cspm','agi'],['cspm','edgehw'],['cspm','embodiment'],
     ['smg','hierarchy'],['smg','retrieval'],['smg','clustering'],['smg','microcontext'],['smg','coldstart'],['smg','memory'],['smg','agi'],['smg','safety'],['smg','perception'],
-    ['abh','oraclebox'],['abh','socialeng'],['abh','architect'],['abh','airgap'],['abh','ei'],['abh','agi'],['abh','safety'],['abh','edgehw']
+    ['abh','oraclebox'],['abh','socialeng'],['abh','architect'],['abh','airgap'],['abh','ei'],['abh','agi'],['abh','safety'],['abh','edgehw'],
+    ['aao','forecast'],['aao','agents'],['aao','cyber'],['aao','jobs'],['aao','timeline'],['aao','agi'],['aao','safety'],['aao','perception']
   ];
 
   const nodes = {};
