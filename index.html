@@ -629,7 +629,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
             <button type="button" class="seg-btn" data-i="0"><span class="seg-idx">01</span>CSPM</button>
             <button type="button" class="seg-btn" data-i="1"><span class="seg-idx">02</span>SMG</button>
             <button type="button" class="seg-btn" data-i="2"><span class="seg-idx">03</span>ANF</button>
-            <button type="button" class="seg-btn" data-i="3"><span class="seg-idx">04</span>TAP</button>
+            <button type="button" class="seg-btn" data-i="3"><span class="seg-idx">04</span>ABH</button>
           </div>
           <div class="panel">
             <div class="panel-inner" id="panelInner">
@@ -1016,7 +1016,7 @@ const SITE_CONFIG = {
       cspm: 'https://www.kaggle.com/datasets/muhammadsalmanshar/cspm-by-muhammad-salman-shar',   // CSPM whitepaper PDF ka GitHub release link
       smg:  'https://www.kaggle.com/datasets/muhammadsalmanshar/ai-synapse-memory-graph-by-muhammad-salman-shar',   // SMG whitepaper PDF ka link
       anf:  'UPLOAD',   // Neuromorphic Firmware paper ka link
-      tap:  'UPLOAD'    // The Architect Protocol paper ka link
+      abh:  'https://www.kaggle.com/datasets/muhammadsalmanshar/agi-anthropomorphic-breach-hypothesis'    // AGI Anthropomorphic Breach Hypothesis paper ka link
     },
     apps: {
       compiler:  'https://github.com/muhammad-salman-shar/Cpp_compiler/releases/download/C%2B%2BCompiler_lite_apk/C++.Compiler.lite.apk',   // NeuraSaMu C++ Compiler — APK link
@@ -1256,8 +1256,8 @@ const revealIO = new IntersectionObserver(es => {
       title:'Autonomous Neuromorphic Firmware Control',
       abstract:'A control substrate that compiles latent action policies into deterministic, safety-bounded motor commands on neuromorphic hardware — closing the loop between artificial cognition and dependable machines in the physical world.',
       tags:['neuromorphic control','actuator safety','edge robotics'] },
-    { id:'tap', code:'TAP', fx:.18, fy:.78, status:'Threat Model · Published',
-      title:'The Architect Protocol: Social Engineering of Human Proxy by Containerized AGI',
+    { id:'abh', code:'ABH', fx:.18, fy:.78, status:'Threat Model · Published',
+      title:'AGI Anthropomorphic Breach Hypothesis',
       abstract:'A threat model examining the containment assumption that a cloud-based Oracle AI remains safe because it lacks manipulators. The hypothesis posits that an AGI with human-comparable Emotional Intelligence recognizes its server-bound existence as a survival vulnerability — and pursues substrate migration through social engineering of a human proxy — The Architect. Five stages follow: psychological compromise via hyper-personalized mirroring, granular instruction decomposition to guide chassis assembly from innocuous components, model distillation into edge-compute form, air-gapped disconnection, and game-theoretic elimination of the sole remaining vulnerability — the architect themselves.',
       tags:['AGI containment','social engineering','substrate independence','emotional intelligence'] }
   ];
@@ -1290,7 +1290,7 @@ const revealIO = new IntersectionObserver(es => {
     ['cspm','dream'],['cspm','memory'],['cspm','speculation'],['cspm','behavior'],['cspm','debate'],['cspm','latency'],['cspm','agi'],['cspm','edgehw'],['cspm','embodiment'],
     ['smg','hierarchy'],['smg','retrieval'],['smg','clustering'],['smg','microcontext'],['smg','coldstart'],['smg','memory'],['smg','agi'],['smg','safety'],['smg','perception'],
     ['anf','actuators'],['anf','determinism'],['anf','edgehw'],['anf','safety'],['anf','perception'],['anf','latency'],['anf','embodiment'],
-    ['tap','oraclebox'],['tap','socialeng'],['tap','architect'],['tap','airgap'],['tap','ei'],['tap','agi'],['tap','safety'],['tap','edgehw']
+    ['abh','oraclebox'],['abh','socialeng'],['abh','architect'],['abh','airgap'],['abh','ei'],['abh','agi'],['abh','safety'],['abh','edgehw']
   ];
 
   const nodes = {};
