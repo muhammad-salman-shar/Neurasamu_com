@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSPM — Continuous Subconscious Processing Model | NeuraSaMu Research</title>
+<meta name="description" content="CSPM proposes a dual-layer framework separating interaction architecture from cognitive architecture — enabling real-time AI systems to process, anticipate, and respond with deep contextual awareness. By Muhammad Salman Shar, NeuraSaMu.">
+<meta name="author" content="Muhammad Salman Shar">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#F6F3EC">
+<link rel="canonical" href="https://neurasamu.com/research/cspm/">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSPM — Continuous Subconscious Processing Model">
+<meta property="og:description" content="A dual-layer framework for real-time AI interaction through anticipatory pre-computation and dual-LoRA debate.">
+<meta property="og:url" content="https://neurasamu.com/research/cspm/">
+<meta property="og:site_name" content="NeuraSaMu">
+<meta property="article:author" content="Muhammad Salman Shar">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CSPM — Continuous Subconscious Processing Model">
+<meta name="twitter:description" content="Real-time AI interaction through anticipatory intelligence and neural efficiency.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Cpath d='M6.5 19.5 13 6.5l7 9' fill='none' stroke='%23171410' stroke-width='1.4'/%3E%3Ccircle cx='6.5' cy='19.5' r='2.4' fill='%23F6F3EC' stroke='%23171410'/%3E%3Ccircle cx='13' cy='6.5' r='2.4' fill='%230E5C45'/%3E%3Ccircle cx='20' cy='15.5' r='2.4' fill='%23F6F3EC' stroke='%23171410'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "The Continuous Subconscious Processing Model (CSPM): Redefining Real-Time AI Interaction Through Anticipatory Intelligence and Neural Efficiency",
+  "alternativeHeadline": "CSPM",
+  "author": {
+    "@type": "Person",
+    "name": "Muhammad Salman Shar"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "NeuraSaMu",
+    "url": "https://neurasamu.com"
+  },
+  "datePublished": "2026-05-25",
+  "abstract": "CSPM proposes a dual-layer framework separating interaction architecture from cognitive architecture. This allows real-time systems to process, anticipate, and respond with deep contextual awareness before input composition is complete.",
+  "keywords": "AGI, real-time AI, anticipatory computing, dual-LoRA, subconscious processing, continuous inference",
+  "url": "https://neurasamu.com/research/cspm/",
+  "inLanguage": "en"
+}
+</script>
+
+<style>
+:root{
+  --paper:#F6F3EC;--paper-2:#EFEBE0;--card:#FBFAF4;
+  --ink:#171410;--ink-2:#5B5546;--ink-3:#7E7663;
+  --line:rgba(23,20,16,.14);--line-strong:rgba(23,20,16,.3);
+  --accent:#0E5C45;--accent-2:#12805E;--accent-soft:rgba(14,92,69,.08);
+  --serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',-apple-system,sans-serif;
+  --e:cubic-bezier(.19,1,.22,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink-2);font:400 16px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
+.container{width:100%;max-width:840px;margin-inline:auto;padding-inline:clamp(20px,5vw,48px)}
+a{color:inherit}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+.topbar{border-bottom:1px solid var(--line);background:rgba(246,243,236,.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:10}
+.topbar-inner{max-width:1100px;margin-inline:auto;padding:16px clamp(20px,5vw,48px);display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand svg{width:24px;height:24px}
+.brand-name{font-family:var(--serif);font-weight:600;font-size:1.1rem;letter-spacing:-.02em;color:var(--ink)}
+.back-link{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:500;color:var(--ink-2);text-decoration:none;transition:color .2s}
+.back-link:hover{color:var(--accent)}
+.back-link svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+.paper-hero{padding:clamp(56px,9vw,96px) 0 clamp(32px,5vw,56px);border-bottom:1px solid var(--line)}
+.paper-meta{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:28px}
+.paper-meta .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
+.paper-title{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.6vw,3.4rem);line-height:1.06;letter-spacing:-.028em;color:var(--ink)}
+.paper-subtitle{margin-top:20px;font-family:var(--serif);font-style:italic;font-size:clamp(1.05rem,1.9vw,1.35rem);line-height:1.5;color:var(--ink-3);max-width:52ch}
+.paper-byline{margin-top:32px;padding-top:24px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 32px;font-size:.88rem;color:var(--ink-2)}
+.paper-byline dt{font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
+.paper-byline dd{color:var(--ink);font-weight:600}
+
+.paper-body{padding:clamp(40px,6vw,72px) 0}
+.paper-body h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.4rem,2.6vw,1.85rem);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin-top:56px;margin-bottom:18px;padding-top:32px;border-top:1px solid var(--line)}
+.paper-body h2:first-child{margin-top:0;padding-top:0;border-top:none}
+.paper-body h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.15rem,1.9vw,1.35rem);line-height:1.3;letter-spacing:-.015em;color:var(--ink);margin-top:36px;margin-bottom:14px}
+.paper-body p{margin-bottom:18px;font-size:1rem;line-height:1.75}
+.paper-body p strong{color:var(--ink);font-weight:600}
+.paper-body ul{margin:0 0 20px 0;padding-left:0;list-style:none}
+.paper-body ul li{padding-left:22px;position:relative;margin-bottom:10px;font-size:.98rem;line-height:1.7}
+.paper-body ul li::before{content:'';position:absolute;left:4px;top:.7em;width:8px;height:1px;background:var(--accent)}
+.paper-body ol{margin:0 0 20px 22px;padding-left:0}
+.paper-body ol li{padding-left:6px;margin-bottom:10px;font-size:.98rem;line-height:1.7}
+
+.abstract-box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(24px,3.5vw,36px);margin-bottom:40px}
+.abstract-box .lbl{font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.abstract-box p{font-family:var(--serif);font-size:clamp(1.05rem,1.7vw,1.2rem);line-height:1.6;color:var(--ink)}
+
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:36px 0}
+.tags span{padding:5px 12px;border:1px solid var(--line);border-radius:999px;font-size:.75rem;font-weight:500;color:var(--ink-2)}
+
+.paper-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:48px;padding-top:32px;border-top:1px solid var(--line)}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;font-size:.9rem;font-weight:600;text-decoration:none;transition:all .25s var(--e);border:1px solid transparent}
+.btn--primary{background:var(--ink);color:var(--paper)}
+.btn--primary:hover{background:var(--accent)}
+.btn--ghost{border-color:var(--line-strong);color:var(--ink)}
+.btn--ghost:hover{border-color:var(--ink);background:rgba(23,20,16,.04)}
+.btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+footer.site-footer{margin-top:80px;padding:36px 0 48px;border-top:1px solid var(--line);text-align:center}
+footer.site-footer p{font-size:.82rem;color:var(--ink-3)}
+footer.site-footer a{color:var(--accent);text-decoration:none;font-weight:500}
+footer.site-footer a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .paper-body h2{font-size:1.35rem}
+  .paper-body p,.paper-body ul li{font-size:.95rem}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="https://neurasamu.com/" aria-label="NeuraSaMu — home">
+      <svg viewBox="0 0 26 26" aria-hidden="true">
+        <path d="M6.5 19.5 13 6.5l7 9" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <circle cx="6.5" cy="19.5" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <circle cx="13" cy="6.5" r="2.4" fill="#0E5C45"/>
+        <circle cx="20" cy="15.5" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      </svg>
+      <span class="brand-name">NeuraSaMu</span>
+    </a>
+    <a class="back-link" href="https://neurasamu.com/">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      Back to lab
+    </a>
+  </div>
+</header>
+
+<main>
+
+<section class="paper-hero">
+  <div class="container">
+    <div class="paper-meta">
+      <span>Research Paper</span>
+      <span class="dot"></span>
+      <span>Technical Specification Blueprint</span>
+      <span class="dot"></span>
+      <span>Published May 2026</span>
+    </div>
+    <h1 class="paper-title">The Continuous Subconscious Processing Model</h1>
+    <p class="paper-subtitle">Redefining real-time AI interaction through anticipatory intelligence and neural efficiency.</p>
+    <dl class="paper-byline">
+      <div><dt>Author</dt><dd>Muhammad Salman Shar</dd></div>
+      <div><dt>Publisher</dt><dd>NeuraSaMu</dd></div>
+      <div><dt>Status</dt><dd>Published</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="paper-body">
+  <div class="container">
+
+    <div class="abstract-box">
+      <div class="lbl">Abstract</div>
+      <p>The prevailing assumption in modern AI development is that intelligence scales exclusively with size. This paper challenges that assumption. The Continuous Subconscious Processing Model (CSPM) proposes a dual-layer framework separating interaction architecture from cognitive architecture. This allows real-time systems to process, anticipate, and respond with deep contextual awareness before input composition is complete. This unified specification integrates anticipatory pre-computation, dual-agent cognitive debate, behavioral signal processing, and dynamic efficiency routing into a single, high-fidelity real-time system.</p>
+    </div>
+
+    <h2>1. The Core Philosophy</h2>
+    <p>There is a recurring structural bottleneck in how contemporary engineering perceives AI capability. The assumption remains linear: a larger model, trained on more compute and parameters, will yield proportional leaps in intelligence. While this approach has produced models of expansive horizontal breadth, it frequently fails under deep contextual reasoning. A model with 1.8 trillion parameters can still collapse on logic puzzles that a human child resolves intuitively.</p>
+    <p>The human brain operates within an approximate 20-watt power boundary. It does not brute-force every stimulus with maximum neural activation. Instead, it selectively routes computation to target sectors, discards semantic noise instantly, and anticipates contextual pathways before a physical action or input is fully completed. CSPM is built on the premise that this selective operational model, rather than raw computational scale, is the optimal target for next-generation AI systems.</p>
+    <p>The framework is anchored to three core architectural principles:</p>
+    <ul>
+      <li><strong>Anticipation over Reaction:</strong> A system that waits for absolute input termination before initiating compute is structurally lagging. Intelligence begins at the onset of intent.</li>
+      <li><strong>Selective Efficiency over Uniform Scale:</strong> Not every query requires deep monolithic execution. Dynamic computational routing, modeled on biological neural selectivity, delivers sub-50ms latency without precision degradation.</li>
+      <li><strong>Behavioral Signal over Surface Input:</strong> Plain text is mere data. How that text is constructed — writing pacing, pauses, backspacing, corrections — is a rich, high-fidelity signal. CSPM structures and consumes both channels.</li>
+    </ul>
+
+    <h2>2. Framework Architecture Overview</h2>
+    <p>CSPM is split across two independent but highly coordinated layers. Conflating interaction logic with cognitive reasoning is a common systems failure; CSPM enforces strict structural boundaries between them.</p>
+    <p><strong>System Layer — Real-Time Interaction Architecture:</strong> WebSocket persistent connection, Active Observer keystroke-intent classifier, Shadow Context behavioral signal extraction, Speculative Response Buffer, and The Executioner for arbitrated response delivery. This layer feeds into the Model Layer.</p>
+    <p><strong>Model Layer — Cognitive Architecture:</strong> Dual LoRA Adapter System, known as The Debate Room, where a fluent Predictor and a fact-checking Challenger run parallel forward passes over a shared base model and are arbitrated before output.</p>
+
+    <h2>3. System Layer — The Interaction Architecture</h2>
+
+    <h3>3.1 Streaming Input and the Active Observer</h3>
+    <p>Traditional request-response models treat user inputs as static blocks. The system sits idle, waits for complete data packets, and then begins execution. This approach leaves the assistant running one full cycle behind the user's mind.</p>
+    <p>CSPM replaces this with a continuous WebSocket connection. The second a user registers their first keystroke, the Active Observer is triggered. It monitors keystroke arrival times and feeds metadata to a micro-intent classifier (~50M parameters) running at 2–5ms latency. The classifier analyzes input shape — query, transactional command, emotional pivot, or correction — and seeds the response buffer dynamically.</p>
+
+    <h3>3.2 The Speculative Response Buffer</h3>
+    <p>Based on continuous classifications from the Active Observer, the system builds and updates the top three most probable response branches in parallel. Each branch is a speculative text tree that is constantly confirmed, pruned, or re-routed as new characters stream from the client.</p>
+    <p>Upon user submission, the system does not initiate cold generation. The delivery engine matches the physical input against the buffered paths, selects the highest-scoring candidate, and continues streaming. This keeps Time-to-First-Token (TTFT) under 50ms.</p>
+
+    <h3>3.3 Shadow Context — Behavioral Signal Processing</h3>
+    <p>Human typing carries deep psychological markers. Typing tempo, sudden pauses, and extensive backspacing reveal cognitive state. The Shadow Context module isolates these parameters under a strict client-side constraint: no raw deleted text ever exits the user's local hardware.</p>
+    <p>The client-side engine calculates four specific metrics, transmitting only these processed values over the secure WebSocket connection:</p>
+    <ul>
+      <li><strong>deletion_speed:</strong> Measures speed of backspacing. Differentiates rapid, frustrated deletions from slower, deliberate changes.</li>
+      <li><strong>deletion_volume:</strong> Tracks total characters deleted. Filters simple spelling corrections under 3 characters from structural shifts above 10.</li>
+      <li><strong>rewrite_pattern:</strong> Tracks semantic drift between edits. Identifies whether the user is refining their current point or executing a full topic pivot.</li>
+      <li><strong>hesitation_index:</strong> Tracks time latency between keystroke stop and delete actions. Captures semantic uncertainty.</li>
+    </ul>
+    <p>This structure is natively compliant with GDPR Article 7 and Article 9, as no personally identifiable raw behavioral text is transmitted or logged.</p>
+
+    <h3>3.4 The Executioner</h3>
+    <p>The final stage of the System Layer executes three sequential micro-actions on input submission:</p>
+    <ol>
+      <li>Scores all active speculative trajectories against the final query using fast cosine similarity.</li>
+      <li>Bridges the highest-scoring trajectory to the Model Layer's Arbitration Engine for contextual validation.</li>
+      <li>Instantly begins streaming the verified tokens back to the user interface, completing the loop under the 100ms human perception threshold.</li>
+    </ol>
+
+    <h2>4. Model Layer — The Cognitive Architecture</h2>
+
+    <h3>4.1 The Debate Room — Dual LoRA Adapter System</h3>
+    <p>A primary limitation of monolithic language models is the absence of internal critical debate. A single network structure generates token sequences, and unless heavily prompted to verify its own bias, it suffers from confident hallucinations. CSPM addresses this by introducing the Debate Room: a dual LoRA adapter architecture operating on a single shared base model (Llama 3.1 8B or equivalent).</p>
+    <ul>
+      <li><strong>Predictor LoRA Adapter:</strong> Trained on conversational completion datasets. Objective: fluency, contextual coherence, anticipatory accuracy. Output: most natural response candidate.</li>
+      <li><strong>Challenger LoRA Adapter:</strong> Trained on TruthfulQA, Adversarial NLI, and fact-checking corpora. Objective: factual accuracy, logical consistency. Output: validated or contested response candidate.</li>
+    </ul>
+    <p>The low-rank overlays run in parallel over dedicated hardware threads, completing separate forward passes in under 40 milliseconds.</p>
+
+    <h3>4.2 Confidence-Weighted Arbitration</h3>
+    <p>The outputs of the conversational Predictor and the logical Challenger are processed by a dedicated Arbitration Engine using a strict decision logic:</p>
+    <ul>
+      <li>If <strong>Challenger confidence &gt; 0.75</strong>: Challenger output is selected — factual accuracy takes precedence.</li>
+      <li>Else if <strong>Predictor confidence &gt; 0.85</strong>: Predictor output is selected — high-confidence fluency preserved.</li>
+      <li>Else: <strong>Weighted merge</strong> is applied — 0.60 × Predictor plus 0.40 × Challenger.</li>
+    </ul>
+
+    <h3>4.3 Efficiency Core — Selective Compute Routing</h3>
+    <p>Designed to operate sustainably on consumer-grade chips (8GB VRAM at 15–25W power limits), CSPM deploys a four-layer optimization pipeline:</p>
+    <ol>
+      <li><strong>INT4 Quantization:</strong> Drops the memory footprint of an 8B parameter base model from 32GB (FP32) to roughly 4GB without meaningful semantic loss.</li>
+      <li><strong>MoE Dynamic Routing:</strong> Activates only 2–4 expert sub-networks out of 16 depending on query complexity, capping active parameters to roughly 25% per run.</li>
+      <li><strong>Early Exit Inference:</strong> Simple conversational tokens exit the transformer layers early, cutting unnecessary calculations on low-effort queries by up to 70%.</li>
+      <li><strong>Knowledge Distillation:</strong> Differentiated LoRA weights are distilled from massive parent teacher models (70B parameters), inheriting advanced logic.</li>
+    </ol>
+
+    <h3>4.4 Sliding Window Context Pruning</h3>
+    <p>Long chat sessions are managed through a dynamic context window. Rejected debate trajectories are aggressively cleared from memory, keeping the active cache focused entirely on high-signal context vectors.</p>
+
+    <h2>5. System Differentiation</h2>
+    <p>CSPM is a cohesive, unified system that establishes a clear contract between real-time behavioral interaction and cognitive validation. Compared with traditional LLM systems:</p>
+    <ul>
+      <li><strong>Input handling:</strong> Dynamic (active keystroke monitoring) versus static (passive requests).</li>
+      <li><strong>Latency strategy:</strong> Speculative parallel buffering versus post-input generation queue.</li>
+      <li><strong>Behavioral feedback:</strong> Shadow Context vector modulation versus none — traditional systems ignore composition metrics.</li>
+      <li><strong>Internal reflection:</strong> Real-time Dual-LoRA Debate versus post-generation critique prompts.</li>
+      <li><strong>Hardware demands:</strong> INT4/MoE dynamic efficiency routing versus high-footprint monolithic execution.</li>
+    </ul>
+
+    <h2>6. Deployment Roadmap</h2>
+    <ul>
+      <li><strong>Phase 1 — Prototype:</strong> Deploy WebSocket connection backend (FastAPI) paired with client-side JavaScript tracking. Build basic speculative response paths.</li>
+      <li><strong>Phase 2 — Debate Room Setup:</strong> Fine-tune Predictor and Challenger LoRA adapters. Set up the parallel runtime pipeline and implement the meta-classification Arbitration Engine.</li>
+      <li><strong>Phase 3 — Optimization:</strong> Apply INT4 quantization layers, configure MoE routing matrices, and activate Early Exit endpoints on local consumer hardware (RTX 3060 or equivalent).</li>
+      <li><strong>Phase 4 — Production Release:</strong> Finalize system integration, package under Docker Compose, configure async jobs via Celery, and run complete system benchmarks (TTFT, human-perceived anticipation accuracy).</li>
+    </ul>
+
+    <h2>7. Conclusion</h2>
+    <p>The future of AI interaction lies not in increasing the size of our models, but in the precision with which they anticipate human intent. By segregating interaction from core cognition, extracting anonymized behavioral patterns, and introducing competitive internal debate, CSPM delivers an environment where the AI acts not as a slow query processor, but as a fluid, real-time cognitive collaborator.</p>
+    <p><em>The swordsman's blade is only as decisive as his footwork.</em></p>
+
+    <div class="tags">
+      <span>AGI</span>
+      <span>Real-time AI</span>
+      <span>Anticipatory Computing</span>
+      <span>Dual-LoRA</span>
+      <span>Subconscious Processing</span>
+      <span>Continuous Inference</span>
+    </div>
+
+    <div class="paper-cta">
+      <a class="btn btn--primary" href="https://www.kaggle.com/datasets/muhammadsalmanshar/cspm-by-muhammad-salman-shar" target="_blank" rel="noopener">
+        Download Full Paper
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+      </a>
+      <a class="btn btn--ghost" href="https://neurasamu.com/">
+        Back to NeuraSaMu
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 NeuraSaMu · <a href="https://neurasamu.com/">neurasamu.com</a> · Muhammad Salman Shar</p>
+  </div>
+</footer>
+
+</body>
+</html>
