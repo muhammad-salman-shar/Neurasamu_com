@@ -590,7 +590,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
     <div class="container abstract-inner" data-reveal>
       <p class="abstract-label"><b>Abstract</b>NSM — 01<br>Frontier Laboratory<br>Karachi → Lahore → World</p>
       <div>
-        <p class="abstract-body"><span class="dropcap" aria-hidden="true">N</span>euraSaMu exists to close the distance between thought and action. Founded in September 2023 by Muhammad Salman Shar, the laboratory studies continuous cognition — systems that infer, consolidate, and plan beneath the threshold of interaction — and engineers it into physical automation and beneficial technology for human life. Its corpus spans three architectures: continuous subconscious processing, topological knowledge representation, and neuromorphic actuator control.</p>
+        <p class="abstract-body"><span class="dropcap" aria-hidden="true">N</span>euraSaMu exists to close the distance between thought and action. Founded in September 2023 by Muhammad Salman Shar, the laboratory studies continuous cognition — systems that infer, consolidate, and plan beneath the threshold of interaction — and engineers it into physical automation and beneficial technology for human life. Its corpus spans three architectures: continuous subconscious processing, a hierarchical memory graph for LLMs, and neuromorphic actuator control.</p>
         <p class="keywords"><b>Keywords —</b> artificial general intelligence · superintelligence · embodied robotics · continuous inference · synthetic cognition</p>
       </div>
     </div>
@@ -604,12 +604,12 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
           <div class="sec-eyebrow"><span class="idx">01</span><span class="lbl">Research</span><span class="rule"></span></div>
           <h2 id="researchTitle">Thought, drawn as a graph.</h2>
         </div>
-        <p class="lede" data-reveal="1">Our architecture SMG represents cognition as a navigable graph — so we made the research section one. Drag the nodes. Click a paper. The graph is the table of contents.</p>
+        <p class="lede" data-reveal="1">Our architecture SMG (Synapse Memory Graph) organizes long-term memory as a navigable hierarchy — so we made the research section one. Drag the nodes. Click a paper. The graph is the table of contents.</p>
       </header>
 
       <div class="research-grid">
         <div class="graph-frame" data-reveal>
-          <div class="graph-bar"><span class="live-dot" aria-hidden="true"></span>Fig. 01 — Synthetic Mind Graph · Live<span class="hint">drag · click a paper</span></div>
+          <div class="graph-bar"><span class="live-dot" aria-hidden="true"></span>Fig. 01 — Synapse Memory Graph · Live<span class="hint">drag · click a paper</span></div>
           <div class="graph-stage" id="graphStage">
             <svg id="graphSvg" role="application" aria-label="Interactive mind graph of NeuraSaMu research. Use the buttons beside it to read each paper.">
               <defs>
@@ -1233,7 +1233,7 @@ const revealIO = new IntersectionObserver(es => {
 })();
 
 /* ============================================================
-   Research — draggable Synthetic Mind Graph (SVG physics)
+   Research — draggable Synapse Memory Graph (SVG physics)
    ============================================================ */
 (function mindGraph(){
   const stage = $('#graphStage'), svg = $('#graphSvg');
@@ -1246,34 +1246,36 @@ const revealIO = new IntersectionObserver(es => {
       title:'Continuous Subconscious Processing Model',
       abstract:'A background-inference architecture in which a cognitive system keeps processing between explicit interactions — consolidating episodic traces into persistent memory without supervision. Where conventional models respond, CSPM ruminates: reasoning continuously, with measurable gains in long-horizon planning and cross-session stability.',
       tags:['continuous inference','memory consolidation','subconscious processing'] },
-    { id:'smg', code:'SMG', fx:.70, fy:.24, status:'Active research',
-      title:'Synthetic Mind Graphs',
-      abstract:'A topological representation of cognition: concepts, procedures, and sensory anchors become nodes in a navigable graph rather than coordinates in a flat embedding. SMG gives planners and multi-modal robots a shared structure for transfer, abstraction, and grounded action.',
-      tags:['cognitive topology','knowledge representation','multi-modal transfer'] },
+    { id:'smg', code:'SMG', fx:.70, fy:.24, status:'Blueprint v2.0 · Published',
+      title:'Synapse Memory Graph',
+      abstract:'A production-ready, self-organizing multi-level memory architecture for large language models. SMG models user long-term memory as a dynamic five-level hierarchical tree — Session Root, Domain Branch, Sub-Domain, Master Node, and Atomic Tag Array — structurally guaranteeing logarithmic retrieval at scale. Instead of replaying history, SMG resolves each query to a precise coordinate and loads only the micro-context it needs.',
+      tags:['hierarchical memory','logarithmic retrieval','semantic clustering','cold-start elimination'] },
     { id:'anf', code:'ANF', fx:.62, fy:.74, status:'Active research · hardware',
       title:'Autonomous Neuromorphic Firmware Control',
       abstract:'A control substrate that compiles latent action policies into deterministic, safety-bounded motor commands on neuromorphic hardware — closing the loop between artificial cognition and dependable machines in the physical world.',
       tags:['neuromorphic control','actuator safety','edge robotics'] }
   ];
   const CONCEPTS = [
-    { id:'dream',      label:'dreaming',        fx:.08, fy:.12 },
-    { id:'memory',     label:'memory',          fx:.35, fy:.08 },
-    { id:'inference',  label:'background inference', fx:.06, fy:.46 },
-    { id:'horizon',    label:'long-horizon',    fx:.30, fy:.52 },
-    { id:'agi',        label:'AGI',             fx:.47, fy:.16, shared:true },
-    { id:'topology',   label:'topology',        fx:.92, fy:.10 },
-    { id:'transfer',   label:'transfer',        fx:.88, fy:.40 },
-    { id:'abstraction',label:'abstraction',     fx:.60, fy:.06 },
-    { id:'safety',     label:'safety bounds',   fx:.80, fy:.54, shared:true },
-    { id:'perception', label:'perception',      fx:.90, fy:.66, shared:true },
-    { id:'actuators',  label:'actuators',       fx:.82, fy:.88 },
-    { id:'determinism',label:'deterministic control', fx:.50, fy:.92 },
-    { id:'edgehw',     label:'edge hardware',   fx:.38, fy:.84 },
-    { id:'embodiment', label:'embodiment',      fx:.34, fy:.72, shared:true }
+    { id:'dream',       label:'dreaming',             fx:.08, fy:.12 },
+    { id:'memory',      label:'memory',               fx:.35, fy:.08, shared:true },
+    { id:'inference',   label:'background inference', fx:.06, fy:.46 },
+    { id:'horizon',     label:'long-horizon',         fx:.30, fy:.52 },
+    { id:'agi',         label:'AGI',                  fx:.47, fy:.16, shared:true },
+    { id:'hierarchy',   label:'five-level tree',      fx:.94, fy:.10 },
+    { id:'retrieval',   label:'log retrieval',        fx:.92, fy:.36 },
+    { id:'clustering',  label:'clustering',           fx:.62, fy:.06 },
+    { id:'microcontext',label:'micro-context',        fx:.95, fy:.52 },
+    { id:'coldstart',   label:'cold start',           fx:.74, fy:.08 },
+    { id:'safety',      label:'safety bounds',        fx:.80, fy:.60, shared:true },
+    { id:'perception',  label:'perception',           fx:.90, fy:.72 },
+    { id:'actuators',   label:'actuators',            fx:.82, fy:.90 },
+    { id:'determinism', label:'deterministic control',fx:.50, fy:.92 },
+    { id:'edgehw',      label:'edge hardware',        fx:.38, fy:.84 },
+    { id:'embodiment',  label:'embodiment',           fx:.34, fy:.72, shared:true }
   ];
   const EDGES = [
     ['cspm','dream'],['cspm','memory'],['cspm','inference'],['cspm','horizon'],['cspm','agi'],['cspm','embodiment'],
-    ['smg','topology'],['smg','transfer'],['smg','abstraction'],['smg','agi'],['smg','perception'],['smg','safety'],
+    ['smg','hierarchy'],['smg','retrieval'],['smg','clustering'],['smg','microcontext'],['smg','coldstart'],['smg','memory'],['smg','agi'],['smg','safety'],
     ['anf','actuators'],['anf','determinism'],['anf','edgehw'],['anf','safety'],['anf','perception']
   ];
 
