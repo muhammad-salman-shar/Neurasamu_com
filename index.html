@@ -1242,11 +1242,11 @@ const revealIO = new IntersectionObserver(es => {
   const gE = $('#gEdges'), gN = $('#gNodes');
 
   const PAPERS = [
-    { id:'cspm', code:'CSPM', fx:.22, fy:.30, status:'Flagship · Published',
+    { id:'cspm', code:'CSPM', fx:.22, fy:.30, status:'Technical Blueprint · Published',
       title:'Continuous Subconscious Processing Model',
-      abstract:'A background-inference architecture in which a cognitive system keeps processing between explicit interactions — consolidating episodic traces into persistent memory without supervision. Where conventional models respond, CSPM ruminates: reasoning continuously, with measurable gains in long-horizon planning and cross-session stability.',
-      tags:['continuous inference','memory consolidation','subconscious processing'] },
-    { id:'smg', code:'SMG', fx:.70, fy:.24, status:'Blueprint v2.0 · Published',
+      abstract:'A dual-layer framework separating interaction architecture from cognitive architecture. The System Layer runs a persistent WebSocket connection: an Active Observer classifies keystroke intent in real time, a Speculative Response Buffer pre-computes the top three response branches in parallel, and Shadow Context extracts anonymized behavioral signals — pacing, hesitation, rewrite patterns — without raw deleted text ever leaving the device. The Model Layer runs a Debate Room of dual LoRA adapters over a shared base model, arbitrating between a fluent Predictor and a fact-checking Challenger. Selective compute routing (INT4 quantization, MoE, early-exit) keeps the system inside consumer-grade power budgets with sub-50ms TTFT.',
+      tags:['anticipatory pre-computation','dual-LoRA debate','behavioral signals','selective compute routing'] },
+    { id:'smg', code:'SMG', fx:.70, fy:.24, status:'Architecture Blueprint · Published',
       title:'Synapse Memory Graph',
       abstract:'A production-ready, self-organizing multi-level memory architecture for large language models. SMG models user long-term memory as a dynamic five-level hierarchical tree — Session Root, Domain Branch, Sub-Domain, Master Node, and Atomic Tag Array — structurally guaranteeing logarithmic retrieval at scale. Instead of replaying history, SMG resolves each query to a precise coordinate and loads only the micro-context it needs.',
       tags:['hierarchical memory','logarithmic retrieval','semantic clustering','cold-start elimination'] },
@@ -1258,25 +1258,27 @@ const revealIO = new IntersectionObserver(es => {
   const CONCEPTS = [
     { id:'dream',       label:'dreaming',             fx:.08, fy:.12 },
     { id:'memory',      label:'memory',               fx:.35, fy:.08, shared:true },
-    { id:'inference',   label:'background inference', fx:.06, fy:.46 },
-    { id:'horizon',     label:'long-horizon',         fx:.30, fy:.52 },
-    { id:'agi',         label:'AGI',                  fx:.47, fy:.16, shared:true },
+    { id:'speculation', label:'speculative buffer',   fx:.06, fy:.46 },
+    { id:'behavior',    label:'behavioral signals',   fx:.22, fy:.30 },
+    { id:'debate',      label:'dual-LoRA debate',     fx:.47, fy:.16 },
+    { id:'latency',     label:'sub-50ms TTFT',        fx:.30, fy:.62 },
+    { id:'agi',         label:'AGI',                  fx:.45, fy:.40, shared:true },
     { id:'hierarchy',   label:'five-level tree',      fx:.94, fy:.10 },
     { id:'retrieval',   label:'log retrieval',        fx:.92, fy:.36 },
     { id:'clustering',  label:'clustering',           fx:.62, fy:.06 },
     { id:'microcontext',label:'micro-context',        fx:.95, fy:.52 },
     { id:'coldstart',   label:'cold start',           fx:.74, fy:.08 },
     { id:'safety',      label:'safety bounds',        fx:.80, fy:.60, shared:true },
-    { id:'perception',  label:'perception',           fx:.90, fy:.72 },
+    { id:'perception',  label:'perception',           fx:.90, fy:.74 },
     { id:'actuators',   label:'actuators',            fx:.82, fy:.90 },
     { id:'determinism', label:'deterministic control',fx:.50, fy:.92 },
-    { id:'edgehw',      label:'edge hardware',        fx:.38, fy:.84 },
-    { id:'embodiment',  label:'embodiment',           fx:.34, fy:.72, shared:true }
+    { id:'edgehw',      label:'edge hardware',        fx:.62, fy:.80, shared:true },
+    { id:'embodiment',  label:'embodiment',           fx:.32, fy:.86, shared:true }
   ];
   const EDGES = [
-    ['cspm','dream'],['cspm','memory'],['cspm','inference'],['cspm','horizon'],['cspm','agi'],['cspm','embodiment'],
-    ['smg','hierarchy'],['smg','retrieval'],['smg','clustering'],['smg','microcontext'],['smg','coldstart'],['smg','memory'],['smg','agi'],['smg','safety'],
-    ['anf','actuators'],['anf','determinism'],['anf','edgehw'],['anf','safety'],['anf','perception']
+    ['cspm','dream'],['cspm','memory'],['cspm','speculation'],['cspm','behavior'],['cspm','debate'],['cspm','latency'],['cspm','agi'],['cspm','edgehw'],['cspm','embodiment'],
+    ['smg','hierarchy'],['smg','retrieval'],['smg','clustering'],['smg','microcontext'],['smg','coldstart'],['smg','memory'],['smg','agi'],['smg','safety'],['smg','perception'],
+    ['anf','actuators'],['anf','determinism'],['anf','edgehw'],['anf','safety'],['anf','perception'],['anf','latency'],['anf','embodiment']
   ];
 
   const nodes = {};
