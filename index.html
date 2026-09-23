@@ -518,7 +518,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
       <span class="brand-name">NeuraSaMu</span>
     </a>
     <nav class="main-nav" id="mainNav" aria-label="Primary">
-      <a href="#research">Research</a>
+      <a href="/research/">Research</a>
       <a href="#vision">Vision</a>
       <a href="#instruments">Instruments</a>
       <a href="#bureau">Bureau</a>
@@ -533,7 +533,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobile">
-  <a href="#research" style="transition-delay:.06s"><span class="idx">01</span>Research</a>
+  <a href="/research/" style="transition-delay:.06s"><span class="idx">01</span>Research</a>
   <a href="#vision" style="transition-delay:.12s"><span class="idx">02</span>Vision</a>
   <a href="#instruments" style="transition-delay:.18s"><span class="idx">03</span>Instruments</a>
   <a href="#bureau" style="transition-delay:.24s"><span class="idx">04</span>Bureau</a>
@@ -569,7 +569,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
         </h1>
         <p class="hero-lede" data-reveal="2">Pakistan's first frontier laboratory for artificial general intelligence, superintelligence, and autonomous robotics — building minds that keep working while the world sleeps, and hands that act where it matters.</p>
         <div class="hero-actions" data-reveal="3">
-          <a class="btn btn--primary" href="#research">Enter the lab <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="btn btn--primary" href="/research/">Enter the lab <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           <a class="btn btn--ghost" href="#contact">Join the graph</a>
           <a class="text-link" href="#vision">Our story <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
         </div>
@@ -637,7 +637,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
               <h3 id="pTitle"></h3>
               <p class="abs" id="pAbs"></p>
               <div class="tags" id="pTags"></div>
-              <a class="btn btn--primary btn--sm" href="UPLOAD" id="pBtn">Read whitepaper <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+              <a class="btn btn--primary btn--sm" href="UPLOAD" id="pBtn">Read <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
               <p class="panel-meta" id="pMeta"></p>
             </div>
           </div>
@@ -955,7 +955,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
       </div>
       <nav aria-label="Footer">
         <p class="f-label">Navigate</p>
-        <a class="f-link" href="#research">Research</a>
+        <a class="f-link" href="/research/">Research</a>
         <a class="f-link" href="#vision">Vision</a>
         <a class="f-link" href="#instruments">Instruments</a>
         <a class="f-link" href="#bureau">Bureau</a>
@@ -1399,7 +1399,7 @@ const revealIO = new IntersectionObserver(es => {
     $('#pAbs').textContent = p.abstract;
     $('#pTags').innerHTML = p.tags.map(t => '<span class="tag">' + t + '</span>').join('');
     // Paper ka download link SITE_CONFIG se aata hai
-    $('#pBtn').setAttribute('href', (SITE_CONFIG.LINKS.papers && SITE_CONFIG.LINKS.papers[p.id]) || 'UPLOAD');
+    $('#pBtn').setAttribute('href', '/research/' + p.id + '/');
     $('#pMeta').textContent = (adj.size - 1) + ' adjacent concepts — drag the node to reshape the graph.';
     panelInner.classList.remove('swap'); void panelInner.offsetWidth; panelInner.classList.add('swap');
   }
