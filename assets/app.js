@@ -128,115 +128,7 @@ const revealIO = new IntersectionObserver(es => {
   revealIO.observe(el);
 });
 
-/* ============================================================
-   Hero — zinda ink flow-field (value-noise, cursor vortex)
-   ============================================================ */
-(function inkField(){
-  const cv = $('#inkField'), hero = $('#hero');
-  if (!cv || !hero) return;
-  const ctx = cv.getContext('2d', { alpha: false });
-  const P = [246, 243, 236];
-  let W = 0, H = 0, parts = [], raf = 0, t = 0, last = 0, visible = true;
-  const mouse = { x: -9999, y: -9999 };
 
-  function hash(x, y){ const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return n - Math.floor(n); }
-  function noise(x, y){
-    const ix = Math.floor(x), iy = Math.floor(y), fx = x - ix, fy = y - iy;
-    const u = fx * fx * (3 - 2 * fx), v = fy * fy * (3 - 2 * fy);
-    const a = hash(ix, iy), b = hash(ix + 1, iy), c = hash(ix, iy + 1), d = hash(ix + 1, iy + 1);
-    return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
-  }
-  function angleAt(x, y){
-    const n = noise(x * 0.0016 + t * 0.05, y * 0.0016 - t * 0.04) * 0.72
-            + noise(x * 0.0042 - t * 0.03, y * 0.0042 + t * 0.05) * 0.28;
-    return n * Math.PI * 4;
-  }
-  function spawn(p, init){
-    p.x = Math.random() * W; p.y = Math.random() * H; p.px = p.x; p.py = p.y;
-    p.sp = 0.35 + Math.random() * 0.85;
-    p.life = init ? 40 + Math.random() * 260 : 130 + Math.random() * 320;
-    p.tier = Math.random() < 0.045 ? 3 : (Math.random() < 0.5 ? 0 : (Math.random() < 0.6 ? 1 : 2));
-  }
-  function resize(){
-    const r = hero.getBoundingClientRect();
-    W = r.width; H = r.height;
-    const dpr = Math.min(devicePixelRatio || 1, 1.5);
-    cv.width = W * dpr; cv.height = H * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.fillStyle = 'rgb(' + P.join(',') + ')'; ctx.fillRect(0, 0, W, H);
-    const n = Math.min(700, Math.max(240, Math.round(W * H / 3200)));
-    parts = Array.from({ length: n }, () => { const p = {}; spawn(p, true); return p; });
-    if (prefersReduced) still();
-  }
-  const STROKES = ['rgba(23,20,16,0.055)','rgba(23,20,16,0.10)','rgba(23,20,16,0.16)','rgba(14,92,69,0.30)'];
-
-  function step(dt, fade){
-    t += 0.008 * dt;
-    if (fade){ ctx.fillStyle = 'rgba(246,243,236,0.05)'; ctx.fillRect(0, 0, W, H); }
-    const buckets = [[], [], [], []];
-    for (const p of parts){
-      let a = angleAt(p.x, p.y);
-      const dx = p.x - mouse.x, dy = p.y - mouse.y, d = Math.hypot(dx, dy);
-      if (d < 170 && d > 0.5){
-        const w = 1 - d / 170;
-        const swirl = Math.atan2(dy, dx) + Math.PI / 2;
-        const ca = Math.cos(a), sa = Math.sin(a), cs = Math.cos(swirl), ss = Math.sin(swirl);
-        a = Math.atan2(sa * (1 - w) + ss * w, ca * (1 - w) + cs * w);
-        p.x += (dx / d) * w * 0.7; p.y += (dy / d) * w * 0.7;
-      }
-      p.px = p.x; p.py = p.y;
-      p.x += Math.cos(a) * p.sp * dt; p.y += Math.sin(a) * p.sp * dt;
-      p.life -= dt;
-      if (p.life <= 0 || p.x < -20 || p.x > W + 20 || p.y < -20 || p.y > H + 20){ spawn(p); continue; }
-      buckets[p.tier].push(p);
-    }
-    for (let i = 0; i < 4; i++){
-      if (!buckets[i].length) continue;
-      ctx.strokeStyle = STROKES[i]; ctx.lineWidth = i === 3 ? 1.2 : 1;
-      ctx.beginPath();
-      for (const p of buckets[i]){ ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); }
-      ctx.stroke();
-    }
-  }
-  function loop(now){
-    const dt = Math.min(2.5, (now - last) / 16.7 || 1); last = now;
-    step(dt, true);
-    raf = visible && !document.hidden ? requestAnimationFrame(loop) : 0;
-  }
-  function still(){ for (let i = 0; i < 380; i++) step(1.2, false); }
-
-  hero.addEventListener('pointermove', e => {
-    const r = cv.getBoundingClientRect();
-    mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
-  });
-  hero.addEventListener('pointerleave', () => { mouse.x = mouse.y = -9999; });
-  hero.addEventListener('pointerdown', e => {
-    if (e.target.closest('a,button')) return;
-    const r = cv.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
-    for (const p of parts){
-      const dx = p.x - mx, dy = p.y - my, d = Math.hypot(dx, dy);
-      if (d < 240 && d > 1){
-        const w = 1 - d / 240;
-        p.px = p.x; p.py = p.y;
-        p.x += (dx / d) * w * 10 * (0.4 + Math.random());
-        p.y += (dy / d) * w * 10 * (0.4 + Math.random());
-        if (Math.random() < w * 0.5) p.tier = 2;
-        p.life = Math.min(p.life + 90, 360);
-      }
-    }
-  });
-
-  new IntersectionObserver(en => {
-    visible = en[0].isIntersecting;
-    if (visible && !raf && !prefersReduced && !document.hidden){ last = performance.now(); raf = requestAnimationFrame(loop); }
-  }).observe(hero);
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden && visible && !raf && !prefersReduced){ last = performance.now(); raf = requestAnimationFrame(loop); }
-  });
-  addEventListener('resize', debounce(resize, 160));
-  resize();
-  if (!prefersReduced){ last = performance.now(); raf = requestAnimationFrame(loop); }
-})();
 
 /* ============================================================
    Research — draggable Synapse Memory Graph (SVG physics)
@@ -783,17 +675,35 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
 /* ---------- Year ---------- */
  const yearEl = $('#year'); if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+
+
 /* ============================================================
-   Starfield — space background animation
-   Small stars drift slowly across the viewport. Non-repeating
-   positions. Respects prefers-reduced-motion.
+   Starfield — rich interactive space background
+   - Multi-layer parallax star drift
+   - Per-star twinkle
+   - Occasional shooting stars
+   - Cursor/touch repulsion (stars scatter, then resettle)
+   - Respects prefers-reduced-motion
    ============================================================ */
 (function starfield(){
   const cv = document.getElementById('starfield');
   if (!cv) return;
   const ctx = cv.getContext('2d', { alpha: true });
-  let W = 0, H = 0, stars = [], raf = 0, visible = true;
+  let W = 0, H = 0, raf = 0, visible = true, t = 0;
   const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+  const mouse = { x: -9999, y: -9999, active: false };
+
+  // Star layers: depth affects size, speed, brightness
+  const LAYERS = [
+    { count: 0.35, speed: 0.025, sizeRange: [0.2, 0.6], alpha: [0.20, 0.45], color: '200,210,240' },
+    { count: 0.35, speed: 0.055, sizeRange: [0.4, 0.9], alpha: [0.35, 0.65], color: '220,225,245' },
+    { count: 0.22, speed: 0.11,  sizeRange: [0.6, 1.3], alpha: [0.55, 0.90], color: '240,237,230' },
+    { count: 0.08, speed: 0.18,  sizeRange: [0.9, 1.8], alpha: [0.70, 1.00], color: '255,250,240' }
+  ];
+
+  let stars = [];
+  let shootingStars = [];
+  let nextShoot = 200;
 
   function resize(){
     W = window.innerWidth;
@@ -804,50 +714,126 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
     cv.style.height = H + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    const count = Math.min(220, Math.max(80, Math.round((W * H) / 12000)));
+    const total = Math.min(420, Math.max(160, Math.round((W * H) / 8500)));
     stars = [];
-    for (let i = 0; i < count; i++){
-      stars.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        r: Math.random() * 1.2 + 0.3,
-        vx: (Math.random() - 0.5) * 0.12,
-        vy: (Math.random() - 0.5) * 0.12,
-        alpha: Math.random() * 0.5 + 0.25,
-        twinkle: Math.random() * 6.28,
-        twinkleSpeed: 0.008 + Math.random() * 0.02
-      });
+    for (const layer of LAYERS){
+      const n = Math.round(total * layer.count);
+      for (let i = 0; i < n; i++){
+        stars.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: (Math.random() - 0.5) * layer.speed,
+          vy: (Math.random() - 0.5) * layer.speed,
+          r: Math.random() * (layer.sizeRange[1] - layer.sizeRange[0]) + layer.sizeRange[0],
+          baseAlpha: Math.random() * (layer.alpha[1] - layer.alpha[0]) + layer.alpha[0],
+          twinklePhase: Math.random() * Math.PI * 2,
+          twinkleSpeed: 0.010 + Math.random() * 0.025,
+          color: layer.color,
+          drift: 0
+        });
+      }
     }
   }
 
+  function spawnShoot(){
+    const fromLeft = Math.random() < 0.5;
+    const y = Math.random() * H * 0.7;
+    const speed = 6 + Math.random() * 4;
+    shootingStars.push({
+      x: fromLeft ? -50 : W + 50,
+      y: y,
+      vx: fromLeft ? speed : -speed,
+      vy: speed * 0.35,
+      life: 1,
+      len: 100 + Math.random() * 80
+    });
+  }
+
   function draw(){
+    t += 1;
     ctx.clearRect(0, 0, W, H);
+
+    // Draw stars
     for (const s of stars){
-      s.twinkle += s.twinkleSpeed;
-      const tw = 0.7 + Math.sin(s.twinkle) * 0.3;
-      const a = s.alpha * tw;
+      s.twinklePhase += s.twinkleSpeed;
+      const twinkle = 0.65 + Math.sin(s.twinklePhase) * 0.35;
+      let a = s.baseAlpha * twinkle;
+
+      // Cursor repulsion
+      if (mouse.active){
+        const dx = s.x - mouse.x;
+        const dy = s.y - mouse.y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        const radius = 110;
+        if (d < radius && d > 0.1){
+          const force = (1 - d / radius) * 0.9;
+          s.x += (dx / d) * force * 1.4;
+          s.y += (dy / d) * force * 1.4;
+          a = Math.min(1, a + force * 0.4);
+        }
+      }
+
+      // Drift
+      s.x += s.vx;
+      s.y += s.vy;
+      if (s.x < -3) s.x = W + 3;
+      if (s.x > W + 3) s.x = -3;
+      if (s.y < -3) s.y = H + 3;
+      if (s.y > H + 3) s.y = -3;
+
+      // Faint glow for larger stars
+      if (s.r > 1.0){
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * 3, 0, 6.2832);
+        ctx.fillStyle = 'rgba(' + s.color + ',' + (a * 0.12).toFixed(3) + ')';
+        ctx.fill();
+      }
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r, 0, 6.2832);
-      ctx.fillStyle = 'rgba(240,237,230,' + a.toFixed(3) + ')';
+      ctx.fillStyle = 'rgba(' + s.color + ',' + a.toFixed(3) + ')';
+      ctx.fill();
+    }
+
+    // Shooting stars
+    if (t > nextShoot){
+      spawnShoot();
+      nextShoot = t + 300 + Math.random() * 400;
+    }
+    for (let i = shootingStars.length - 1; i >= 0; i--){
+      const sh = shootingStars[i];
+      sh.x += sh.vx;
+      sh.y += sh.vy;
+      sh.life -= 0.008;
+      if (sh.life <= 0 || sh.x < -200 || sh.x > W + 200 || sh.y > H + 100){
+        shootingStars.splice(i, 1);
+        continue;
+      }
+      const tail = sh.vx > 0 ? -sh.len : sh.len;
+      const grad = ctx.createLinearGradient(sh.x, sh.y, sh.x + tail, sh.y + (sh.vy / sh.vx) * tail);
+      grad.addColorStop(0, 'rgba(240,237,230,' + (sh.life * 0.9).toFixed(2) + ')');
+      grad.addColorStop(1, 'rgba(240,237,230,0)');
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.4;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(sh.x, sh.y);
+      ctx.lineTo(sh.x + tail, sh.y + (sh.vy / sh.vx) * tail);
+      ctx.stroke();
+      // bright head
+      ctx.beginPath();
+      ctx.arc(sh.x, sh.y, 1.6, 0, 6.2832);
+      ctx.fillStyle = 'rgba(255,255,255,' + (sh.life * 0.9).toFixed(2) + ')';
       ctx.fill();
     }
   }
 
   function step(){
-    for (const s of stars){
-      s.x += s.vx;
-      s.y += s.vy;
-      if (s.x < -2) s.x = W + 2;
-      if (s.x > W + 2) s.x = -2;
-      if (s.y < -2) s.y = H + 2;
-      if (s.y > H + 2) s.y = -2;
-    }
     draw();
     raf = visible && !document.hidden ? requestAnimationFrame(step) : 0;
   }
 
   function wake(){
-    if (!raf && visible && !document.hidden && !prefersReduced) {
+    if (!raf && visible && !document.hidden && !prefersReduced){
       raf = requestAnimationFrame(step);
     }
   }
@@ -855,10 +841,30 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
   document.addEventListener('visibilitychange', function(){
     if (!document.hidden) wake();
   });
+
   window.addEventListener('resize', debounce(resize, 180));
 
+  // Cursor / touch interaction
+  window.addEventListener('pointermove', function(e){
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    mouse.active = true;
+  }, { passive: true });
+
+  window.addEventListener('pointerleave', function(){
+    mouse.active = false;
+    mouse.x = -9999;
+    mouse.y = -9999;
+  });
+
+  document.addEventListener('mouseleave', function(){
+    mouse.active = false;
+    mouse.x = -9999;
+    mouse.y = -9999;
+  });
+
   resize();
-  if (prefersReduced) {
+  if (prefersReduced){
     draw();
   } else {
     wake();
