@@ -5,19 +5,19 @@
    Paper + Ink editorial system, Nastaliq accents, mind-graph site
    ============================================================ */
 :root{
-  --paper:#F6F3EC;
-  --paper-2:#EFEBE0;
-  --card:#FBFAF4;
-  --ink:#171410;
-  --ink-2:#5B5546;
-  --ink-3:#7E7663;
-  --line:rgba(23,20,16,.14);
-  --line-strong:rgba(23,20,16,.32);
-  --accent:#0E5C45;
-  --accent-2:#12805E;
-  --accent-soft:rgba(14,92,69,.08);
+  --paper:#050810;
+  --paper-2:#0A0E1A;
+  --card:#0D1422;
+  --ink:#F0EDE6;
+  --ink-2:#9CA3AF;
+  --ink-3:#6B7280;
+  --line:rgba(240,237,230,.10);
+  --line-strong:rgba(240,237,230,.22);
+  --accent:#4CB68E;
+  --accent-2:#5FD4A8;
+  --accent-soft:rgba(76,182,142,.12);
   --gold:#C9A96E;
-  --dark:#15120C;
+  --dark:#02050B;
   --on-dark:#F3EFE6;
   --on-dark-2:#B0A892;
   --line-dark:rgba(243,239,230,.14);
@@ -46,7 +46,7 @@ a{color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
 ::-webkit-scrollbar{width:10px}
 ::-webkit-scrollbar-track{background:var(--paper)}
-::-webkit-scrollbar-thumb{background:rgba(23,20,16,.22);border-radius:8px;border:2px solid var(--paper)}
+::-webkit-scrollbar-thumb{background:rgba(240,237,230,.28);border-radius:8px;border:2px solid var(--paper)}
 
 /* Kaghaz ka grain — halka sa texture poore page par */
 body::after{
@@ -90,7 +90,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
 .btn--primary{background:var(--ink);color:var(--paper)}
 .btn--primary:hover{background:var(--accent);transform:translateY(-1px)}
 .btn--ghost{border-color:var(--line-strong);color:var(--ink)}
-.btn--ghost:hover{border-color:var(--ink);background:rgba(23,20,16,.045)}
+.btn--ghost:hover{border-color:var(--ink);background:rgba(240,237,230,.035)}
 .btn--sm{padding:11px 18px;font-size:.83rem}
 .text-link{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-weight:600;font-size:.92rem;text-decoration:none}
 .text-link .icon{width:14px;height:14px;transition:transform .25s var(--e)}
@@ -103,9 +103,9 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
 .progress{position:fixed;bottom:0;left:0;right:0;height:2px;z-index:110;background:var(--gold);
   transform:scaleX(0);transform-origin:left}
 .site-header{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--header-h);
-  background:rgba(246,243,236,.8);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  background:rgba(5,8,16,.8);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
   border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
-.site-header.scrolled{border-bottom-color:var(--line);background:rgba(246,243,236,.92)}
+.site-header.scrolled{border-bottom-color:var(--line);background:rgba(5,8,16,.92)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:28px;height:var(--header-h)}
 .brand{display:flex;align-items:center;gap:11px;text-decoration:none}
 .brand .mark{width:26px;height:26px}
@@ -143,7 +143,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
 #hero{position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:100svh;padding-top:calc(var(--header-h) + 16px)}
 #inkField{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .hero-ghost{position:absolute;top:4%;right:-2%;z-index:1;pointer-events:none;user-select:none;
-  font-family:var(--urdu);font-size:clamp(11rem,26vw,26rem);line-height:1.75;color:rgba(23,20,16,.055)}
+  font-family:var(--urdu);font-size:clamp(11rem,26vw,26rem);line-height:1.75;color:rgba(240,237,230,.045)}
 .hero-note{position:absolute;top:22%;right:clamp(18px,4vw,64px);z-index:1;writing-mode:vertical-rl;
   font-size:.62rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-3)}
 .hero-main{position:relative;z-index:2;flex:1;display:flex;align-items:center}
@@ -202,7 +202,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
 #graphSvg text{user-select:none}
 .gnode{cursor:grab;touch-action:none}
 .gnode:active{cursor:grabbing}
-.gedge{stroke:rgba(23,20,16,.14);stroke-width:1;transition:stroke .35s,opacity .35s}
+.gedge{stroke:rgba(240,237,230,.10);stroke-width:1;transition:stroke .35s,opacity .35s}
 .gedge.dim{opacity:.22}
 .gedge.on{stroke:var(--accent);stroke-width:1.6;opacity:1}
 .gnode-paper .body{fill:var(--card);stroke:var(--ink);stroke-width:1.4;transition:stroke .3s}
@@ -214,8 +214,8 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
 .gnode-paper.sel .ring{animation:ringPulse 2.6s ease-out infinite}
 @keyframes ringPulse{0%{transform:scale(1);opacity:.75}70%,100%{transform:scale(1.55);opacity:0}}
 .gnode-paper:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
-.gnode-concept .dot{fill:rgba(23,20,16,.5);stroke:none;transition:fill .3s}
-.gnode-concept .label{font:500 10.5px var(--sans);fill:rgba(23,20,16,.38);transition:fill .3s}
+.gnode-concept .dot{fill:rgba(240,237,230,.55);stroke:none;transition:fill .3s}
+.gnode-concept .label{font:500 10.5px var(--sans);fill:rgba(240,237,230,.4);transition:fill .3s}
 .gnode-concept .hit{pointer-events:all}
 .gnode-concept.lit .dot{fill:var(--ink)}
 .gnode-concept.lit .label{fill:var(--ink)}
@@ -285,7 +285,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
 .inst-row{display:grid;grid-template-columns:56px minmax(0,1.5fr) minmax(0,.9fr) auto;
   gap:clamp(20px,3vw,40px);align-items:center;padding:clamp(24px,3vw,36px) 10px;
   border-bottom:1px solid var(--line);border-radius:14px;transition:background .3s}
-.inst-row:hover{background:rgba(23,20,16,.035)}
+.inst-row:hover{background:rgba(240,237,230,.028)}
 .inst-icon{width:54px;height:54px;border:1px solid var(--line-strong);border-radius:14px;
   display:grid;place-items:center;color:var(--ink-2);transition:border-color .3s,color .3s}
 .inst-icon .icon{width:22px;height:22px}
@@ -332,7 +332,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
 .raabta small{font-size:.72rem;color:var(--ink-3);letter-spacing:.04em}
 
 .form-card{background:var(--card);border:1px solid var(--line);border-radius:20px;
-  padding:clamp(24px,3.4vw,40px);box-shadow:0 1px 0 rgba(23,20,16,.03),0 32px 64px -48px rgba(23,20,16,.28)}
+  padding:clamp(24px,3.4vw,40px);box-shadow:0 1px 0 rgba(240,237,230,.025),0 32px 64px -48px rgba(23,20,16,.28)}
 .modes{display:inline-flex;gap:4px;border:1px solid var(--line-strong);border-radius:999px;padding:4px}
 .mode-btn{padding:9px 18px;border-radius:999px;font-size:.82rem;font-weight:600;color:var(--ink-2);
   transition:background .25s,color .25s}
@@ -343,7 +343,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
 .field{display:flex;flex-direction:column;gap:7px}
 .field--full{grid-column:1/-1}
 .field label{font-size:.83rem;font-weight:600;color:var(--ink);letter-spacing:-.01em}
-.field input,.field select,.field textarea{width:100%;background:#FDFCF8;border:1px solid rgba(23,20,16,.24);
+.field input,.field select,.field textarea{width:100%;background:#0F1626;border:1px solid rgba(23,20,16,.24);
   border-radius:11px;padding:12px 14px;color:var(--ink);font:500 .92rem/1.5 var(--sans);letter-spacing:-.01em;
   transition:border-color .2s,box-shadow .2s}
 .field textarea{resize:vertical;min-height:120px}
@@ -358,10 +358,10 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
 .field.has-error input,.field.has-error select,.field.has-error textarea{border-color:var(--danger)}
 .field--check{flex-direction:row;flex-wrap:wrap;align-items:flex-start;gap:12px}
 .field--check input[type="checkbox"]{appearance:none;-webkit-appearance:none;flex:none;width:18px;height:18px;
-  margin-top:2px;border-radius:5px;border:1px solid var(--line-strong);background:#FDFCF8;cursor:pointer;
+  margin-top:2px;border-radius:5px;border:1px solid var(--line-strong);background:#0F1626;cursor:pointer;
   display:grid;place-items:center;transition:background .15s,border-color .15s}
 .field--check input[type="checkbox"]::after{content:'';width:5px;height:9px;transform:rotate(45deg) translate(-1px,-1px);
-  border:solid #F6F3EC;border-width:0 2px 2px 0;opacity:0}
+  border:solid #F0EDE6;border-width:0 2px 2px 0;opacity:0}
 .field--check input[type="checkbox"]:checked{background:var(--accent);border-color:var(--accent)}
 .field--check input[type="checkbox"]:checked::after{opacity:1}
 .field--check label{font-size:.83rem;font-weight:400;color:var(--ink-2);line-height:1.6;cursor:pointer}
@@ -406,7 +406,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
   display:flex;flex-direction:column;gap:30px;align-items:center}
 .rail-track{position:absolute;top:4px;bottom:4px;left:50%;width:1px;background:var(--line);transform:translateX(-50%)}
 .rail-fill{position:absolute;top:0;left:0;width:100%;height:0;background:var(--accent)}
-.rail-dot{position:relative;width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(23,20,16,.35);
+.rail-dot{position:relative;width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(240,237,230,.38);
   background:var(--paper);transition:border-color .3s,background .3s,transform .3s}
 .rail-dot:hover{border-color:var(--ink)}
 .rail-dot.active{border-color:var(--accent);background:var(--accent);transform:scale(1.25)}
@@ -468,4 +468,64 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   [data-reveal]{opacity:1;transform:none}
   .scribble path{animation:none;stroke-dashoffset:0}
+}
+
+/* ============================================================
+   Starfield — space background
+   Canvas-based animation, smooth, randomized positions
+   ============================================================ */
+#starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+body {
+  background: var(--paper);
+  position: relative;
+}
+/* Ensure content sits above the starfield */
+.container, .hero, .section, .page, main, footer,
+header.site-header, .topbar, .paper-hero, .research-hero,
+.store-hero, .page-head, .hero-main, .hero-meta,
+.graph-section, .paper-list, .tabs-bar, .pane {
+  position: relative;
+  z-index: 1;
+}
+/* Ambient nebula behind stars */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1100px 700px at 78% -10%, rgba(76, 182, 142, 0.10), transparent 62%),
+    radial-gradient(900px 620px at 12% 8%, rgba(120, 140, 220, 0.07), transparent 58%),
+    radial-gradient(700px 500px at 50% 100%, rgba(76, 182, 142, 0.05), transparent 62%);
+}
+/* Remove old grain overlay (conflicts with space theme) */
+body::after {
+  display: none !important;
+}
+/* Remove old sub-page dark override */
+.page-head .band-dark {
+  background: transparent;
+}
+
+/* ============================================================
+   Brand mark — image-based logo
+   ============================================================ */
+.mark-img {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  object-fit: contain;
+  flex-shrink: 0;
+  background: transparent;
+}
+.f-brand .mark-img {
+  width: 26px;
+  height: 26px;
 }

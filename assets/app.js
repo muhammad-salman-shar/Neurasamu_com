@@ -783,4 +783,86 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
 /* ---------- Year ---------- */
  const yearEl = $('#year'); if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+/* ============================================================
+   Starfield — space background animation
+   Small stars drift slowly across the viewport. Non-repeating
+   positions. Respects prefers-reduced-motion.
+   ============================================================ */
+(function starfield(){
+  const cv = document.getElementById('starfield');
+  if (!cv) return;
+  const ctx = cv.getContext('2d', { alpha: true });
+  let W = 0, H = 0, stars = [], raf = 0, visible = true;
+  const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+
+  function resize(){
+    W = window.innerWidth;
+    H = window.innerHeight;
+    cv.width = W * dpr;
+    cv.height = H * dpr;
+    cv.style.width = W + 'px';
+    cv.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const count = Math.min(220, Math.max(80, Math.round((W * H) / 12000)));
+    stars = [];
+    for (let i = 0; i < count; i++){
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.2 + 0.3,
+        vx: (Math.random() - 0.5) * 0.12,
+        vy: (Math.random() - 0.5) * 0.12,
+        alpha: Math.random() * 0.5 + 0.25,
+        twinkle: Math.random() * 6.28,
+        twinkleSpeed: 0.008 + Math.random() * 0.02
+      });
+    }
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    for (const s of stars){
+      s.twinkle += s.twinkleSpeed;
+      const tw = 0.7 + Math.sin(s.twinkle) * 0.3;
+      const a = s.alpha * tw;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, 6.2832);
+      ctx.fillStyle = 'rgba(240,237,230,' + a.toFixed(3) + ')';
+      ctx.fill();
+    }
+  }
+
+  function step(){
+    for (const s of stars){
+      s.x += s.vx;
+      s.y += s.vy;
+      if (s.x < -2) s.x = W + 2;
+      if (s.x > W + 2) s.x = -2;
+      if (s.y < -2) s.y = H + 2;
+      if (s.y > H + 2) s.y = -2;
+    }
+    draw();
+    raf = visible && !document.hidden ? requestAnimationFrame(step) : 0;
+  }
+
+  function wake(){
+    if (!raf && visible && !document.hidden && !prefersReduced) {
+      raf = requestAnimationFrame(step);
+    }
+  }
+
+  document.addEventListener('visibilitychange', function(){
+    if (!document.hidden) wake();
+  });
+  window.addEventListener('resize', debounce(resize, 180));
+
+  resize();
+  if (prefersReduced) {
+    draw();
+  } else {
+    wake();
+  }
+})();
+
 })();
