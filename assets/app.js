@@ -525,6 +525,9 @@ const modeBtns = $$('.mode-btn');
 let mode = 'apply';
 let lastSub = null; // dobara PDF download karne ke liye
 
+/* Skip entire form logic if this page has no form (research/vision/store/bureau) */
+if (form) {
+
 function setErr(field, el, msg){
   if (!field) return;
   field.classList.toggle('has-error', !!msg);
@@ -674,6 +677,8 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
 
 /* ---------- Year ---------- */
  const yearEl = $('#year'); if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+} // end if (form) guard
 
 
 
