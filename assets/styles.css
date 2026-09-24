@@ -144,8 +144,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
 #inkField{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .hero-ghost{position:absolute;top:4%;right:-2%;z-index:1;pointer-events:none;user-select:none;
   font-family:var(--urdu);font-size:clamp(11rem,26vw,26rem);line-height:1.75;color:rgba(240,237,230,.045)}
-.hero-note{position:absolute;top:22%;right:clamp(18px,4vw,64px);z-index:1;writing-mode:vertical-rl;
-  font-size:.62rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-3)}
+
 .hero-main{position:relative;z-index:2;flex:1;display:flex;align-items:center}
 .hero-eyebrow{display:flex;align-items:center;gap:12px;font-size:.7rem;font-weight:600;
   letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
