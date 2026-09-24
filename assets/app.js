@@ -679,11 +679,8 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
 
 /* ============================================================
    Starfield — rich interactive space background
-   - Multi-layer parallax star drift
-   - Per-star twinkle
-   - Occasional shooting stars
-   - Cursor/touch repulsion (stars scatter, then resettle)
-   - Respects prefers-reduced-motion
+   Layers: distant stars, nebula galaxies, shooting stars,
+   orbital satellites. Cursor repulsion on nearest stars.
    ============================================================ */
 (function starfield(){
   const cv = document.getElementById('starfield');
@@ -693,17 +690,19 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
   const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
   const mouse = { x: -9999, y: -9999, active: false };
 
-  // Star layers: depth affects size, speed, brightness
   const LAYERS = [
-    { count: 0.35, speed: 0.025, sizeRange: [0.2, 0.6], alpha: [0.20, 0.45], color: '200,210,240' },
-    { count: 0.35, speed: 0.055, sizeRange: [0.4, 0.9], alpha: [0.35, 0.65], color: '220,225,245' },
-    { count: 0.22, speed: 0.11,  sizeRange: [0.6, 1.3], alpha: [0.55, 0.90], color: '240,237,230' },
-    { count: 0.08, speed: 0.18,  sizeRange: [0.9, 1.8], alpha: [0.70, 1.00], color: '255,250,240' }
+    { count: 0.32, speed: 0.020, sizeRange: [0.2, 0.55], alpha: [0.18, 0.40], color: '190,205,240' },
+    { count: 0.34, speed: 0.048, sizeRange: [0.35, 0.85], alpha: [0.32, 0.62], color: '215,225,250' },
+    { count: 0.24, speed: 0.10,  sizeRange: [0.6, 1.25], alpha: [0.55, 0.90], color: '240,237,230' },
+    { count: 0.10, speed: 0.16,  sizeRange: [0.9, 1.7], alpha: [0.72, 1.00], color: '255,250,240' }
   ];
 
   let stars = [];
+  let galaxies = [];
   let shootingStars = [];
-  let nextShoot = 200;
+  let satellites = [];
+  let nextShoot = 260;
+  let nextSat = 800;
 
   function resize(){
     W = window.innerWidth;
@@ -728,38 +727,94 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
           baseAlpha: Math.random() * (layer.alpha[1] - layer.alpha[0]) + layer.alpha[0],
           twinklePhase: Math.random() * Math.PI * 2,
           twinkleSpeed: 0.010 + Math.random() * 0.025,
-          color: layer.color,
-          drift: 0
+          color: layer.color
         });
       }
+    }
+
+    // Galaxies — soft elliptical nebulae
+    galaxies = [];
+    const galaxyCount = Math.min(4, Math.max(2, Math.round(W / 500)));
+    for (let i = 0; i < galaxyCount; i++){
+      galaxies.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        rx: 180 + Math.random() * 240,
+        ry: 60 + Math.random() * 110,
+        angle: Math.random() * Math.PI,
+        hue: Math.random() < 0.5 ? '76,150,220' : '140,120,200',
+        alpha: 0.035 + Math.random() * 0.045,
+        vx: (Math.random() - 0.5) * 0.03,
+        vy: (Math.random() - 0.5) * 0.03,
+        pulse: Math.random() * Math.PI * 2
+      });
     }
   }
 
   function spawnShoot(){
     const fromLeft = Math.random() < 0.5;
-    const y = Math.random() * H * 0.7;
-    const speed = 6 + Math.random() * 4;
+    const y = Math.random() * H * 0.75;
+    const speed = 6 + Math.random() * 4.5;
     shootingStars.push({
-      x: fromLeft ? -50 : W + 50,
+      x: fromLeft ? -60 : W + 60,
       y: y,
       vx: fromLeft ? speed : -speed,
-      vy: speed * 0.35,
+      vy: speed * (0.25 + Math.random() * 0.25),
       life: 1,
-      len: 100 + Math.random() * 80
+      len: 110 + Math.random() * 100
     });
   }
 
-  function draw(){
-    t += 1;
-    ctx.clearRect(0, 0, W, H);
+  function spawnSatellite(){
+    const fromLeft = Math.random() < 0.5;
+    const speed = 0.6 + Math.random() * 0.5;
+    const y = Math.random() * H * 0.85 + 20;
+    satellites.push({
+      x: fromLeft ? -80 : W + 80,
+      y: y,
+      vx: fromLeft ? speed : -speed,
+      vy: (Math.random() - 0.5) * 0.08,
+      life: 1,
+      blinkPhase: Math.random() * Math.PI * 2,
+      blinkSpeed: 0.08 + Math.random() * 0.05,
+      size: 3.5 + Math.random() * 2,
+      trail: []
+    });
+  }
 
-    // Draw stars
+  function drawGalaxies(){
+    for (const g of galaxies){
+      g.pulse += 0.008;
+      const pulseA = g.alpha * (0.85 + Math.sin(g.pulse) * 0.15);
+      ctx.save();
+      ctx.translate(g.x, g.y);
+      ctx.rotate(g.angle);
+      const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, g.rx);
+      grad.addColorStop(0, 'rgba(' + g.hue + ',' + (pulseA * 1.6).toFixed(3) + ')');
+      grad.addColorStop(0.5, 'rgba(' + g.hue + ',' + (pulseA * 0.6).toFixed(3) + ')');
+      grad.addColorStop(1, 'rgba(' + g.hue + ',0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, g.rx, g.ry, 0, 0, 6.2832);
+      ctx.fill();
+      ctx.restore();
+
+      // Slow drift
+      g.x += g.vx;
+      g.y += g.vy;
+      if (g.x < -g.rx) g.x = W + g.rx;
+      if (g.x > W + g.rx) g.x = -g.rx;
+      if (g.y < -g.ry) g.y = H + g.ry;
+      if (g.y > H + g.ry) g.y = -g.ry;
+    }
+  }
+
+  function drawStars(){
     for (const s of stars){
       s.twinklePhase += s.twinkleSpeed;
       const twinkle = 0.65 + Math.sin(s.twinklePhase) * 0.35;
       let a = s.baseAlpha * twinkle;
 
-      // Cursor repulsion
       if (mouse.active){
         const dx = s.x - mouse.x;
         const dy = s.y - mouse.y;
@@ -773,7 +828,6 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
         }
       }
 
-      // Drift
       s.x += s.vx;
       s.y += s.vy;
       if (s.x < -3) s.x = W + 3;
@@ -781,7 +835,6 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
       if (s.y < -3) s.y = H + 3;
       if (s.y > H + 3) s.y = -3;
 
-      // Faint glow for larger stars
       if (s.r > 1.0){
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r * 3, 0, 6.2832);
@@ -793,18 +846,15 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
       ctx.fillStyle = 'rgba(' + s.color + ',' + a.toFixed(3) + ')';
       ctx.fill();
     }
+  }
 
-    // Shooting stars
-    if (t > nextShoot){
-      spawnShoot();
-      nextShoot = t + 300 + Math.random() * 400;
-    }
+  function drawShooters(){
     for (let i = shootingStars.length - 1; i >= 0; i--){
       const sh = shootingStars[i];
       sh.x += sh.vx;
       sh.y += sh.vy;
-      sh.life -= 0.008;
-      if (sh.life <= 0 || sh.x < -200 || sh.x > W + 200 || sh.y > H + 100){
+      sh.life -= 0.007;
+      if (sh.life <= 0 || sh.x < -250 || sh.x > W + 250 || sh.y > H + 120){
         shootingStars.splice(i, 1);
         continue;
       }
@@ -819,12 +869,85 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
       ctx.moveTo(sh.x, sh.y);
       ctx.lineTo(sh.x + tail, sh.y + (sh.vy / sh.vx) * tail);
       ctx.stroke();
-      // bright head
       ctx.beginPath();
       ctx.arc(sh.x, sh.y, 1.6, 0, 6.2832);
       ctx.fillStyle = 'rgba(255,255,255,' + (sh.life * 0.9).toFixed(2) + ')';
       ctx.fill();
     }
+  }
+
+  function drawSatellites(){
+    for (let i = satellites.length - 1; i >= 0; i--){
+      const sat = satellites[i];
+      sat.x += sat.vx;
+      sat.y += sat.vy;
+      sat.blinkPhase += sat.blinkSpeed;
+
+      if (sat.x < -120 || sat.x > W + 120 || sat.y < -60 || sat.y > H + 60){
+        satellites.splice(i, 1);
+        continue;
+      }
+
+      // Faint trail
+      sat.trail.push({ x: sat.x, y: sat.y });
+      if (sat.trail.length > 24) sat.trail.shift();
+
+      ctx.strokeStyle = 'rgba(180,210,240,0.20)';
+      ctx.lineWidth = 0.9;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      for (let j = 0; j < sat.trail.length; j++){
+        const p = sat.trail[j];
+        if (j === 0) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+      }
+      ctx.stroke();
+
+      // Body — small rectangle (solar panel look)
+      const dir = sat.vx > 0 ? 1 : -1;
+      ctx.save();
+      ctx.translate(sat.x, sat.y);
+      ctx.scale(dir, 1);
+      ctx.fillStyle = 'rgba(220,230,250,0.85)';
+      ctx.fillRect(-sat.size, -1, sat.size * 2, 2);
+      ctx.fillStyle = 'rgba(120,150,200,0.7)';
+      ctx.fillRect(-sat.size * 1.8, -0.6, sat.size * 0.7, 1.2);
+      ctx.fillRect(sat.size * 1.1, -0.6, sat.size * 0.7, 1.2);
+      ctx.restore();
+
+      // Blinking beacon
+      const blink = (Math.sin(sat.blinkPhase) + 1) * 0.5;
+      if (blink > 0.4){
+        ctx.beginPath();
+        ctx.arc(sat.x, sat.y - 3, 1.8 * blink, 0, 6.2832);
+        ctx.fillStyle = 'rgba(120,255,180,' + (blink * 0.85).toFixed(2) + ')';
+        ctx.fill();
+        // halo
+        ctx.beginPath();
+        ctx.arc(sat.x, sat.y - 3, 5 * blink, 0, 6.2832);
+        ctx.fillStyle = 'rgba(120,255,180,' + (blink * 0.18).toFixed(2) + ')';
+        ctx.fill();
+      }
+    }
+  }
+
+  function draw(){
+    t += 1;
+    ctx.clearRect(0, 0, W, H);
+    drawGalaxies();
+    drawStars();
+
+    if (t > nextShoot){
+      spawnShoot();
+      nextShoot = t + 260 + Math.random() * 420;
+    }
+    if (t > nextSat){
+      spawnSatellite();
+      nextSat = t + 900 + Math.random() * 1400;
+    }
+
+    drawShooters();
+    drawSatellites();
   }
 
   function step(){
@@ -841,10 +964,8 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
   document.addEventListener('visibilitychange', function(){
     if (!document.hidden) wake();
   });
-
   window.addEventListener('resize', debounce(resize, 180));
 
-  // Cursor / touch interaction
   window.addEventListener('pointermove', function(e){
     mouse.x = e.clientX;
     mouse.y = e.clientY;
@@ -870,5 +991,7 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
     wake();
   }
 })();
+
+
 
 })();
