@@ -235,12 +235,27 @@
   <!-- ================= ANNOUNCEMENTS ================= -->
   <section class="pane" id="pane-announcements" role="tabpanel" aria-labelledby="tab-announcements">
     <div class="container">
-      <div class="empty-state" data-reveal>
-        <span class="empty-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M3 11v3a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1zM16 8a5 5 0 0 1 0 8M19 5a9 9 0 0 1 0 14"/></svg>
-        </span>
-        <h2>No announcements at present.</h2>
-        <p>Nothing official has been published from the lab yet. When there is — a release, a milestone, a paper, or a public update — it will appear here first. Bookmark this page and check back.</p>
+      <div class="announce-list">
+
+        <article class="announce-card" data-reveal>
+          <div class="announce-meta">
+            <span class="announce-tag">Release</span>
+            <span class="announce-date">27 September 2026</span>
+          </div>
+          <h2>NeuraChat — Official Release</h2>
+          <p>NeuraSaMu's first AI communication platform arrives on 27 September. NeuraChat brings intelligent conversation, structured memory, and privacy-first design to Android — built entirely inside the lab.</p>
+          <p class="announce-note">Release will be published on the Apps tab and mirrored to GitHub Releases. Early access inquiries via the contact page.</p>
+          <a class="btn btn--primary btn--sm" href="/contact/">Request early access <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </article>
+
+        <article class="announce-card announce-muted" data-reveal="1">
+          <div class="announce-meta">
+            <span class="announce-tag announce-tag-muted">Archive</span>
+          </div>
+          <h2>No prior announcements.</h2>
+          <p>This is the first official announcement from the lab. Earlier updates were internal and are not retroactively published.</p>
+        </article>
+
       </div>
     </div>
   </section>
