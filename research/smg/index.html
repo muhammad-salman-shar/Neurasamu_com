@@ -3,144 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMG — Synapse Memory Graph | NeuraSaMu Research</title>
-<meta name="description" content="SMG models user long-term memory as a dynamic hierarchical tree, structurally guaranteeing logarithmic retrieval at scale. A production-ready, self-organizing multi-level memory architecture for LLMs. By Muhammad Salman Shar, NeuraSaMu.">
+<title>SMG v2 — Synapse AI Memory Graph | NeuraSaMu Research</title>
+<meta name="description" content="Synapse AI Memory Graph (SMG v2) — an architectural specification for episodic, pointer-virtualized long-term memory in large language models. By Muhammad Salman Shar, NeuraSaMu.">
 <meta name="author" content="Muhammad Salman Shar">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#F6F3EC">
+<meta name="theme-color" content="#050810">
 <link rel="canonical" href="https://neurasamu.com/research/smg/">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="SMG — Synapse Memory Graph">
-<meta property="og:description" content="A self-organizing multi-level memory architecture for large language models with logarithmic retrieval at scale.">
+<meta property="og:title" content="SMG v2 — Synapse AI Memory Graph">
+<meta property="og:description" content="Episodic, pointer-virtualized long-term memory architecture for large language models.">
 <meta property="og:url" content="https://neurasamu.com/research/smg/">
 <meta property="og:site_name" content="NeuraSaMu">
 <meta property="article:author" content="Muhammad Salman Shar">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SMG — Synapse Memory Graph">
-<meta name="twitter:description" content="A self-organizing multi-level memory architecture for LLMs.">
+<meta name="twitter:title" content="SMG v2 — Synapse AI Memory Graph">
+<meta name="twitter:description" content="Pointer-virtualized episodic memory for LLMs.">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Cpath d='M6.5 19.5 13 6.5l7 9' fill='none' stroke='%23171410' stroke-width='1.4'/%3E%3Ccircle cx='6.5' cy='19.5' r='2.4' fill='%23F6F3EC' stroke='%23171410'/%3E%3Ccircle cx='13' cy='6.5' r='2.4' fill='%230E5C45'/%3E%3Ccircle cx='20' cy='15.5' r='2.4' fill='%23F6F3EC' stroke='%23171410'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="/assets/logo.png">
+<link rel="apple-touch-icon" href="/assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ScholarlyArticle",
-  "headline": "Inside Synapse Memory Graph: A Production-Ready, Self-Organizing Multi-Level Memory Architecture for LLMs",
-  "alternativeHeadline": "SMG",
-  "author": {
-    "@type": "Person",
-    "name": "Muhammad Salman Shar"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "NeuraSaMu",
-    "url": "https://neurasamu.com"
-  },
-  "datePublished": "2026-05-25",
-  "abstract": "SMG models user long-term memory as a dynamic hierarchical tree, ensuring stable computational costs and context separation at scale. Every theoretical gap is resolved and scalability claims are structurally guaranteed rather than assumed.",
-  "keywords": "Synapse Memory Graph, LLM memory, hierarchical memory, logarithmic retrieval, semantic clustering, AGI",
+  "headline": "Synapse AI Memory Graph (SMG v2): Architectural Specification for Episodic, Pointer-Virtualized Long-Term Memory in Large Language Models",
+  "alternativeHeadline": "SMG v2",
+  "author": {"@type": "Person", "name": "Muhammad Salman Shar"},
+  "publisher": {"@type": "Organization", "name": "NeuraSaMu", "url": "https://neurasamu.com"},
+  "datePublished": "2026-09-25",
+  "version": "2.0",
+  "abstract": "A dual-tier architecture decoupling conversation persistence from active generation. A strictly bounded sliding window handles immediate dialogue; a pointer-virtualized storage vault preserves historical events through atomic semantic keywords and unique cryptographic IDs. Enables infinite conversational memory without token overhead or cross-domain hallucination.",
+  "keywords": "LLM memory, pointer virtualization, episodic memory, infinite context, context saturation, sliding window, RAG alternative, Synapse Memory Graph",
   "url": "https://neurasamu.com/research/smg/",
   "inLanguage": "en"
 }
 </script>
 
 <style>
-:root{
-  --paper:#F6F3EC;--paper-2:#EFEBE0;--card:#FBFAF4;
-  --ink:#171410;--ink-2:#5B5546;--ink-3:#7E7663;
-  --line:rgba(23,20,16,.14);--line-strong:rgba(23,20,16,.3);
-  --accent:#0E5C45;--accent-2:#12805E;--accent-soft:rgba(14,92,69,.08);
-  --serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',-apple-system,sans-serif;
-  --e:cubic-bezier(.19,1,.22,1);
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--paper);color:var(--ink-2);font:400 16px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
-.container{width:100%;max-width:840px;margin-inline:auto;padding-inline:clamp(20px,5vw,48px)}
-a{color:inherit}
-::selection{background:var(--accent);color:#fff}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
-
-.topbar{border-bottom:1px solid var(--line);background:rgba(246,243,236,.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:10}
-.topbar-inner{max-width:1100px;margin-inline:auto;padding:16px clamp(20px,5vw,48px);display:flex;justify-content:space-between;align-items:center;gap:20px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
-.brand svg{width:24px;height:24px}
-.brand-name{font-family:var(--serif);font-weight:600;font-size:1.1rem;letter-spacing:-.02em;color:var(--ink)}
-.back-link{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:500;color:var(--ink-2);text-decoration:none;transition:color .2s}
-.back-link:hover{color:var(--accent)}
-.back-link svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-
-.paper-hero{padding:clamp(56px,9vw,96px) 0 clamp(32px,5vw,56px);border-bottom:1px solid var(--line)}
-.paper-meta{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:28px}
-.paper-meta .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
-.paper-title{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.6vw,3.4rem);line-height:1.06;letter-spacing:-.028em;color:var(--ink)}
-.paper-subtitle{margin-top:20px;font-family:var(--serif);font-style:italic;font-size:clamp(1.05rem,1.9vw,1.35rem);line-height:1.5;color:var(--ink-3);max-width:52ch}
-.paper-byline{margin-top:32px;padding-top:24px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 32px;font-size:.88rem;color:var(--ink-2)}
-.paper-byline dt{font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
-.paper-byline dd{color:var(--ink);font-weight:600}
-
-.paper-body{padding:clamp(40px,6vw,72px) 0}
-.paper-body h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.4rem,2.6vw,1.85rem);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin-top:56px;margin-bottom:18px;padding-top:32px;border-top:1px solid var(--line)}
-.paper-body h2:first-child{margin-top:0;padding-top:0;border-top:none}
-.paper-body h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.15rem,1.9vw,1.35rem);line-height:1.3;letter-spacing:-.015em;color:var(--ink);margin-top:36px;margin-bottom:14px}
-.paper-body p{margin-bottom:18px;font-size:1rem;line-height:1.75}
-.paper-body p strong{color:var(--ink);font-weight:600}
-.paper-body ul{margin:0 0 20px 0;padding-left:0;list-style:none}
-.paper-body ul li{padding-left:22px;position:relative;margin-bottom:10px;font-size:.98rem;line-height:1.7}
-.paper-body ul li::before{content:'';position:absolute;left:4px;top:.7em;width:8px;height:1px;background:var(--accent)}
-.paper-body ol{margin:0 0 20px 22px;padding-left:0}
-.paper-body ol li{padding-left:6px;margin-bottom:10px;font-size:.98rem;line-height:1.7}
-
-.abstract-box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(24px,3.5vw,36px);margin-bottom:40px}
-.abstract-box .lbl{font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-.abstract-box p{font-family:var(--serif);font-size:clamp(1.05rem,1.7vw,1.2rem);line-height:1.6;color:var(--ink)}
-
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin:36px 0}
-.tags span{padding:5px 12px;border:1px solid var(--line);border-radius:999px;font-size:.75rem;font-weight:500;color:var(--ink-2)}
-
-.paper-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:48px;padding-top:32px;border-top:1px solid var(--line)}
-.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;font-size:.9rem;font-weight:600;text-decoration:none;transition:all .25s var(--e);border:1px solid transparent}
-.btn--primary{background:var(--ink);color:var(--paper)}
-.btn--primary:hover{background:var(--accent)}
-.btn--ghost{border-color:var(--line-strong);color:var(--ink)}
-.btn--ghost:hover{border-color:var(--ink);background:rgba(23,20,16,.04)}
-.btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-
-footer.site-footer{margin-top:80px;padding:36px 0 48px;border-top:1px solid var(--line);text-align:center}
-footer.site-footer p{font-size:.82rem;color:var(--ink-3)}
-footer.site-footer a{color:var(--accent);text-decoration:none;font-weight:500}
-footer.site-footer a:hover{text-decoration:underline}
-
-@media(max-width:600px){
-  .paper-body h2{font-size:1.35rem}
-  .paper-body p,.paper-body ul li{font-size:.95rem}
-}
+  /* SMG v2 page overrides */
+  .paper-hero{padding:calc(var(--header-h) + 72px) 0 clamp(40px,6vw,72px);border-bottom:1px solid var(--line)}
+  .paper-meta{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:28px}
+  .paper-meta .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
+  .paper-title{font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,4.2vw,3rem);line-height:1.08;letter-spacing:-.028em;color:var(--ink);max-width:22ch}
+  .paper-subtitle{margin-top:20px;font-family:var(--serif);font-style:italic;font-size:clamp(1.05rem,1.9vw,1.3rem);line-height:1.5;color:var(--ink-3);max-width:52ch}
+  .paper-byline{margin-top:32px;padding-top:24px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 32px;font-size:.88rem;color:var(--ink-2)}
+  .paper-byline dt{font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
+  .paper-byline dd{color:var(--ink);font-weight:600}
+  .paper-body{padding:clamp(40px,6vw,72px) 0}
+  .paper-body h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.4rem,2.6vw,1.85rem);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin-top:56px;margin-bottom:18px;padding-top:32px;border-top:1px solid var(--line)}
+  .paper-body h2:first-child{margin-top:0;padding-top:0;border-top:none}
+  .paper-body h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.15rem,1.9vw,1.35rem);line-height:1.3;letter-spacing:-.015em;color:var(--ink);margin-top:36px;margin-bottom:14px}
+  .paper-body p{margin-bottom:18px;font-size:1rem;line-height:1.75;color:var(--ink-2)}
+  .paper-body p strong{color:var(--ink);font-weight:600}
+  .paper-body ul{margin:0 0 20px 0;padding-left:0;list-style:none}
+  .paper-body ul li{padding-left:22px;position:relative;margin-bottom:10px;font-size:.98rem;line-height:1.7;color:var(--ink-2)}
+  .paper-body ul li::before{content:'';position:absolute;left:4px;top:.7em;width:8px;height:1px;background:var(--accent)}
+  .paper-body ol{margin:0 0 20px 22px;padding-left:0}
+  .paper-body ol li{padding-left:6px;margin-bottom:10px;font-size:.98rem;line-height:1.7;color:var(--ink-2)}
+  .abstract-box{background:rgba(13,20,34,0.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line-strong);border-radius:14px;padding:clamp(24px,3.5vw,36px);margin-bottom:40px}
+  .abstract-box .lbl{font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  .abstract-box p{font-family:var(--serif);font-size:clamp(1.05rem,1.7vw,1.2rem);line-height:1.6;color:var(--ink)}
+  .thesis-box{background:rgba(76,182,142,0.06);border:1px solid rgba(76,182,142,0.25);border-radius:14px;padding:clamp(22px,3vw,30px);margin:32px 0}
+  .thesis-box .lbl{font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+  .thesis-box p{margin:0;font-family:var(--serif);font-size:clamp(1rem,1.5vw,1.15rem);line-height:1.55;color:var(--ink)}
+  .paper-tags{display:flex;flex-wrap:wrap;gap:8px;margin:36px 0}
+  .paper-tags li{list-style:none;padding:5px 12px;border:1px solid var(--line);border-radius:999px;font-size:.75rem;font-weight:500;color:var(--ink-2);background:rgba(13,20,34,0.4)}
+  .paper-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:48px;padding-top:32px;border-top:1px solid var(--line)}
+  .code-schema{background:rgba(0,0,0,0.35);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:24px 0;overflow-x:auto;font-family:'SF Mono',Consolas,Menlo,monospace;font-size:.85rem;line-height:1.7;color:var(--ink-2);white-space:pre}
+  .code-schema .key{color:#5FD4A8}
+  .code-schema .str{color:#E2C68F}
+  .compare-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.88rem}
+  .compare-table th,.compare-table td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  .compare-table th{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);background:rgba(13,20,34,0.4)}
+  .compare-table td{color:var(--ink-2);line-height:1.55}
+  .compare-table tr:last-child td{border-bottom:none}
+  @media(max-width:640px){.compare-table{font-size:.82rem}.compare-table th,.compare-table td{padding:10px 8px}}
 </style>
 </head>
 <body>
+<canvas id="starfield" aria-hidden="true"></canvas>
 
-<header class="topbar">
-  <div class="topbar-inner">
-    <a class="brand" href="https://neurasamu.com/" aria-label="NeuraSaMu — home">
-      <svg viewBox="0 0 26 26" aria-hidden="true">
-        <path d="M6.5 19.5 13 6.5l7 9" fill="none" stroke="currentColor" stroke-width="1.4"/>
-        <circle cx="6.5" cy="19.5" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/>
-        <circle cx="13" cy="6.5" r="2.4" fill="#0E5C45"/>
-        <circle cx="20" cy="15.5" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/>
-      </svg>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 14.5V6.5A2.5 2.5 0 0 1 7.5 4h8"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7.5 8 5.5 8-5.5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 10.5 13.5M21 3l-6.8 18-3.7-8.3L2.2 9z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.4v.2"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/><rect x="10" y="10" width="4" height="4" rx="1"/><path d="M9.5 3.5V6M14.5 3.5V6M9.5 18v2.5M14.5 18v2.5M3.5 9.5H6M3.5 14.5H6M18 9.5h2.5M18 14.5h2.5"/></symbol>
+</svg>
+
+<header class="site-header scrolled">
+  <div class="container header-inner">
+    <a href="/" class="brand" aria-label="NeuraSaMu — home">
+      <img class="mark-img" src="/assets/logo.png" alt="" aria-hidden="true">
       <span class="brand-name">NeuraSaMu</span>
     </a>
-    <a class="back-link" href="https://neurasamu.com/">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
-      Back to lab
-    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="/research/" class="active">Research</a>
+      <a href="/vision/">Vision</a>
+      <a href="/store/">Store</a>
+      <a href="/bureau/">Bureau</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+      <svg class="icon ic-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="icon ic-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
   </div>
 </header>
 
+<nav class="menu" id="menu" aria-label="Mobile">
+  <a href="/research/" class="active" style="transition-delay:.06s"><span class="idx">01</span>Research</a>
+  <a href="/vision/" style="transition-delay:.12s"><span class="idx">02</span>Vision</a>
+  <a href="/store/" style="transition-delay:.18s"><span class="idx">03</span>Store</a>
+  <a href="/bureau/" style="transition-delay:.24s"><span class="idx">04</span>Bureau</a>
+  <a href="/contact/" style="transition-delay:.3s"><span class="idx">05</span>Contact</a>
+  <p class="menu-foot">NeuraSaMu · <a href="mailto:neurasamuai@gmail.com">neurasamuai@gmail.com</a></p>
+</nav>
 <main>
 
 <section class="paper-hero">
@@ -148,16 +136,16 @@ footer.site-footer a:hover{text-decoration:underline}
     <div class="paper-meta">
       <span>Research Paper</span>
       <span class="dot"></span>
-      <span>Software Architecture Specification</span>
+      <span>Systems Architecture</span>
       <span class="dot"></span>
-      <span>Published May 2026</span>
+      <span>Version 2.0 · September 2026</span>
     </div>
-    <h1 class="paper-title">Inside Synapse Memory Graph</h1>
-    <p class="paper-subtitle">A production-ready, self-organizing multi-level memory architecture for large language models.</p>
+    <h1 class="paper-title">Synapse AI Memory Graph (SMG v2)</h1>
+    <p class="paper-subtitle">Architectural specification for episodic, pointer-virtualized long-term memory in large language models.</p>
     <dl class="paper-byline">
       <div><dt>Author</dt><dd>Muhammad Salman Shar</dd></div>
-      <div><dt>Publisher</dt><dd>NeuraSaMu</dd></div>
-      <div><dt>Status</dt><dd>Published</dd></div>
+      <div><dt>Version</dt><dd>2.0 (Revised)</dd></div>
+      <div><dt>Classification</dt><dd>LLM Memory Optimization</dd></div>
     </dl>
   </div>
 </section>
@@ -167,121 +155,153 @@ footer.site-footer a:hover{text-decoration:underline}
 
     <div class="abstract-box">
       <div class="lbl">Abstract</div>
-      <p>This blueprint presents a complete implementation specification of the Synapse Memory Graph (SMG) concept. Every theoretical gap is resolved, every undefined mechanism is structurally implemented, and scalability claims are mathematically and structurally guaranteed rather than assumed. SMG models user long-term memory as a dynamic hierarchical tree, ensuring stable computational costs and context separation at scale.</p>
+      <p>Modern Large Language Model deployments suffer from a fundamental limitation: context saturation. As conversational agents interact with users over weeks, months, or years, accumulated history quickly exceeds the model's physical context window. Existing solutions trade off between brute-force token cost and lossy summarization. SMG v2 proposes a dual-tier architecture that decouples conversation persistence from active generation — a strictly bounded sliding window for immediate dialogue, and a pointer-virtualized storage vault for historical events. Memory is not deleted or summarized; it is virtualized. Episodic recall remains exact while the generation-time prompt stays bounded.</p>
     </div>
 
-    <h2>1. The Real Problem With AI Memory</h2>
-    <p>Most AI memory systems fail in one of two directions:</p>
-    <ol>
-      <li><strong>Brute-Force Context Stuffing:</strong> Dumping entire conversation histories back into the model's active context window. This burns tokens exponentially, balloons system latency, and invites cross-domain hallucination as the model attempts to reason across unrelated timelines simultaneously. A user discussing fitness routines three weeks ago does not need that context bleeding into a critical programming session today.</li>
-      <li><strong>Aggressive Summarisation:</strong> Compressing historical text into brief captions to preserve token limits. This fundamentally destroys granular detail. Summarising a turn as "User talked about fitness" is not a functional memory; it is a generic index label. High-fidelity recall requires exact data points — user performed 50 pushups on a specific date, reported shoulder fatigue at rep 40, wide stance suggested.</li>
-    </ol>
-    <p>Both failure modes share the exact same root cause: treating memory as a monolithic, linear log rather than a structured, queryable graph.</p>
-    <p>Synapse Memory Graph (SMG) solves this at the architectural level. It organises every interaction into a four-level, semantically indexed tree where retrieval is structurally guaranteed to scale at O(log n) regardless of how many sessions accumulate.</p>
-
-    <h2>2. The Core Philosophy: Index, Don't Replay</h2>
-    <p>The fundamental shift SMG makes is simple:</p>
-    <p><strong>Old paradigm:</strong> When the user makes a query, find the relevant historical chat logs and replay them entirely to the active model context.</p>
-    <p><strong>SMG paradigm:</strong> When the user makes a query, resolve it to a precise coordinate in the memory tree and load only the micro-context residing at that specific coordinate.</p>
-    <p>Think of it as the difference between giving an AI a complete library versus delivering a single GPS coordinate to the exact shelf, row, and page it needs to read.</p>
-
-    <h2>3. The Memory Tree Model — Five Levels</h2>
-    <p>SMG constructs a strict hierarchical data structure per user namespace. Every level has defined boundaries and a hard depth cap of 5 to guarantee tree balance at all times.</p>
-    <ul>
-      <li><strong>Level 1 — Root:</strong> Chat Session Container</li>
-      <li><strong>Level 2 — Domain Branch:</strong> Semantic Domain (e.g. #Fitness, #Career)</li>
-      <li><strong>Level 3 — Sub-Domain Branch:</strong> Clustered Sub-Topic (e.g. #ChestWork)</li>
-      <li><strong>Level 4 — Master Node:</strong> Turn ID plus Master Keyword</li>
-      <li><strong>Level 5 — Atomic Tag Array:</strong> 3–8 Precise Tags plus Micro-Context Content</li>
-    </ul>
-
-    <h3>3.1 Level 1 — Root (Chat Session Container)</h3>
-    <p>Every new chat session creates an isolated Root Node. Sessions never share active RAM data unless the retrieval layer explicitly traverses across session roots. This structural isolation is the first line of defence against cross-domain context contamination.</p>
-    <p>Session boundaries are defined by four explicit, rule-based triggers: inactivity timeout (30 minutes), explicit command (/new, "new chat", "start fresh"), context shift detection (3+ consecutive turns from different domains), and token limit threshold (context window reaching 85% capacity).</p>
-
-    <h3>3.2 Level 2 — Domain Branch</h3>
-    <p>Domain branches act as top-level semantic buckets. They are created either during onboarding via user-selected taxonomy preferences or dynamically at runtime when a high-confidence domain classification appears.</p>
-
-    <h3>3.3 Level 3 — Sub-Domain Branch</h3>
-    <p>Sub-domains are dynamically generated via an asynchronous semantic clustering pipeline rather than manual setup. For example, #Fitness clusters into #StrengthTraining, #Cardio, and #Recovery. #Coding clusters into #Debugging, #Architecture, and #Learning.</p>
-
-    <h3>3.4 Level 4 — Master Node (Turn-Level Anchor)</h3>
-    <p>Each complete prompt-response interaction cycle produces one or more Master Nodes. Under SMG, one conversation turn can produce multiple Master Nodes — this structurally resolves multi-intent inputs. If the classification confidence falls below 0.65, the system routes the segment to an AMBIGUOUS resolution queue, blocking immediate database insertion.</p>
-
-    <h3>3.5 Level 5 — Atomic Tag Array + Micro-Context</h3>
-    <p>This represents the system's absolute level of detail. Tags are spatial coordinates linking to exact text data. Tag density defaults: a simple focused turn produces 3 tags, medium complexity turns produce 4–6 tags, and high complexity prompts produce 7–8 tags (hard limit to prevent tag explosion). Cold-start sessions (turns 1–10) have their tag count automatically doubled.</p>
-
-    <h2>4. Turn-by-Turn Processing Workflow</h2>
-
-    <h3>4.1 Session Initialization</h3>
-    <p>When a user prompt is received, the Session Manager executes a rapid lookup against Redis to fetch active state cache (sub-5ms retrieval). If none is present, a fresh Session Root Node is generated and mapped to PostgreSQL.</p>
-
-    <h3>4.2 Dual-Intent Splitting</h3>
-    <p>Raw input is parsed asynchronously to isolate multiple intents. A single message containing distinct topics is split into segmented inputs. Each segment is classified independently and routed to its own Master Node.</p>
-
-    <h3>4.3 Constrained Tag Extraction via JSON Schema</h3>
-    <p>The extraction task is handed to a hyper-optimized model constrained under a strict JSON output schema. Free-form tagging is systematically blocked. Every segment must return a master keyword from the taxonomy, a confidence score between 0.0 and 1.0, tags, and the exact micro-context lines from the turn.</p>
-
-    <h3>4.4 Tag Quality Pipeline</h3>
-    <p>Raw tags are validated and normalized across four successive gates: format normalisation (converted to lower snake_case with special characters removed), rule validation (stop-words, non-substantive words, and overly compound strings filtered out), cross-session consistency check (semantic vector similarity above 0.92 reuses the existing tag), and weekly orphan audit (sparse tags with frequency 1 merged with structurally close neighbors or cleaned).</p>
-
-    <h2>5. Dynamic Semantic Clustering Pipeline</h2>
-    <p>Clustering runs entirely inside a background thread (via Celery workers), ensuring zero latency impact on user interaction loops. The background daemon initiates clustering tasks based on three parameters: when 10 new turns are committed, when 15 new unique tags are registered, or on a scheduled daily off-peak cycle.</p>
-    <p>The three-layer pipeline process:</p>
-    <ul>
-      <li><strong>Layer 1 — Synonym Resolution:</strong> A static lookup dictionary normalizes common synonyms instantly.</li>
-      <li><strong>Layer 2 — Embedding Similarity Clustering:</strong> A lightweight local sentence-transformer model calculates semantic similarities. Vectors scoring above the similarity threshold 0.78 are grouped together.</li>
-      <li><strong>Layer 3 — Parent Node Name Generation:</strong> A brief LLM query processes clustered tags and names the parent directory.</li>
-    </ul>
-
-    <h2>6. Structural Guarantees</h2>
-
-    <h3>6.1 Logarithmic Retrieval Enforcement</h3>
-    <p>Memory trees naturally skew when users spend days focusing on a single topic. To prevent unbalance from destroying the O(log n) lookup speed, SMG enforces two hard boundaries:</p>
-    <ol>
-      <li><strong>Depth Cap:</strong> The memory tree cannot exceed a level depth of 5. Any new node added to an overloaded domain is appended horizontally as a wide leaf, preserving path length.</li>
-      <li><strong>Branch Weight Monitor:</strong> If any domain branch exceeds 40% of the total node allocation, it triggers an automatic subdivision split.</li>
-    </ol>
-
-    <h3>6.2 Cold Start Elimination — Three-Phase Onboarding</h3>
-    <p>New namespaces begin with a structure already seeded to bypass cold starts. Phase 1 (Intake Questionnaire): users select basic focus categories before turn 1 to pre-render Level 2 domain structures. Phase 2 (Ghost Node Placement): pre-defined anchor terms are placed as empty placeholder nodes, allowing early user inputs to cluster instantly. Phase 3 (Cold Start Boost): tag extraction counts are temporarily doubled during the first 10 turns to accelerate semantic mapping.</p>
-
-    <h2>7. Production Architecture &amp; Retrieval Metrics</h2>
-
-    <h3>7.1 The Retrieval Pipeline</h3>
-    <ol>
-      <li>User input is embedded using a localized model.</li>
-      <li>A vector query is sent to ChromaDB to extract the closest tags.</li>
-      <li>The system traverses the Redis graph schema up to the exact Master Node containing that tag context.</li>
-      <li>Only the matched micro-context lines are loaded into the LLM payload. The rest of the history remains dormant in storage.</li>
-    </ol>
-
-    <h3>7.2 Database Mapping</h3>
-    <p>SMG runs on a strict hybrid database infrastructure: Redis 7.x serves as the high-speed active session tree storage (sub-5ms reads, 24-hour TTL). ChromaDB houses persistent vector embeddings, enabling semantic lookup and background clustering tasks. PostgreSQL 15+ acts as the metadata system, managing audit logs, turn counts, and user security configurations.</p>
-
-    <h3>7.3 System Comparison</h3>
-    <p>Compared with naive log-based memory and basic RAG systems, SMG delivers token cost per query at O(1) — micro-context only — rather than O(n) for full history or O(k) for top-k chunks. Retrieval complexity is structurally guaranteed at O(log n). Cross-domain hallucination is structurally eliminated. Cold start is bypassed within 10 turns. Ambiguous turns route to a queue with deferred resolution rather than unstructured handling. Tag consistency is enforced via the four-layer pipeline. Unbalanced tree risk is eliminated via depth cap and weight monitor. Auditability is full — every recall is traceable. Long-term scale remains stable as archival keeps the active tree lean.</p>
-
-    <h2>8. Conclusion</h2>
-    <p>Synapse Memory Graph transitions memory from an unorganized text heap into a robust, queryable, and auditable system infrastructure. By treating memory as a dynamic hierarchical tree, it eliminates token waste and cross-domain pollution. This specification offers a production-ready blueprint built for next-generation, high-performance LLM agents.</p>
-
-    <div class="tags">
-      <span>Synapse Memory Graph</span>
-      <span>LLM Memory</span>
-      <span>Hierarchical Memory</span>
-      <span>Logarithmic Retrieval</span>
-      <span>Semantic Clustering</span>
-      <span>AGI</span>
+    <div class="thesis-box">
+      <div class="lbl">Design Thesis</div>
+      <p>Virtualize long-term memory rather than stuffing it into the context window: keep a bounded active buffer, index evicted turns through atomic semantic pointers, and page only the exact historical payload required at inference time.</p>
     </div>
+
+    <h2>1. Executive Summary &amp; Problem Formulation</h2>
+    <p>Modern Large Language Model deployments face a fundamental limitation: <strong>context saturation</strong>. As conversational agents interact with users over weeks, months, or years, accumulated dialogue history can exceed the model's practical context budget. Two common strategies introduce important trade-offs:</p>
+    <ul>
+      <li><strong>Brute-Force Context Stuffing:</strong> replaying raw multi-turn histories scales with retained tokens — increasing inference expense while degrading retrieval quality when many unrelated details compete for attention.</li>
+      <li><strong>Lossy Summarization:</strong> compressing historical interactions into high-level prose reduces token load but destroys atomic facts and exact episodic details required for granular recall.</li>
+    </ul>
+    <p><strong>SMG v2 Solution.</strong> A dual-tier execution architecture decouples conversation persistence from active generation. A strictly bounded sliding window handles immediate dialogue, while a pointer-virtualized storage vault preserves historical events. Evicted interactions are indexed using atomic keywords and unique IDs; the full payload remains outside the active prompt and is demand-paged only when needed.</p>
+
+    <div class="thesis-box">
+      <div class="lbl">Design Objective</div>
+      <p>The architecture aims to preserve long-horizon episodic recall while keeping the generation-time prompt bounded. The core mechanism is not deletion or summarization of memory — it is <strong>virtualization of memory access</strong>.</p>
+    </div>
+
+    <h2>2. Core Architecture &amp; Structural Memory Model</h2>
+    <p>SMG v2 is organized around three foundational pillars: the <strong>L1 Active Buffer</strong>, the <strong>L2 Keyword Box</strong>, and the <strong>L2 Chat Store</strong>. Together they separate short-term generation state from durable episodic memory.</p>
+
+    <h3>Pillar 1 — L1 Active Buffer (The Sliding Window)</h3>
+    <p>The Active Buffer resides directly in the LLM's volatile context window. It is strictly capped at a <strong>4-turn interaction window</strong>, where each turn consists of an input/output pair. When a fifth interaction begins, the oldest interaction is evicted from the active prompt. This bounds the amount of historical text processed during ordinary generation.</p>
+
+    <h3>Pillar 2 — L2 Keyword Box (The Semantic Index)</h3>
+    <p>When an interaction is evicted, an asynchronous process extracts approximately <strong>3–7 atomic keywords</strong> plus compact semantic metadata. The resulting Keyword Bundle receives a unique ID (for example, <code>SGO100002345</code>). The semantic representation can be persisted in a vector index, while a low-latency key-value or graph layer accelerates pointer resolution.</p>
+
+    <h3>Pillar 3 — L2 Chat Store (The Virtualized Vault)</h3>
+    <p>The complete input/output payload is stored separately from the semantic index. The same unique ID is attached to the raw payload, creating a strict pointer-mapping relationship: the Keyword Box identifies <em>what</em> an event is about; the Chat Store contains <em>what actually happened</em>.</p>
+
+    <h2>3. Runtime Execution Lifecycle</h2>
+
+    <h3>Phase 1 — Ingestion &amp; Async Tagging (Turns 1–4)</h3>
+    <p>During active conversation, the latest turns remain in volatile context. In parallel, background workers extract canonical tags, micro-context, and metadata without blocking the generation path. Each interaction receives a stable ID that can reference both its semantic record and raw payload.</p>
+
+    <h3>Phase 2 — Eviction &amp; Bifurcated Storage (Turn 5 Onward)</h3>
+    <p>When Turn 5 begins, Turn 1 leaves the active prompt. Its raw input/output is persisted in the Chat Store, while its Keyword Bundle is persisted in the semantic index. Both records retain the same identifier — for example, <code>SGO100002345</code>. The cycle repeats indefinitely.</p>
+
+    <h3>Phase 3 — Demand Paging Retrieval (Memory Recall)</h3>
+    <ol>
+      <li><strong>Query Analysis:</strong> The model interprets the new request and derives semantic retrieval intent.</li>
+      <li><strong>Tool Calling:</strong> A memory connector is invoked with relevant terms or an embedding-based query.</li>
+      <li><strong>Pointer Resolution:</strong> The semantic index returns one or more candidate IDs.</li>
+      <li><strong>Targeted Fetch:</strong> The selected IDs are resolved against the Chat Store to retrieve exact historical payloads.</li>
+      <li><strong>Micro-Context Injection:</strong> Only the minimal historical evidence required for the current response is inserted into the dynamic prompt.</li>
+      <li><strong>Transient Cleanup:</strong> After generation, injected historical context is discarded from the active working set.</li>
+    </ol>
+
+    <h2>4. Data Schema — Master Node &amp; Pointer Record</h2>
+    <p>Each interaction is represented by a structured master record. The schema below separates retrieval metadata from the durable raw payload reference.</p>
+
+<div class="code-schema">{
+  <span class="key">"turn_id"</span>: <span class="str">"SGO100002345"</span>,
+  <span class="key">"timestamp"</span>: <span class="str">"2026-09-20T18:45:00Z"</span>,
+  <span class="key">"domain"</span>: <span class="str">"#Fitness"</span>,
+  <span class="key">"sub_domain"</span>: <span class="str">"#Recovery"</span>,
+  <span class="key">"atomic_tags"</span>: [<span class="str">"shoulder_pain"</span>, <span class="str">"pushup_fatigue"</span>, <span class="str">"rep_40"</span>],
+  <span class="key">"micro_context"</span>: <span class="str">"User experienced acute anterior deltoid strain at repetition 40 of wide-grip pushups. Elbow angle recorded at 65 degrees."</span>,
+  <span class="key">"access_frequency"</span>: 3,
+  <span class="key">"decay_weight"</span>: 0.96,
+  <span class="key">"raw_payload_ref"</span>: <span class="str">"chat_store_table_row_1084"</span>
+}</div>
+
+    <h3>Field Semantics</h3>
+    <ul>
+      <li><strong>turn_id</strong> — stable identifier shared by semantic and raw records.</li>
+      <li><strong>timestamp</strong> — event time used for temporal filtering and chronology.</li>
+      <li><strong>domain / sub_domain</strong> — hierarchical routing metadata for memory partitioning.</li>
+      <li><strong>atomic_tags</strong> — compact semantic retrieval anchors.</li>
+      <li><strong>micro_context</strong> — short evidence summary suitable for bounded prompt injection.</li>
+      <li><strong>access_frequency</strong> — historical access signal that can influence retrieval policy.</li>
+      <li><strong>decay_weight</strong> — optional recency/importance weighting signal.</li>
+      <li><strong>raw_payload_ref</strong> — pointer to the durable full conversation payload.</li>
+    </ul>
+
+    <h2>5. Technical Implementation Framework</h2>
+    <p>A practical implementation can be assembled as a modular retrieval service. The exact products are interchangeable; the architectural requirement is the separation of orchestration, semantic indexing, pointer resolution, and durable payload storage.</p>
+
+    <table class="compare-table">
+      <thead>
+        <tr><th>Layer</th><th>Candidate Technologies</th><th>Primary Responsibility</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Orchestration</td><td>Python · FastAPI / Django · Celery / Async IO</td><td>API lifecycle, background tagging, retrieval orchestration</td></tr>
+        <tr><td>Semantic Index</td><td>ChromaDB · Pinecone · comparable vector store</td><td>Semantic matching and candidate memory discovery</td></tr>
+        <tr><td>Pointer / Cache</td><td>Redis</td><td>Fast ID lookup, routing, caching, pointer resolution</td></tr>
+        <tr><td>Chat Store</td><td>PostgreSQL · MongoDB · cold storage</td><td>Durable encrypted storage of raw interaction payloads</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Operational Requirements</h3>
+    <ul>
+      <li><strong>Stable IDs</strong> — identifiers must remain unique and resolvable across storage migrations.</li>
+      <li><strong>Asynchronous indexing</strong> — semantic tagging should not unnecessarily extend the critical generation path.</li>
+      <li><strong>Bounded injection</strong> — retrieval should enforce a strict evidence/token budget rather than returning unrestricted history.</li>
+      <li><strong>Access controls</strong> — memory records should be isolated by user, tenant, agent, and permission domain.</li>
+      <li><strong>Auditability</strong> — retrieval events should be observable so incorrect memories can be traced and corrected.</li>
+      <li><strong>Encryption</strong> — raw conversational payloads should be protected at rest and in transit.</li>
+    </ul>
+
+    <h2>6. Architectural Comparison &amp; Competitive Characteristics</h2>
+    <p>The comparison below describes the intended architectural behavior of each approach. It is a design-level comparison, not a benchmark result; actual performance depends on model, database, retrieval policy, workload, and implementation.</p>
+
+    <table class="compare-table">
+      <thead>
+        <tr><th>Dimension</th><th>Brute-Force Context</th><th>Naive RAG</th><th>SMG v2 Specification</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Token Cost / Turn</td><td>Grows with retained history</td><td>Typically depends on retrieved chunks</td><td>Target: bounded micro-context payload</td></tr>
+        <tr><td>Lookup Traversal</td><td>Broad context processing</td><td>Approximate top-k retrieval</td><td>Pointer resolution after semantic candidate discovery</td></tr>
+        <tr><td>Memory Isolation</td><td>Large active prompt surface</td><td>Fragmented retrieved chunks</td><td>Sandboxed pointer domains</td></tr>
+        <tr><td>Historical Recall</td><td>Can degrade as history grows</td><td>Chunk-dependent recall</td><td>Exact episodic event anchors via stable IDs</td></tr>
+      </tbody>
+    </table>
+
+    <h2>7. Conclusion &amp; Future Scope — SMG v3</h2>
+    <p>The Synapse AI Memory Graph (SMG v2) proposes a memory architecture in which long-term conversational persistence is decoupled from the LLM's active context window. The key mechanism is pointer virtualization: semantic records remain lightweight and searchable, while exact historical payloads remain external and are fetched only when required.</p>
+    <p>Under the specification, this design can support long-horizon episodic memory without continuously replaying years of dialogue into every generation request. The strongest architectural property is therefore <strong>bounded active context with demand-paged historical evidence</strong>.</p>
+
+    <h3>SMG v3 — Lateral Memory Graph</h3>
+    <p>The next iteration can introduce graph-based relationships between memory pointers. A Graph Neural Network, graph database, or learned relation layer could connect semantically or temporally related memories — for example, linking a historical <em>shoulder pain</em> event to a later <em>gym routine</em> change. This would enable controlled multi-hop reasoning across years of episodic data.</p>
+
+    <div class="thesis-box">
+      <div class="lbl">Architectural Thesis</div>
+      <p>Do not make the context window carry the entire memory system. Make the context window a bounded execution surface, and make long-term memory a searchable, addressable external system.</p>
+    </div>
+
+    <ul class="paper-tags">
+      <li>Pointer Virtualization</li>
+      <li>Episodic Memory</li>
+      <li>Infinite Context</li>
+      <li>LLM Memory Optimization</li>
+      <li>Context Saturation</li>
+      <li>Systems Architecture</li>
+    </ul>
 
     <div class="paper-cta">
-      <a class="btn btn--primary" href="https://www.kaggle.com/datasets/muhammadsalmanshar/ai-synapse-memory-graph-by-muhammad-salman-shar" target="_blank" rel="noopener">
+      <a class="btn btn--primary" href="https://www.kaggle.com/datasets/muhammadsalmanshar/ai-synapse-memory-graph-version-2-0" target="_blank" rel="noopener">
         Download Full Paper
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
       </a>
-      <a class="btn btn--ghost" href="https://neurasamu.com/">
-        Back to NeuraSaMu
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <a class="btn btn--ghost" href="/research/">
+        All research
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
       </a>
     </div>
 
@@ -292,9 +312,14 @@ footer.site-footer a:hover{text-decoration:underline}
 
 <footer class="site-footer">
   <div class="container">
-    <p>© 2026 NeuraSaMu · <a href="https://neurasamu.com/">neurasamu.com</a> · Muhammad Salman Shar</p>
+    <div class="f-bottom" style="border-top:none;padding-top:0">
+      <span>© 2026 NeuraSaMu · <a href="/" style="color:var(--green-dark);text-decoration:none">neurasamu.com</a></span>
+      <span>Dreamed &amp; built in Pakistan.</span>
+    </div>
   </div>
 </footer>
 
+<script src="/assets/config.js"></script>
+<script src="/assets/app.js"></script>
 </body>
 </html>
