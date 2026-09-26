@@ -597,3 +597,101 @@ body::after {
   align-self:flex-start;
   margin-top:6px;
 }
+
+/* ============================================================
+   Paper Stats Bar — views / downloads / shares
+   Shown under paper title on each research page
+   ============================================================ */
+.paper-stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:clamp(16px,2.5vw,32px);
+  padding:18px 0;
+  margin-top:24px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  align-items:center;
+}
+.stat-cell{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  font-size:.85rem;
+  color:var(--ink-3);
+}
+.stat-cell .stat-ico{
+  width:15px;
+  height:15px;
+  flex-shrink:0;
+  fill:none;
+  stroke:var(--accent);
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  align-self:center;
+}
+.stat-cell .stat-num{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:1.15rem;
+  letter-spacing:-.015em;
+  color:var(--ink);
+  font-variant-numeric:tabular-nums;
+  min-width:2ch;
+}
+.stat-cell .stat-lbl{
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  align-self:center;
+}
+
+/* Share buttons row */
+.paper-share{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-left:auto;
+}
+.paper-share .share-lbl{
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  margin-right:4px;
+}
+.share-btn{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:1px solid var(--line-strong);
+  background:rgba(13,20,34,0.5);
+  display:grid;
+  place-items:center;
+  color:var(--ink-3);
+  cursor:pointer;
+  transition:border-color .25s var(--e), color .25s var(--e), transform .25s var(--e);
+}
+.share-btn:hover{
+  border-color:var(--accent);
+  color:var(--accent);
+  transform:translateY(-1px);
+}
+.share-btn svg{
+  width:15px;
+  height:15px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+@media(max-width:640px){
+  .paper-stats{gap:14px 20px}
+  .paper-share{margin-left:0;width:100%;justify-content:flex-start;margin-top:6px}
+  .stat-cell .stat-num{font-size:1rem}
+}

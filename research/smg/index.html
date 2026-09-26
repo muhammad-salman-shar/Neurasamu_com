@@ -153,7 +153,32 @@
 <section class="paper-body">
   <div class="container">
 
-    <div class="abstract-box">
+        <div class="paper-stats" data-paper-stats>
+      <div class="stat-cell">
+        <svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span class="stat-num" data-stat="views">—</span>
+        <span class="stat-lbl">Views</span>
+      </div>
+      <div class="stat-cell">
+        <svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+        <span class="stat-num" data-stat="downloads">—</span>
+        <span class="stat-lbl">Downloads</span>
+      </div>
+      <div class="stat-cell">
+        <svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+        <span class="stat-num" data-stat="shares">—</span>
+        <span class="stat-lbl">Shares</span>
+      </div>
+      <div class="paper-share">
+        <span class="share-lbl">Share</span>
+        <button type="button" class="share-btn" data-share="copy" aria-label="Copy link"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 14.5V6.5A2.5 2.5 0 0 1 7.5 4h8"/></svg></button>
+        <button type="button" class="share-btn" data-share="x" aria-label="Share on X"><svg viewBox="0 0 24 24"><path d="M4 4l7.5 10L4 20h2l6.4-7.4L17.5 20H20l-7.5-10L20 4h-2l-6 6.9L7 4z"/></svg></button>
+        <button type="button" class="share-btn" data-share="linkedin" aria-label="Share on LinkedIn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></button>
+        <button type="button" class="share-btn" data-share="whatsapp" aria-label="Share on WhatsApp"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.7 7.1L4 21l1.9-5.3A8 8 0 1 1 21 12z"/><path d="M8.5 9.5c.5 2 1.5 3 3.5 4l1.5-1.5 2 1-.5 1.5c-2 .5-5-1-6-4l1.5-1.5 2 1z"/></svg></button>
+      </div>
+    </div>
+
+<div class="abstract-box">
       <div class="lbl">Abstract</div>
       <p>Modern Large Language Model deployments suffer from a fundamental limitation: context saturation. As conversational agents interact with users over weeks, months, or years, accumulated history quickly exceeds the model's physical context window. Existing solutions trade off between brute-force token cost and lossy summarization. SMG v2 proposes a dual-tier architecture that decouples conversation persistence from active generation — a strictly bounded sliding window for immediate dialogue, and a pointer-virtualized storage vault for historical events. Memory is not deleted or summarized; it is virtualized. Episodic recall remains exact while the generation-time prompt stays bounded.</p>
     </div>
@@ -320,6 +345,7 @@
 </footer>
 
 <script src="/assets/config.js"></script>
+<script src="/assets/stats.js"></script>
 <script src="/assets/app.js"></script>
 </body>
 </html>
