@@ -53,6 +53,116 @@
   /* Small mobile hint at top of the page */
   .mobile-hint{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:12px 16px;font-size:12px;color:#fcd34d;margin-bottom:20px;display:flex;gap:10px;align-items:flex-start;line-height:1.6}
   .mobile-hint i{flex-shrink:0;margin-top:3px}
+
+  /* ============================================================
+     Toast notifications — fixed top-right, no scroll
+     ============================================================ */
+  .nsm-toast-host{
+    position:fixed;
+    top:16px;
+    right:16px;
+    z-index:9999;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    max-width:calc(100vw - 32px);
+    pointer-events:none;
+  }
+  .nsm-toast{
+    pointer-events:auto;
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:12px 12px 12px 14px;
+    border-radius:12px;
+    background:rgba(20,20,24,0.96);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid #27272a;
+    color:#e4e4e7;
+    font-size:13px;
+    line-height:1.5;
+    font-weight:500;
+    box-shadow:0 12px 30px -8px rgba(0,0,0,0.7), 0 2px 6px rgba(0,0,0,0.4);
+    max-width:360px;
+    animation:nsmToastIn .35s cubic-bezier(.19,1,.22,1);
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  .nsm-toast.is-leaving{
+    opacity:0;
+    transform:translateX(20px);
+  }
+  @keyframes nsmToastIn{
+    from{opacity:0;transform:translateX(20px) scale(0.96)}
+    to{opacity:1;transform:translateX(0) scale(1)}
+  }
+  .nsm-toast > i:first-child{
+    flex-shrink:0;
+    margin-top:2px;
+    font-size:14px;
+  }
+  .nsm-toast-msg{
+    flex:1;
+    min-width:0;
+    word-wrap:break-word;
+  }
+  .nsm-toast-close{
+    flex-shrink:0;
+    width:22px;
+    height:22px;
+    display:grid;
+    place-items:center;
+    border-radius:6px;
+    border:none;
+    background:transparent;
+    color:#71717a;
+    cursor:pointer;
+    transition:color .2s, background .2s;
+    font-size:11px;
+  }
+  .nsm-toast-close:hover{
+    color:#fff;
+    background:rgba(255,255,255,0.08);
+  }
+  /* Type variants */
+  .nsm-toast--error{
+    border-color:rgba(239,68,68,0.5);
+    background:rgba(45,15,15,0.96);
+  }
+  .nsm-toast--error > i:first-child{ color:#f87171; }
+  .nsm-toast--error .nsm-toast-msg{ color:#fecaca; }
+
+  .nsm-toast--success{
+    border-color:rgba(34,197,94,0.5);
+    background:rgba(15,35,20,0.96);
+  }
+  .nsm-toast--success > i:first-child{ color:#4ade80; }
+  .nsm-toast--success .nsm-toast-msg{ color:#bbf7d0; }
+
+  .nsm-toast--info{
+    border-color:rgba(245,158,11,0.5);
+    background:rgba(40,28,8,0.96);
+  }
+  .nsm-toast--info > i:first-child{ color:#fbbf24; }
+  .nsm-toast--info .nsm-toast-msg{ color:#fde68a; }
+
+  @media (max-width:520px){
+    .nsm-toast-host{
+      top:auto;
+      bottom:16px;
+      right:12px;
+      left:12px;
+      max-width:none;
+    }
+    .nsm-toast{ max-width:none; }
+    @keyframes nsmToastIn{
+      from{opacity:0;transform:translateY(20px) scale(0.96)}
+      to{opacity:1;transform:translateY(0) scale(1)}
+    }
+    .nsm-toast.is-leaving{
+      transform:translateY(20px);
+    }
+  }
 </style>
 </head>
 
@@ -955,22 +1065,47 @@
   /* ============================================================
      Notice banner
      ============================================================ */
+  /* Toast-style notification — fixed top-right, no page scroll */
   function displayNotice(message, type){
-    var banner = document.getElementById('statusBanner');
-    if (!banner) return;
-    banner.classList.remove('hidden','bg-red-900/70','border-red-600','text-red-200','bg-green-900/70','border-green-600','text-green-200','bg-amber-900/70','border-amber-600','text-amber-200');
-
-    if (type === 'error'){
-      banner.classList.add('bg-red-900/70','border','border-red-600','text-red-200');
-      banner.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i> ' + message;
-    } else if (type === 'success'){
-      banner.classList.add('bg-green-900/70','border','border-green-600','text-green-200');
-      banner.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> ' + message;
-    } else {
-      banner.classList.add('bg-amber-900/70','border','border-amber-600','text-amber-200');
-      banner.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> ' + message;
+    var host = document.getElementById('nsmToastHost');
+    if (!host){
+      host = document.createElement('div');
+      host.id = 'nsmToastHost';
+      host.className = 'nsm-toast-host';
+      document.body.appendChild(host);
     }
-    banner.scrollIntoView({ behavior:'smooth', block:'nearest' });
+
+    var toast = document.createElement('div');
+    toast.className = 'nsm-toast nsm-toast--' + (type || 'info');
+
+    var icon = 'fa-circle-info';
+    if (type === 'error') icon = 'fa-triangle-exclamation';
+    else if (type === 'success') icon = 'fa-circle-check';
+    else if (type === 'info') icon = 'fa-spinner fa-spin';
+
+    toast.innerHTML =
+      '<i class="fa-solid ' + icon + '"></i>' +
+      '<span class="nsm-toast-msg"></span>' +
+      '<button type="button" class="nsm-toast-close" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button>';
+    toast.querySelector('.nsm-toast-msg').textContent = message;
+
+    var kill = function(){
+      toast.classList.add('is-leaving');
+      setTimeout(function(){ try { toast.remove(); } catch(e){} }, 300);
+    };
+    toast.querySelector('.nsm-toast-close').addEventListener('click', kill);
+
+    host.appendChild(toast);
+
+    /* Auto-dismiss after 4s (info/success) — errors stay until dismissed */
+    if (type !== 'error'){
+      setTimeout(kill, 4000);
+    }
+
+    /* Cap max simultaneous toasts at 3 */
+    while (host.children.length > 3){
+      host.removeChild(host.firstChild);
+    }
   }
 
   /* ============================================================
