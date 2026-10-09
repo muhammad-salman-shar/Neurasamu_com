@@ -17,6 +17,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fix-webm-duration@1.0.6/fix-webm-duration.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
   body{font-family:'Montserrat',sans-serif;background-color:#08090c;color:#e2e8f0}
@@ -593,6 +594,42 @@
      State
      ============================================================ */
   var audioVault = { mikey:null, takemichi:null, draken:null, taiju:null, kisaki:null, chifuyu:null };
+
+  /* MCQ question + option text — used to render answers in PDF */
+  var MCQ_DATA = {
+    q1: {
+      q: 'Agar scene mein bohot gusse mein chilla kar cheekhna (intense scream) ho, to mic par kya karna chahiye?',
+      options: {
+        A: 'Mic ko honton ke bilkul paas dabakar cheekhna chahiye',
+        B: 'Mic se 1 foot peeche ho jao aur chest se cheekho take audio distort/fat na jaye (prevent clipping)',
+        C: 'Halki phusphusahat karo aur editor ko bolo volume 300% boost kare'
+      }
+    },
+    q2: {
+      q: 'Mikey (Manjiro Sano) ke cold aur powerful dialogues mein konsa element sabse zaroori hai?',
+      options: {
+        A: 'Calmness aur relaxed airy tone—bina cheekhe aisi authority jo sun kar samne wala darr jaye',
+        B: 'Har jumle par zor-zor se chilla kar bolna',
+        C: 'Bilkul robotic bina expression ke bol dena'
+      }
+    },
+    q3: {
+      q: 'Anime Lip-Flap (Honton ki movement) match karte waqt kya sabse ziada matter karta hai?',
+      options: {
+        A: 'Speed reading karke dialogue jaldi khatam kar dena',
+        B: 'Character ke saans lene ke pauses aur dialogue timing ke saath blend hona',
+        C: 'Lip sync ki koi zaroorat nahi hoti urdu dubbing mein'
+      }
+    },
+    q4: {
+      q: 'Taiju Shiba ya Draken jaise bhari characters bolte waqt awaz kahan se nikali jaati hai?',
+      options: {
+        A: 'Chest aur Diaphragm se deep resonance ke saath',
+        B: 'Naak se patli aawaz nikal kar',
+        C: 'Sirf gale par jhatka de kar'
+      }
+    }
+  };
   var activeRecorder = null;
   var activeStream = null;
   var recordedChunks = [];
@@ -954,6 +991,242 @@
   /* ============================================================
      ZIP creation
      ============================================================ */
+  /* ============================================================
+     Build a professional PDF summary of the audition
+     ============================================================ */
+  async function buildAuditionPDF(data){
+    var jsPDF = window.jspdf && window.jspdf.jsPDF;
+    if (!jsPDF) throw new Error('PDF library not loaded');
+
+    var doc = new jsPDF({ unit:'pt', format:'a4' });
+    var W = 595.28, H = 841.89, M = 48;
+    var CW = W - M * 2;
+    var y = M;
+
+    var INK = [15,22,38], GRAY = [90,90,100], LIGHT = [200,200,205], ACCENT = [245,158,11];
+
+    function ensureSpace(h){
+      if (y + h > H - 60){
+        doc.addPage();
+        y = M;
+      }
+    }
+
+    function hline(){
+      doc.setDrawColor.apply(doc, LIGHT);
+      doc.setLineWidth(0.7);
+      doc.line(M, y, W - M, y);
+      y += 14;
+    }
+
+    function label(text){
+      doc.setFont('helvetica','bold');
+      doc.setFontSize(8);
+      doc.setTextColor.apply(doc, GRAY);
+      doc.text(String(text).toUpperCase(), M, y, { charSpace: 1.2 });
+    }
+
+    function value(text, size){
+      doc.setFont('helvetica','normal');
+      doc.setFontSize(size || 11);
+      doc.setTextColor.apply(doc, INK);
+      var lines = doc.splitTextToSize(String(text || '—'), CW);
+      for (var i=0; i<lines.length; i++){
+        ensureSpace(16);
+        doc.text(lines[i], M, y);
+        y += (size || 11) + 4;
+      }
+      y += 4;
+    }
+
+    /* ============ HEADER ============ */
+    doc.setFillColor(15,22,38);
+    doc.rect(0, 0, W, 96, 'F');
+
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(18);
+    doc.setTextColor(255,255,255);
+    doc.text('Tokyo Revengers S2', M, 42);
+
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(11);
+    doc.setTextColor(245,158,11);
+    doc.text('Urdu Dubbing Audition — Official Profile', M, 60);
+
+    doc.setFontSize(8);
+    doc.setTextColor(200,200,205);
+    doc.text('NeuraSaMu Audition Portal · neurasamu.com/audition', M, 78);
+    doc.text(new Date().toLocaleString('en-GB', { dateStyle:'medium', timeStyle:'short' }), W - M, 78, { align:'right' });
+
+    y = 128;
+
+    /* ============ PHOTO + NAME BLOCK ============ */
+    if (data.photoDataUrl){
+      try {
+        doc.setDrawColor.apply(doc, LIGHT);
+        doc.setLineWidth(1);
+        doc.roundedRect(M, y - 8, 90, 90, 6, 6, 'S');
+        doc.addImage(data.photoDataUrl, 'JPEG', M + 3, y - 5, 84, 84);
+      } catch(e){ /* ignore bad image */ }
+    }
+
+    var nameX = data.photoDataUrl ? M + 108 : M;
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(20);
+    doc.setTextColor.apply(doc, INK);
+    doc.text(data.fullName || 'Unnamed Candidate', nameX, y + 12);
+
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(11);
+    doc.setTextColor.apply(doc, GRAY);
+    doc.text('Candidate for Voice Artist — Urdu Dubbing', nameX, y + 32);
+    doc.text('WhatsApp: ' + (data.phone || '—'), nameX, y + 50);
+    if (data.age){
+      doc.text('Age: ' + data.age, nameX, y + 68);
+    }
+
+    y += 108;
+    hline();
+
+    /* ============ SPECIALTY ============ */
+    label('Special Vocal Skills / Mimicry / Talents');
+    y += 4;
+    value(data.specialty || 'Not specified', 11);
+    y += 6;
+    hline();
+
+    /* ============ SELECTED CHARACTER ROLES ============ */
+    ensureSpace(60);
+    label('Selected Character Voice Roles (' + data.archetypes.length + ')');
+    y += 6;
+
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(11);
+    doc.setTextColor.apply(doc, INK);
+
+    for (var i = 0; i < data.archetypes.length; i++){
+      ensureSpace(24);
+      var roleText = (i + 1) + '.  ' + data.archetypes[i];
+      var roleLines = doc.splitTextToSize(roleText, CW - 20);
+      /* Bullet */
+      doc.setFillColor.apply(doc, ACCENT);
+      doc.circle(M + 6, y - 3.5, 2.2, 'F');
+      doc.text(roleLines, M + 18, y);
+      y += roleLines.length * 14 + 6;
+    }
+    y += 8;
+    hline();
+
+    /* ============ MCQ ANSWERS ============ */
+    ensureSpace(40);
+    label('Dubbing Knowledge Check — Answers');
+    y += 10;
+
+    var mcqs = [
+      { key:'q1', label:'Q1 — Screaming Technique',   data: MCQ_DATA.q1, ans: data.mcqs.q1 },
+      { key:'q2', label:'Q2 — Mikey Voice Vibe',      data: MCQ_DATA.q2, ans: data.mcqs.q2 },
+      { key:'q3', label:'Q3 — Lip-Flap Sync',         data: MCQ_DATA.q3, ans: data.mcqs.q3 },
+      { key:'q4', label:'Q4 — Deep Voice Resonance',  data: MCQ_DATA.q4, ans: data.mcqs.q4 }
+    ];
+
+    for (var m = 0; m < mcqs.length; m++){
+      var q = mcqs[m];
+      ensureSpace(70);
+
+      /* Question label */
+      doc.setFont('helvetica','bold');
+      doc.setFontSize(10);
+      doc.setTextColor(245,158,11);
+      doc.text(q.label, M, y);
+      y += 14;
+
+      /* Question text */
+      doc.setFont('helvetica','normal');
+      doc.setFontSize(10);
+      doc.setTextColor.apply(doc, INK);
+      var qLines = doc.splitTextToSize(q.data.q, CW);
+      doc.text(qLines, M, y);
+      y += qLines.length * 13 + 8;
+
+      /* Selected answer */
+      if (q.ans && q.ans !== 'Skipped'){
+        var ansText = q.data.options[q.ans] || '(Invalid)';
+        ensureSpace(30);
+        doc.setFont('helvetica','bold');
+        doc.setFontSize(9);
+        doc.setTextColor(30,120,60);
+        doc.text('SELECTED  ' + q.ans, M, y);
+        doc.setFont('helvetica','normal');
+        doc.setFontSize(10);
+        doc.setTextColor.apply(doc, INK);
+        var aLines = doc.splitTextToSize(ansText, CW - 90);
+        doc.text(aLines, M + 82, y);
+        y += aLines.length * 13 + 10;
+      } else {
+        doc.setFont('helvetica','italic');
+        doc.setFontSize(9);
+        doc.setTextColor.apply(doc, GRAY);
+        doc.text('Not answered', M, y);
+        y += 16;
+      }
+
+      /* subtle separator */
+      doc.setDrawColor.apply(doc, LIGHT);
+      doc.setLineWidth(0.4);
+      doc.line(M, y - 4, W - M, y - 4);
+      y += 12;
+    }
+
+    y += 4;
+    hline();
+
+    /* ============ AUDIO FILES ============ */
+    ensureSpace(60);
+    label('Voice Samples Recorded (' + data.audioFiles.length + '/6)');
+    y += 8;
+
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(10);
+    doc.setTextColor.apply(doc, INK);
+
+    for (var a = 0; a < data.audioFiles.length; a++){
+      ensureSpace(18);
+      doc.text('•  ' + data.audioFiles[a], M + 4, y);
+      y += 16;
+    }
+
+    if (data.audioFiles.length === 0){
+      doc.setFont('helvetica','italic');
+      doc.setTextColor.apply(doc, GRAY);
+      doc.text('No audio samples provided.', M + 4, y);
+      y += 16;
+    }
+
+    y += 10;
+
+    /* ============ FOOTER ============ */
+    var totalPages = doc.getNumberOfPages();
+    for (var pg = 1; pg <= totalPages; pg++){
+      doc.setPage(pg);
+      doc.setDrawColor.apply(doc, LIGHT);
+      doc.setLineWidth(0.5);
+      doc.line(M, H - 44, W - M, H - 44);
+      doc.setFont('helvetica','normal');
+      doc.setFontSize(8);
+      doc.setTextColor.apply(doc, GRAY);
+      doc.text('NeuraSaMu · Tokyo Revengers S2 Urdu Dubbing Audition', M, H - 28);
+      doc.text('Page ' + pg + ' of ' + totalPages, W - M, H - 28, { align:'right' });
+    }
+
+    doc.setProperties({
+      title: 'TR S2 Audition - ' + (data.fullName || 'Candidate'),
+      author: 'NeuraSaMu Audition Portal',
+      creator: 'neurasamu.com/audition'
+    });
+
+    return doc.output('blob');
+  }
+
   async function createAndDownloadZip(){
     var name = document.getElementById('candidateName').value.trim();
     var phone = document.getElementById('candidatePhone').value.trim();
@@ -981,6 +1254,38 @@
         q4_deep_voice_source: (document.querySelector('input[name="mcq_q4"]:checked')||{}).value || 'Skipped'
       };
 
+      /* ---- Convert photo to dataURL for PDF embedding ---- */
+      var photoDataUrl = null;
+      if (candidatePhotoFile){
+        photoDataUrl = await new Promise(function(resolve){
+          var fr = new FileReader();
+          fr.onload = function(e){ resolve(e.target.result); };
+          fr.onerror = function(){ resolve(null); };
+          fr.readAsDataURL(candidatePhotoFile);
+        });
+      }
+
+      /* ---- Build the professional PDF ---- */
+      displayNotice('PDF summary ban rahi hai...', 'info');
+      var pdfBlob = await buildAuditionPDF({
+        fullName: name,
+        phone: phone,
+        age: age,
+        specialty: specialty,
+        archetypes: selectedArchetypes,
+        mcqs: mcqAnswers,
+        audioFiles: readyAudios,
+        photoDataUrl: photoDataUrl
+      });
+
+      /* ---- Save PDF separately for user's own record ---- */
+      var cleanNameForFile = name.replace(/[^a-zA-Z0-9]/g, '_');
+      saveAs(pdfBlob, 'TR_Audition_Profile_' + cleanNameForFile + '.pdf');
+
+      /* ---- Add PDF to ZIP ---- */
+      zip.file('Artist_Audition_Profile.pdf', pdfBlob);
+
+      /* ---- Machine-readable JSON (for future integrations) ---- */
       var profileData = {
         project: 'Tokyo Revengers Season 2 Urdu Dubbing',
         createdAt: new Date().toISOString(),
@@ -994,37 +1299,9 @@
           completedAudios: readyAudios
         }
       };
-
       zip.file('audition_profile.json', JSON.stringify(profileData, null, 2));
 
-      var summaryText =
-        '================================================\n' +
-        'TOKYO REVENGERS S2 URDU DUBBING - AUDITION SUMMARY\n' +
-        '================================================\n' +
-        'Artist Name: ' + name + '\n' +
-        'WhatsApp Number: ' + phone + '\n' +
-        'Age: ' + (age || 'N/A') + '\n' +
-        'Specialty / Quirks: ' + (specialty || 'N/A') + '\n\n' +
-        'Selected Character Voice Roles (' + selectedArchetypes.length + '):\n' +
-        selectedArchetypes.map(function(a,i){ return (i+1) + '. ' + a; }).join('\n') + '\n\n' +
-        'Dubbing MCQs Answers:\n' +
-        '- Q1 (Screaming Technique): ' + mcqAnswers.q1_shouting_technique + '\n' +
-        '- Q2 (Mikey Voice Vibe): ' + mcqAnswers.q2_mikey_character_key + '\n' +
-        '- Q3 (Lip-Flap Sync): ' + mcqAnswers.q3_lip_flap_timing + '\n' +
-        '- Q4 (Deep Voice Resonance): ' + mcqAnswers.q4_deep_voice_source + '\n\n' +
-        'Audition Dialogue Samples Provided (' + readyAudios.length + '):\n' +
-        readyAudios.join(', ') + '\n' +
-        '================================================\n' +
-        'Owner Contact: 03272488207\n' +
-        '================================================';
-
-      zip.file('Audition_Details.txt', summaryText);
-
-      if (candidatePhotoFile){
-        var extension = (candidatePhotoFile.name.split('.').pop() || 'jpg').toLowerCase();
-        zip.file('artist_photo.' + extension, candidatePhotoFile);
-      }
-
+      /* ---- Audio samples (separate) ---- */
       for (var i = 0; i < readyAudios.length; i++){
         var key = readyAudios[i];
         var audioItem = audioVault[key];
@@ -1038,6 +1315,7 @@
       var cleanName = name.replace(/[^a-zA-Z0-9]/g, '_');
       var zipName = 'TR_Audition_' + cleanName + '.zip';
 
+      displayNotice('ZIP bundle pack ho raha hai...', 'info');
       var zipBlob = await zip.generateAsync({ type:'blob' });
       saveAs(zipBlob, zipName);
 
