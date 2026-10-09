@@ -1013,10 +1013,11 @@
     }
 
     function hline(){
+      y += 6;
       doc.setDrawColor.apply(doc, LIGHT);
       doc.setLineWidth(0.7);
       doc.line(M, y, W - M, y);
-      y += 14;
+      y += 18;
     }
 
     function label(text){
@@ -1024,19 +1025,19 @@
       doc.setFontSize(8);
       doc.setTextColor.apply(doc, GRAY);
       doc.text(String(text).toUpperCase(), M, y, { charSpace: 1.2 });
+      y += 16;
     }
 
     function value(text, size){
+      var fs = size || 11;
       doc.setFont('helvetica','normal');
-      doc.setFontSize(size || 11);
+      doc.setFontSize(fs);
       doc.setTextColor.apply(doc, INK);
       var lines = doc.splitTextToSize(String(text || '—'), CW);
-      for (var i=0; i<lines.length; i++){
-        ensureSpace(16);
-        doc.text(lines[i], M, y);
-        y += (size || 11) + 4;
-      }
-      y += 4;
+      var lineH = fs * 1.45;
+      ensureSpace(lines.length * lineH + 10);
+      doc.text(lines, M, y, { lineHeightFactor: 1.45 });
+      y += lines.length * lineH + 8;
     }
 
     /* ============ HEADER ============ */
@@ -1090,43 +1091,39 @@
 
     /* ============ SPECIALTY ============ */
     label('Special Vocal Skills / Mimicry / Talents');
-    y += 4;
     value(data.specialty || 'Not specified', 11);
-    y += 6;
     hline();
 
     /* ============ SELECTED CHARACTER ROLES ============ */
-    ensureSpace(60);
+    ensureSpace(80);
     label('Selected Character Voice Roles (' + data.archetypes.length + ')');
-    y += 6;
 
     doc.setFont('helvetica','normal');
     doc.setFontSize(11);
     doc.setTextColor.apply(doc, INK);
 
     for (var i = 0; i < data.archetypes.length; i++){
-      ensureSpace(24);
       var roleText = (i + 1) + '.  ' + data.archetypes[i];
       var roleLines = doc.splitTextToSize(roleText, CW - 20);
+      var roleHeight = roleLines.length * 15 + 8;
+      ensureSpace(roleHeight);
       /* Bullet */
       doc.setFillColor.apply(doc, ACCENT);
       doc.circle(M + 6, y - 3.5, 2.2, 'F');
-      doc.text(roleLines, M + 18, y);
-      y += roleLines.length * 14 + 6;
+      doc.text(roleLines, M + 18, y, { lineHeightFactor: 1.4 });
+      y += roleHeight;
     }
-    y += 8;
     hline();
 
     /* ============ MCQ ANSWERS ============ */
-    ensureSpace(40);
+    ensureSpace(60);
     label('Dubbing Knowledge Check — Answers');
-    y += 10;
 
     var mcqs = [
-      { key:'q1', label:'Q1 — Screaming Technique',   data: MCQ_DATA.q1, ans: data.mcqs.q1 },
-      { key:'q2', label:'Q2 — Mikey Voice Vibe',      data: MCQ_DATA.q2, ans: data.mcqs.q2 },
-      { key:'q3', label:'Q3 — Lip-Flap Sync',         data: MCQ_DATA.q3, ans: data.mcqs.q3 },
-      { key:'q4', label:'Q4 — Deep Voice Resonance',  data: MCQ_DATA.q4, ans: data.mcqs.q4 }
+      { key:'q1', label:'Q1 — Screaming Technique',   data: MCQ_DATA.q1, ans: data.mcqs.q1_shouting_technique },
+      { key:'q2', label:'Q2 — Mikey Voice Vibe',      data: MCQ_DATA.q2, ans: data.mcqs.q2_mikey_character_key },
+      { key:'q3', label:'Q3 — Lip-Flap Sync',         data: MCQ_DATA.q3, ans: data.mcqs.q3_lip_flap_timing },
+      { key:'q4', label:'Q4 — Deep Voice Resonance',  data: MCQ_DATA.q4, ans: data.mcqs.q4_deep_voice_source }
     ];
 
     for (var m = 0; m < mcqs.length; m++){
@@ -1181,9 +1178,8 @@
     hline();
 
     /* ============ AUDIO FILES ============ */
-    ensureSpace(60);
+    ensureSpace(80);
     label('Voice Samples Recorded (' + data.audioFiles.length + '/6)');
-    y += 8;
 
     doc.setFont('helvetica','normal');
     doc.setFontSize(10);
