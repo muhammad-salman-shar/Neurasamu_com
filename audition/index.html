@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fix-webm-duration@1.0.6/fix-webm-duration.js"></script>
 
 <style>
   body{font-family:'Montserrat',sans-serif;background-color:#08090c;color:#e2e8f0}
@@ -822,25 +823,44 @@
 
       activeRecorder.onstop = function(){
         var mime = activeRecorder.mimeType || 'audio/webm';
-        var blob = new Blob(recordedChunks, { type: mime });
-        audioVault[id] = blob;
+        var rawBlob = new Blob(recordedChunks, { type: mime });
+        var durationMs = timerCount * 1000;
 
-        var audioElem = document.getElementById('audioPlayer-' + id);
-        if (audioElem){
-          audioElem.src = URL.createObjectURL(blob);
-          audioElem.classList.remove('hidden');
-        }
+        /* Fix webm duration metadata so players can seek & show correct time */
+        var finalize = function(blob){
+          audioVault[id] = blob;
 
-        var statusBadge = document.getElementById('badgeStatus-' + id);
-        var sizeKb = (blob.size / 1024).toFixed(1);
-        if (statusBadge){
-          statusBadge.innerHTML = '<span class="text-green-400 font-bold"><i class="fa-solid fa-check"></i> Recorded (' + sizeKb + ' KB)</span>';
-        }
-        updateCounterDisplay();
+          var audioElem = document.getElementById('audioPlayer-' + id);
+          if (audioElem){
+            audioElem.src = URL.createObjectURL(blob);
+            audioElem.classList.remove('hidden');
+          }
 
-        if (activeStream){
-          activeStream.getTracks().forEach(function(t){ t.stop(); });
-          activeStream = null;
+          var statusBadge = document.getElementById('badgeStatus-' + id);
+          var sizeKb = (blob.size / 1024).toFixed(1);
+          if (statusBadge){
+            statusBadge.innerHTML = '<span class="text-green-400 font-bold"><i class="fa-solid fa-check"></i> Recorded (' + sizeKb + ' KB)</span>';
+          }
+          updateCounterDisplay();
+
+          if (activeStream){
+            activeStream.getTracks().forEach(function(t){ t.stop(); });
+            activeStream = null;
+          }
+        };
+
+        /* Only fix if it's webm (mp4 already has duration) */
+        if (mime.indexOf('webm') !== -1 && typeof window.ysFixWebmDuration === 'function' && durationMs > 0){
+          try {
+            window.ysFixWebmDuration(rawBlob, durationMs, function(fixedBlob){
+              finalize(fixedBlob);
+            }, { logger: false });
+          } catch (e){
+            console.warn('Duration fix failed, using raw blob:', e);
+            finalize(rawBlob);
+          }
+        } else {
+          finalize(rawBlob);
         }
       };
 
