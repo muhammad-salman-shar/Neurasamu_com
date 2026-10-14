@@ -14,18 +14,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/styles.css">
 <style>
-  body{background:var(--bg)}
-  .legal-page{padding-top:calc(var(--header-h) + 72px);padding-bottom:clamp(80px,10vw,120px)}
-  .legal-page h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.4vw,3rem);letter-spacing:-.028em;line-height:1.1;color:#FFFFFF;margin-bottom:16px}
-  .legal-page .updated{font-size:.85rem;color:#9CA3AF;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--line)}
-  .legal-page h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.25rem,1.9vw,1.5rem);letter-spacing:-.02em;color:#FFFFFF;margin-top:44px;margin-bottom:14px}
+  html,body{background:#050810;color:#E5E7EB}
+  .legal-page{padding-top:calc(var(--header-h,72px) + 72px);padding-bottom:clamp(80px,10vw,120px)}
+  .legal-page h1{font-family:var(--serif,'Fraunces',Georgia,serif);font-weight:500;font-size:clamp(2rem,4.4vw,3rem);letter-spacing:-.028em;line-height:1.1;color:#FFFFFF;margin-bottom:16px}
+  .legal-page .updated{font-size:.85rem;color:#9CA3AF;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid rgba(240,237,230,.10)}
+  .legal-page h2{font-family:var(--serif,'Fraunces',Georgia,serif);font-weight:500;font-size:clamp(1.25rem,1.9vw,1.5rem);letter-spacing:-.02em;color:#FFFFFF;margin-top:44px;margin-bottom:14px}
   .legal-page p,.legal-page ul{font-size:1rem;line-height:1.8;color:#D1D5DB;margin-bottom:20px;max-width:72ch}
   .legal-page ul{padding-left:22px}
   .legal-page li{margin-bottom:10px;color:#D1D5DB}
-  .legal-page a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(76,182,142,.3)}
-  .legal-page a:hover{border-bottom-color:var(--accent)}
-  .legal-page .back-link{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--ink-3);text-decoration:none;margin-bottom:32px;transition:color .2s}
-  .legal-page .back-link:hover{color:var(--accent)}
+  .legal-page a{color:#4CB68E;text-decoration:none;border-bottom:1px solid rgba(76,182,142,.35);transition:border-color .2s}
+  .legal-page a:hover{border-bottom-color:#4CB68E}
+  .legal-page .back-link{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:#9CA3AF;text-decoration:none;margin-bottom:32px;transition:color .2s}
+  .legal-page .back-link:hover{color:#4CB68E}
+  .legal-page strong{color:#FFFFFF;font-weight:600}
 </style>
 </head>
 <body>
