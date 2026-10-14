@@ -19,7 +19,7 @@
   };
 
   var NAMESPACE = 'neurasamu-v1';
-  var API_BASE = 'https://api.countapi.xyz';
+  var API_BASE = 'https://abacus.jasoncameron.dev';
   var TIMEOUT_MS = 4000;
 
   /* ---------- helpers ---------- */
