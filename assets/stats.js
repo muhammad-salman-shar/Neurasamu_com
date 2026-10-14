@@ -130,14 +130,12 @@
       animate(elDown, seeds.downloads, seeds.downloads + rd, 900);
       animate(elShare, seeds.shares, seeds.shares + rs, 900);
 
-      /* increment views once per session */
-      if (!alreadyCounted(pid, 'views')) {
-        markCounted(pid, 'views');
-        hitCounter(pid + '-views').then(function (newVal) {
-          var total = seeds.views + (newVal || rv || 0);
-          if (newVal > rv) animate(elViews, seeds.views + rv, total, 500);
-        });
-      }
+      /* increment views on every page load (repeat visitors count too) */
+      hitCounter(pid + '-views').then(function (newVal) {
+        var total = seeds.views + (newVal || rv || 0);
+        if (newVal > rv) animate(elViews, seeds.views + rv, total, 500);
+        else if (newVal > 0) animate(elViews, seeds.views, total, 500);
+      });
 
       /* hook download button */
       var dlBtn = document.querySelector('.paper-cta .btn--primary');
