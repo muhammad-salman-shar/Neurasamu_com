@@ -40,6 +40,6 @@ const SITE_CONFIG = {
     { name: 'GitHub',   url: 'https://github.com/neurasamu-ai',                                                  handle: '@neurasamu-ai' },
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/muhammad-salman-shar-564bb5346',                       handle: 'Muhammad Salman Shar' },
     { name: 'Facebook', url: 'https://www.facebook.com/neurasamuai',                                             handle: '@neurasamuai' },
-    { name: 'TikTok',   url: 'https://tiktok.com/@muhammad_salman_shar',                                         handle: '@muhammad_salman_shar' }
+    { name: 'TikTok',   url: 'https://tiktok.com/@neurasamu',                                         handle: '@neurasamu' }
   ]
 };
