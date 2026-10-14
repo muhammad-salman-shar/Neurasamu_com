@@ -620,7 +620,7 @@ body::after {
   align-items:baseline;
   gap:8px;
   font-size:.85rem;
-  color:var(--ink-3);
+  color:var(--ink-2);
 }
 .stat-cell .stat-ico{
   width:15px;
@@ -635,8 +635,8 @@ body::after {
 }
 .stat-cell .stat-num{
   font-family:var(--serif);
-  font-weight:500;
-  font-size:1.15rem;
+  font-weight:600;
+  font-size:1.25rem;
   letter-spacing:-.015em;
   color:var(--ink);
   font-variant-numeric:tabular-nums;
@@ -671,7 +671,7 @@ body::after {
   height:34px;
   border-radius:50%;
   border:1px solid var(--line-strong);
-  background:rgba(13,20,34,0.5);
+  background:rgba(255,255,255,.5);
   display:grid;
   place-items:center;
   color:var(--ink-3);
