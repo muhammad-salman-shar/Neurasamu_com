@@ -125,8 +125,14 @@ const revealIO = new IntersectionObserver(es => {
  $$('[data-reveal]').forEach(el => {
   const d = +(el.dataset.reveal || 0);
   if (d && !prefersReduced) el.style.transitionDelay = (d * 90) + 'ms';
+  if (!prefersReduced) el.classList.add('pending');
   revealIO.observe(el);
 });
+
+ /* SAFETY NET — if observer fails for any reason, reveal everything after 2s */
+ setTimeout(function(){
+   $$('[data-reveal].pending').forEach(function(el){ el.classList.add('in'); });
+ }, 2000);
 
 
 
