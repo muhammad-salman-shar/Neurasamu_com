@@ -424,8 +424,11 @@ h2{font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.06}
 /* ============================================================
    Reveal
    ============================================================ */
-[data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .85s var(--e),transform .85s var(--e)}
-[data-reveal].in{opacity:1;transform:none}
+/* Reveal on scroll — with safety fallback
+   If JS fails, content stays visible (no blank page) */
+[data-reveal]{opacity:1;transform:none;transition:opacity .85s var(--e),transform .85s var(--e)}
+.js [data-reveal]{opacity:0;transform:translateY(24px)}
+.js [data-reveal].in{opacity:1;transform:none}
 
 /* ============================================================
    Responsive
