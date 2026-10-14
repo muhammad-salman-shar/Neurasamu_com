@@ -775,3 +775,81 @@ body::after {
   .footer-top{grid-template-columns:1fr;gap:28px}
   .footer-bottom{flex-direction:column;align-items:flex-start;gap:6px}
 }
+
+/* ============================================================
+   Mobile menu close button — explicit, always visible
+   ============================================================ */
+.menu-close{
+  position:fixed;
+  top:16px;
+  right:16px;
+  z-index:250;
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  border:1px solid var(--line-strong);
+  background:var(--bg);
+  display:none;
+  place-items:center;
+  cursor:pointer;
+  color:var(--ink);
+  transition:all .25s var(--e);
+}
+.menu.open ~ .menu-close,
+body.menu-open .menu-close{
+  display:grid;
+}
+.menu-close:hover{
+  border-color:var(--accent);
+  color:var(--accent);
+  transform:scale(1.05);
+}
+.menu-close svg{
+  width:20px;
+  height:20px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* Ensure header stays on top of menu */
+.site-header{z-index:300 !important}
+.menu{z-index:200 !important}
+
+/* ============================================================
+   Menu close button — appears when mobile menu is open
+   ============================================================ */
+#menuClose{
+  position:fixed;
+  top:14px;
+  right:16px;
+  z-index:250;
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  border:1px solid var(--line-strong);
+  background:var(--bg);
+  display:none;
+  place-items:center;
+  cursor:pointer;
+  color:var(--ink);
+  transition:all .25s var(--e);
+  -webkit-tap-highlight-color:transparent;
+}
+body.menu-open #menuClose{ display:grid; }
+#menuClose:hover{ border-color:var(--accent); color:var(--accent); }
+#menuClose:active{ transform:scale(0.94); }
+#menuClose svg{
+  width:22px;
+  height:22px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+/* Header above menu */
+.site-header{ z-index:300 !important; }
+.menu{ z-index:200 !important; }

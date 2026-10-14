@@ -100,15 +100,46 @@ const spyIO = new IntersectionObserver(es => {
    Mobile menu
    ============================================================ */
 const menuBtn = $('#menuBtn'), menu = $('#menu');
-function setMenu(open){
+const menuClose = $('#menuClose');
+let closingFromPop = false;
+
+function setMenu(open, fromPop){
+  if (!menu) return;
+  const wasOpen = menu.classList.contains('open');
   menu.classList.toggle('open', open);
-  menuBtn.setAttribute('aria-expanded', String(open));
-  menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   document.body.classList.toggle('locked', open);
+  document.body.classList.toggle('menu-open', open);
+  if (menuBtn){
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  /* Push history when opening so Android back closes menu */
+  if (open && !fromPop){
+    try { history.pushState({ nsmMenu: true }, ''); } catch(e){}
+  }
+  /* Pop history when closing via UI */
+  if (!open && wasOpen && !fromPop){
+    try { history.back(); } catch(e){}
+  }
 }
-menuBtn.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+
+if (menuBtn){
+  menuBtn.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+}
+if (menuClose){
+  menuClose.addEventListener('click', () => setMenu(false));
+}
  $$('#menu a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
+/* Android hardware back button — closes menu */
+window.addEventListener('popstate', () => {
+  if (menu && menu.classList.contains('open')){
+    closingFromPop = true;
+    setMenu(false, true);
+    closingFromPop = false;
+  }
+});
 
 /* ============================================================
    Scroll reveal
