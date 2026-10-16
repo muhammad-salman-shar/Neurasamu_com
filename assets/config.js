@@ -29,7 +29,8 @@ const SITE_CONFIG = {
       rem: 'UPLOAD',   // REM AI (Robotic Ear Model) — acquire link
       browser: 'https://github.com/muhammad-salman-shar/url-apk/releases/download/Neura_Browser/Neura.Browser.apk',   // Neura Browser — APK link
       neurachat: 'UPLOAD',   // NeuraChat — Release Soon
-      samulab: 'https://github.com/neurasamu-ai/Samu-Lab/releases/download/SaMu_Lab/SaMu.Lab.apk'   // SaMu Lab — Local AI Server APK
+      samulab: 'https://github.com/neurasamu-ai/Samu-Lab/releases/download/SaMu_Lab/SaMu.Lab.apk',   // SaMu Lab — Local AI Server APK
+      samuchat: 'https://github.com/neurasamu-ai/Samu-Chat/releases/download/SaMu_Chat/SaMu.Chat.apk'   // SaMu Chat — OpenAI-compatible client
     }
     /* PHOTOS / FUTURE ASSETS: jab zaroorat ho, repo mein assets/photos/
        folder bana kar files daalo aur yahan paths/links add kar do. */
