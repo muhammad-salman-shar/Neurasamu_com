@@ -88,6 +88,96 @@
   .platform-info .name{font-family:var(--serif);font-weight:500;font-size:1.05rem;color:var(--ink);letter-spacing:-.015em;margin-bottom:2px}
   .platform-info .handle{font-size:.82rem;color:var(--ink-3)}
 
+
+  /* ============================================================
+     Play Store-style apps grid
+     ============================================================ */
+  .store-search{position:relative;max-width:520px;margin:0 0 clamp(28px,4vw,44px)}
+  .store-search .search-ico{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;fill:none;stroke:var(--ink-3);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+  .store-search input{width:100%;padding:14px 18px 14px 46px;background:rgba(13,20,34,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line-strong);border-radius:999px;color:var(--ink);font-family:var(--sans);font-size:.95rem;letter-spacing:-.01em;transition:border-color .25s,background .25s}
+  .store-search input::placeholder{color:var(--ink-3)}
+  .store-search input:focus{outline:none;border-color:var(--accent);background:rgba(13,20,34,0.75)}
+  .store-search input::-webkit-search-cancel-button{filter:invert(0.6)}
+
+  .apps-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.5vw,28px);padding-bottom:clamp(40px,6vw,72px)}
+  .app-card{display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(22px,3vw,30px) clamp(14px,2vw,20px);border:1px solid var(--line);border-radius:16px;background:rgba(13,20,34,0.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);cursor:pointer;transition:all .3s cubic-bezier(.19,1,.22,1);text-decoration:none;color:inherit;position:relative;overflow:hidden;border:none;font-family:inherit}
+  .app-card:hover{border-color:var(--line-strong);background:rgba(13,20,34,0.75);transform:translateY(-3px);box-shadow:0 20px 40px -20px rgba(0,0,0,0.6)}
+  .app-card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .app-card-ico{width:68px;height:68px;border-radius:18px;background:linear-gradient(145deg,rgba(76,182,142,0.12),rgba(76,182,142,0.04));border:1px solid rgba(76,182,142,0.22);display:grid;place-items:center;color:var(--accent);margin-bottom:16px;transition:transform .3s cubic-bezier(.19,1,.22,1)}
+  .app-card:hover .app-card-ico{transform:scale(1.06)}
+  .app-card-ico svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .app-card-name{font-family:var(--serif);font-weight:500;font-size:1.05rem;letter-spacing:-.02em;color:var(--ink);margin-bottom:4px;line-height:1.2}
+  .app-card-tag{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;line-height:1.4}
+  .app-card-status{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:999px;margin-top:6px}
+  .app-card-status.released{color:#4CB68E;background:rgba(76,182,142,.1);border:1px solid rgba(76,182,142,.3)}
+  .app-card-status.soon{color:#C9A96E;background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.3)}
+  .app-card-status.dev{color:#9CA3AF;background:rgba(156,163,175,.08);border:1px solid rgba(156,163,175,.25)}
+
+  .apps-empty{text-align:center;padding:60px 20px;color:var(--ink-3);font-size:1rem}
+
+  /* ============================================================
+     App detail modal
+     ============================================================ */
+  .app-modal{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
+  .app-modal.open{display:flex;animation:modalIn .3s cubic-bezier(.19,1,.22,1)}
+  @keyframes modalIn{from{opacity:0}to{opacity:1}}
+  .app-modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .app-modal-panel{position:relative;width:100%;max-width:640px;max-height:90vh;background:linear-gradient(145deg,#13151b,#0c0d12);border:1px solid var(--line-strong);border-radius:20px;box-shadow:0 40px 80px -30px rgba(0,0,0,0.9);overflow:hidden;display:flex;flex-direction:column;animation:panelIn .35s cubic-bezier(.19,1,.22,1)}
+  @keyframes panelIn{from{transform:translateY(20px) scale(0.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+  .app-modal-close{position:absolute;top:14px;right:14px;z-index:2;width:38px;height:38px;border-radius:50%;border:1px solid var(--line-strong);background:rgba(13,20,34,0.85);backdrop-filter:blur(10px);display:grid;place-items:center;cursor:pointer;color:var(--ink-2);transition:all .2s}
+  .app-modal-close:hover{color:var(--ink);border-color:var(--ink-3);transform:rotate(90deg)}
+  .app-modal-close svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .app-modal-scroll{overflow-y:auto;padding:clamp(24px,3.5vw,36px);scrollbar-width:thin}
+  .app-modal-scroll::-webkit-scrollbar{width:6px}
+  .app-modal-scroll::-webkit-scrollbar-thumb{background:rgba(240,237,230,.15);border-radius:4px}
+
+  .app-hero{display:flex;gap:20px;align-items:flex-start;padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:20px}
+  .app-hero-icon{width:76px;height:76px;border-radius:20px;background:linear-gradient(145deg,rgba(76,182,142,0.14),rgba(76,182,142,0.05));border:1px solid rgba(76,182,142,0.28);display:grid;place-items:center;color:var(--accent);flex-shrink:0}
+  .app-hero-icon svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .app-hero-info{flex:1;min-width:0}
+  .app-hero-info h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.4rem,2.6vw,1.75rem);letter-spacing:-.025em;color:var(--ink);line-height:1.15;margin-bottom:6px}
+  .app-hero-tag{font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+  .app-hero-cat{font-size:.82rem;color:var(--ink-3)}
+
+  .app-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:24px}
+  .app-download-btn{flex:0 0 auto;padding:12px 22px;font-size:.88rem}
+  .app-status-pill{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:999px}
+  .app-status-pill.released{color:#4CB68E;background:rgba(76,182,142,.1);border:1px solid rgba(76,182,142,.3)}
+  .app-status-pill.soon{color:#C9A96E;background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.3)}
+
+  .app-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-block:1px solid var(--line);padding-block:16px;margin-bottom:24px}
+  .app-stat{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;padding-inline:8px;border-right:1px solid var(--line)}
+  .app-stat:last-child{border-right:none}
+  .app-stat-val{font-family:var(--serif);font-weight:600;font-size:1.15rem;letter-spacing:-.015em;color:var(--ink)}
+  .app-stat-lbl{font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+  .app-about{padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:24px}
+  .app-about h3{font-family:var(--serif);font-weight:500;font-size:1.1rem;letter-spacing:-.015em;color:var(--ink);margin-bottom:12px}
+  .app-about p{font-size:.92rem;line-height:1.75;color:var(--ink-2)}
+
+  .app-comment h3{font-family:var(--serif);font-weight:500;font-size:1.1rem;letter-spacing:-.015em;color:var(--ink);margin-bottom:8px}
+  .app-comment-note{font-size:.8rem;color:var(--ink-3);margin-bottom:16px}
+  .comment-form{display:flex;flex-direction:column;gap:12px}
+  .comment-form input,.comment-form textarea{width:100%;padding:12px 14px;background:rgba(13,20,34,0.55);border:1px solid var(--line-strong);border-radius:10px;color:var(--ink);font-family:var(--sans);font-size:.9rem;line-height:1.55;transition:border-color .2s}
+  .comment-form textarea{resize:vertical;min-height:80px}
+  .comment-form input::placeholder,.comment-form textarea::placeholder{color:var(--ink-3)}
+  .comment-form input:focus,.comment-form textarea:focus{outline:none;border-color:var(--accent)}
+  .comment-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .comment-status{font-size:.82rem;color:var(--accent)}
+  .comment-status.error{color:#F87171}
+
+  @media (max-width:720px){
+    .apps-grid{grid-template-columns:repeat(2,1fr)}
+    .app-hero{flex-direction:column;align-items:center;text-align:center}
+    .app-stats{grid-template-columns:repeat(2,1fr);row-gap:16px}
+    .app-stat:nth-child(2){border-right:none}
+    .app-stat:nth-child(1),.app-stat:nth-child(2){border-bottom:1px solid var(--line);padding-bottom:16px}
+    .app-stat:nth-child(3),.app-stat:nth-child(4){padding-top:16px}
+  }
+  @media (max-width:420px){
+    .apps-grid{grid-template-columns:1fr}
+  }
+
   @media(max-width:720px){
     .app-row{grid-template-columns:1fr;gap:16px}
     .app-ico-lg{width:52px;height:52px}
@@ -157,124 +247,92 @@
   <!-- ================= APPS ================= -->
   <section class="pane active" id="pane-apps" role="tabpanel" aria-labelledby="tab-apps">
     <div class="container">
-      <div class="app-list">
 
-        <article class="app-row" data-reveal>
-          <span class="app-ico-lg" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M4 6h16v10H4zM8 20h8M12 16v4M8 10l2 2M16 10l-2 2"/></svg>
-          </span>
-          <div class="app-info">
-            <h2>Neura Browser</h2>
-            <p class="tagline">Neurasamu Build</p>
-            <p>Fullscreen, no-UI browser with a built-in 3-layer ad blocker and a custom OkHttp download engine — pause, resume, live speed, ETA. One draggable pill controls everything.</p>
-            <div class="app-meta">
-              <span><span class="dot"></span>Android</span>
-              <span>Fullscreen Browser</span>
-              <span>~5 MB</span>
-            </div>
-          </div>
-          <div class="app-action">
-            <a class="btn btn--primary btn--sm" href="UPLOAD" data-asset="apps.browser">Download APK <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg></a>
-          </div>
-        </article>
-
-        <article class="app-row" data-reveal="1">
-          <span class="app-ico-lg" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><rect x="8" y="8" width="8" height="8" rx="1.5"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M6.5 3.5v2M17.5 3.5v2M6.5 20.5v-2M17.5 20.5v-2"/></svg>
-          </span>
-          <div class="app-info">
-            <h2>SaMu Lab</h2>
-            <p class="tagline">Local AI Server · On-Device</p>
-            <p>Turn your Android phone into a personal AI server — runs GGUF &amp; LiteRT models entirely on-device with no cloud, no subscription, and no data leaving your hands. Exposes an OpenAI-compatible API on port 8080 so any client (PocketPal, PrivateLM, curl) can connect over your local network.</p>
-            <div class="app-meta">
-              <span><span class="dot"></span>Android · ARM64</span>
-              <span>llama.cpp via JNI</span>
-              <span>Offline · Private</span>
-            </div>
-          </div>
-          <div class="app-action">
-            <a class="btn btn--primary btn--sm" href="UPLOAD" data-asset="apps.samulab">Download APK <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg></a>
-          </div>
-        </article>
-
-        <article class="app-row" data-reveal="2">
-          <span class="app-ico-lg" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.7 7.1L4 21l1.9-5.3A8 8 0 1 1 21 12z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg>
-          </span>
-          <div class="app-info">
-            <h2>SaMu Chat</h2>
-            <p class="tagline">OpenAI-Compatible Client · Native</p>
-            <p>Lightweight Android client for any OpenAI-compatible endpoint — your own SaMu Lab, or any cloud API you prefer. Native Kotlin &amp; Jetpack Compose with streaming SSE, local Room storage, multi-API switching, live context chip, and a dark-orange theme matching SaMu Lab.</p>
-            <div class="app-meta">
-              <span><span class="dot"></span>Android · ARM64</span>
-              <span>Kotlin · Compose</span>
-              <span>Private · No trackers</span>
-            </div>
-          </div>
-          <div class="app-action">
-            <a class="btn btn--primary btn--sm" href="UPLOAD" data-asset="apps.samuchat">Download APK <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg></a>
-          </div>
-        </article>
-
-        <article class="app-row" data-reveal="3">
-          <span class="app-ico-lg" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M9 7 4 12l5 5M15 7l5 5-5 5"/></svg>
-          </span>
-          <div class="app-info">
-            <h2>C++ Compiler</h2>
-            <p class="tagline">Lite build</p>
-            <p>A high-performance native client compiler for low-overhead mobile execution — build on the device, for the device. No external toolchain required.</p>
-            <div class="app-meta">
-              <span><span class="dot"></span>Android</span>
-              <span>Native toolchain</span>
-            </div>
-          </div>
-          <div class="app-action">
-            <a class="btn btn--primary btn--sm" href="UPLOAD" data-asset="apps.compiler">Download APK <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg></a>
-          </div>
-        </article>
-
-        <article class="app-row" data-reveal="5">
-          <span class="app-ico-lg" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.7 7.1L4 21l1.9-5.3A8 8 0 1 1 21 12z"/><path d="M8 11h8M8 15h5"/></svg>
-          </span>
-          <div class="app-info">
-            <h2>NeuraChat</h2>
-            <p class="tagline">Communication, Elevated</p>
-            <p>SMS, native calling, and multiple AI providers in one premium interface. Supports OpenAI, Claude, Gemini, DeepSeek, Grok, Qwen, OpenRouter, Z.AI, and custom OpenAI-compatible endpoints including Ollama and LM Studio. SMS &amp; contact data stay on your device — API credentials stored locally.</p>
-            <div class="app-meta">
-              <span><span class="dot"></span>Android</span>
-              <span>SMS · Calling · AI</span>
-              <span>Privacy-first</span>
-            </div>
-          </div>
-          <div class="app-action">
-            <a class="btn btn--primary btn--sm" href="UPLOAD" data-asset="apps.neurachat">Download APK <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg></a>
-          </div>
-        </article>
-
-        <article class="app-row" data-reveal="6">
-          <span class="app-ico-lg" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M17 4H7v5a5 5 0 0 0 10 0V4zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>
-          </span>
-          <div class="app-info">
-            <h2>SL Tasker</h2>
-            <p class="tagline">Release Soon</p>
-            <p>Solo Leveling-style quest system for daily tasks — complete missions, earn EP, level up, and build real discipline. Focus timers, app blocking, smart alarms, and a gamified profile that tracks rank, health, and streak.</p>
-            <div class="app-meta">
-              <span><span class="dot"></span>Android</span>
-              <span>Productivity</span>
-              <span>Gamification</span>
-            </div>
-          </div>
-          <div class="app-action">
-            <span class="status-soon">Release Soon</span>
-          </div>
-        </article>
-
+      <!-- Search bar -->
+      <div class="store-search" data-reveal>
+        <svg class="search-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+        <input type="search" id="appSearch" placeholder="Search apps…" autocomplete="off" aria-label="Search apps">
       </div>
+
+      <!-- Apps grid — populated by JS from SITE_CONFIG.APPS_DATA -->
+      <div class="apps-grid" id="appsGrid" data-reveal></div>
+
+      <!-- Empty state -->
+      <div class="apps-empty" id="appsEmpty" hidden>
+        <p>No apps matched your search.</p>
+      </div>
+
     </div>
   </section>
+
+  <!-- ============ APP DETAIL MODAL ============ -->
+  <div class="app-modal" id="appModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="appModalTitle">
+    <div class="app-modal-backdrop" data-modal-close></div>
+    <div class="app-modal-panel" role="document">
+      <button type="button" class="app-modal-close" data-modal-close aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+
+      <div class="app-modal-scroll">
+        <div class="app-hero">
+          <div class="app-hero-icon" id="modalIcon" aria-hidden="true"></div>
+          <div class="app-hero-info">
+            <h2 id="appModalTitle"></h2>
+            <p class="app-hero-tag" id="modalTagline"></p>
+            <p class="app-hero-cat" id="modalCategory"></p>
+          </div>
+        </div>
+
+        <div class="app-actions">
+          <a class="btn btn--primary app-download-btn" id="modalDownload" href="#" download>
+            Download APK
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg>
+          </a>
+          <span class="app-status-pill" id="modalStatus"></span>
+        </div>
+
+        <div class="app-stats">
+          <div class="app-stat">
+            <span class="app-stat-val" id="statRating">—</span>
+            <span class="app-stat-lbl">Rating</span>
+          </div>
+          <div class="app-stat">
+            <span class="app-stat-val" id="statReviews">—</span>
+            <span class="app-stat-lbl">Reviews</span>
+          </div>
+          <div class="app-stat">
+            <span class="app-stat-val" id="statDownloads">—</span>
+            <span class="app-stat-lbl">Downloads</span>
+          </div>
+          <div class="app-stat">
+            <span class="app-stat-val" id="statShares">—</span>
+            <span class="app-stat-lbl">Shares</span>
+          </div>
+        </div>
+
+        <div class="app-about">
+          <h3>About this app</h3>
+          <p id="modalAbout"></p>
+        </div>
+
+        <div class="app-comment">
+          <h3>Share your feedback</h3>
+          <p class="app-comment-note">Your feedback goes directly to the developer. No account needed.</p>
+          <form id="commentForm" class="comment-form" novalidate>
+            <input type="text" id="commentName" name="Name" placeholder="Your name (optional)" autocomplete="name" maxlength="60">
+            <textarea id="commentText" name="Feedback" rows="3" placeholder="What do you think? Bugs, ideas, or praise — all welcome." required maxlength="1000"></textarea>
+            <div class="comment-foot">
+              <button type="submit" class="btn btn--primary btn--sm" id="commentSubmit">
+                Send feedback
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-send"/></svg>
+              </button>
+              <span class="comment-status" id="commentStatus" role="status" aria-live="polite"></span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ================= PRODUCTS ================= -->
   <section class="pane" id="pane-products" role="tabpanel" aria-labelledby="tab-products">
@@ -430,6 +488,213 @@
       grid.appendChild(a);
     });
   }
+  /* ============================================================
+     Apps grid — render, search, modal, comment form
+     ============================================================ */
+  (function initAppsGrid(){
+    var grid = document.getElementById('appsGrid');
+    var empty = document.getElementById('appsEmpty');
+    var search = document.getElementById('appSearch');
+    if (!grid) return;
+
+    var APPS = (typeof SITE_CONFIG !== 'undefined' && Array.isArray(SITE_CONFIG.APPS_DATA)) ? SITE_CONFIG.APPS_DATA : [];
+
+    function esc(str){
+      return String(str || '').replace(/[&<>"']/g, function(m){
+        return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m];
+      });
+    }
+
+    function cardHTML(app){
+      var statusCls = app.status === 'released' ? 'released' : (app.status === 'soon' ? 'soon' : 'dev');
+      var statusTxt = app.status === 'released' ? 'Released' : (app.status === 'soon' ? 'Coming Soon' : 'In Development');
+      return '<button type="button" class="app-card" data-app-id="' + esc(app.id) + '" aria-label="Open ' + esc(app.name) + '">' +
+        '<span class="app-card-ico" aria-hidden="true"><svg viewBox="0 0 24 24">' + (app.iconSvg || '') + '</svg></span>' +
+        '<span class="app-card-name">' + esc(app.name) + '</span>' +
+        '<span class="app-card-tag">' + esc(app.tagline) + '</span>' +
+        '<span class="app-card-status ' + statusCls + '">' + statusTxt + '</span>' +
+      '</button>';
+    }
+
+    function render(filter){
+      filter = (filter || '').trim().toLowerCase();
+      var list = APPS;
+      if (filter){
+        list = APPS.filter(function(a){
+          return (a.name + ' ' + a.tagline + ' ' + a.category + ' ' + a.short).toLowerCase().indexOf(filter) !== -1;
+        });
+      }
+      if (list.length === 0){
+        grid.innerHTML = '';
+        if (empty) empty.hidden = false;
+        return;
+      }
+      if (empty) empty.hidden = true;
+      grid.innerHTML = list.map(cardHTML).join('');
+    }
+
+    /* Grid click handler — opens modal */
+    grid.addEventListener('click', function(e){
+      var card = e.target.closest('.app-card');
+      if (!card) return;
+      var id = card.getAttribute('data-app-id');
+      openAppModal(id);
+    });
+
+    /* Search */
+    if (search){
+      search.addEventListener('input', function(){
+        render(search.value);
+      });
+    }
+
+    /* ---- App modal ---- */
+    var modal = document.getElementById('appModal');
+    var modalPanel = modal ? modal.querySelector('.app-modal-panel') : null;
+    var lastFocused = null;
+
+    function openAppModal(id){
+      var app = APPS.filter(function(a){ return a.id === id; })[0];
+      if (!app || !modal) return;
+
+      document.getElementById('modalIcon').innerHTML = '<svg viewBox="0 0 24 24">' + (app.iconSvg || '') + '</svg>';
+      document.getElementById('appModalTitle').textContent = app.name;
+      document.getElementById('modalTagline').textContent = app.tagline;
+      document.getElementById('modalCategory').textContent = app.platform + ' · ' + app.category;
+
+      var dlBtn = document.getElementById('modalDownload');
+      var dlLink = (SITE_CONFIG.LINKS && SITE_CONFIG.LINKS.apps && SITE_CONFIG.LINKS.apps[app.id]) || '';
+      if (dlBtn){
+        if (app.status === 'released' && dlLink && dlLink !== 'UPLOAD'){
+          dlBtn.href = dlLink;
+          dlBtn.removeAttribute('aria-disabled');
+          dlBtn.style.display = '';
+          dlBtn.querySelector('span') ? null : null;
+          dlBtn.innerHTML = 'Download APK <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg>';
+        } else {
+          dlBtn.href = '#';
+          dlBtn.setAttribute('aria-disabled', 'true');
+          dlBtn.style.display = 'none';
+        }
+      }
+
+      var statusEl = document.getElementById('modalStatus');
+      statusEl.textContent = app.status === 'released' ? 'Available Now' : (app.status === 'soon' ? 'Release Soon' : 'In Development');
+      statusEl.className = 'app-status-pill ' + (app.status === 'released' ? 'released' : 'soon');
+
+      var s = app.stats || {};
+      document.getElementById('statRating').textContent = s.rating ? s.rating.toFixed(1) + '★' : '—';
+      document.getElementById('statReviews').textContent = s.reviews || '—';
+      document.getElementById('statDownloads').textContent = s.downloads || '—';
+      document.getElementById('statShares').textContent = s.shares || '—';
+
+      document.getElementById('modalAbout').textContent = app.about || app.short || '';
+
+      /* Reset comment form */
+      var cForm = document.getElementById('commentForm');
+      var cStatus = document.getElementById('commentStatus');
+      if (cForm) cForm.reset();
+      if (cStatus){ cStatus.textContent = ''; cStatus.className = 'comment-status'; }
+      /* store current app id for comment submission */
+      if (cForm) cForm.setAttribute('data-app-name', app.name);
+
+      lastFocused = document.activeElement;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      if (modalPanel) modalPanel.focus();
+    }
+
+    function closeAppModal(){
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    modal.addEventListener('click', function(e){
+      if (e.target.hasAttribute('data-modal-close') || e.target.closest('[data-modal-close]')){
+        closeAppModal();
+      }
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && modal.classList.contains('open')) closeAppModal();
+    });
+
+    /* ---- Comment form submit ---- */
+    var commentForm = document.getElementById('commentForm');
+    if (commentForm){
+      commentForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        var name = document.getElementById('commentName').value.trim() || 'Anonymous';
+        var text = document.getElementById('commentText').value.trim();
+        var status = document.getElementById('commentStatus');
+        var appName = commentForm.getAttribute('data-app-name') || 'NeuraSaMu App';
+
+        if (!text){
+          status.textContent = 'Please write your feedback first.';
+          status.className = 'comment-status error';
+          return;
+        }
+        if (text.length < 3){
+          status.textContent = 'Please write a bit more.';
+          status.className = 'comment-status error';
+          return;
+        }
+
+        status.textContent = 'Sending…';
+        status.className = 'comment-status';
+
+        var submitBtn = document.getElementById('commentSubmit');
+        if (submitBtn) submitBtn.disabled = true;
+
+        var subject = 'App feedback — ' + appName;
+        var body =
+          'App: ' + appName + '\n' +
+          'From: ' + name + '\n' +
+          'Date: ' + new Date().toISOString() + '\n\n' +
+          'Feedback:\n' + text + '\n';
+
+        /* mailto: — opens user email client OR use Formspree if set */
+        var endpoint = (SITE_CONFIG.FORMSPREE && SITE_CONFIG.FORMSPREE.apply) || '';
+        if (endpoint){
+          fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ _subject: subject, App: appName, From: name, Feedback: text })
+          }).then(function(r){
+            if (r.ok){
+              status.textContent = 'Thank you — your feedback was received.';
+              status.className = 'comment-status';
+              commentForm.reset();
+            } else { throw new Error('bad'); }
+          }).catch(function(){
+            status.textContent = 'Could not send right now. Please try again later.';
+            status.className = 'comment-status error';
+          }).finally(function(){
+            if (submitBtn) submitBtn.disabled = false;
+          });
+        } else {
+          /* Fallback: mailto */
+          var mailto = 'mailto:' + SITE_CONFIG.EMAIL +
+            '?subject=' + encodeURIComponent(subject) +
+            '&body=' + encodeURIComponent(body);
+          window.location.href = mailto;
+          setTimeout(function(){
+            status.textContent = 'Thank you — your email client should now be open.';
+            status.className = 'comment-status';
+            commentForm.reset();
+            if (submitBtn) submitBtn.disabled = false;
+          }, 400);
+        }
+      });
+    }
+
+    /* Initial render */
+    render('');
+  })();
+
 })();
 </script>
 </body>
