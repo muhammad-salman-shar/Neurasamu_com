@@ -118,11 +118,11 @@
   /* ============================================================
      App detail modal
      ============================================================ */
-  .app-modal{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
+  .app-modal{position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;padding:20px}
   .app-modal.open{display:flex;animation:modalIn .3s cubic-bezier(.19,1,.22,1)}
   @keyframes modalIn{from{opacity:0}to{opacity:1}}
   .app-modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-  .app-modal-panel{position:relative;width:100%;max-width:640px;max-height:90vh;background:linear-gradient(145deg,#13151b,#0c0d12);border:1px solid var(--line-strong);border-radius:20px;box-shadow:0 40px 80px -30px rgba(0,0,0,0.9);overflow:hidden;display:flex;flex-direction:column;animation:panelIn .35s cubic-bezier(.19,1,.22,1)}
+  .app-modal-panel{position:relative;z-index:9001;width:100%;max-width:640px;max-height:90vh;background:linear-gradient(145deg,#13151b,#0c0d12);border:1px solid var(--line-strong);border-radius:20px;box-shadow:0 40px 80px -30px rgba(0,0,0,0.9);overflow:hidden;display:flex;flex-direction:column;animation:panelIn .35s cubic-bezier(.19,1,.22,1)}
   @keyframes panelIn{from{transform:translateY(20px) scale(0.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
   .app-modal-close{position:absolute;top:14px;right:14px;z-index:2;width:38px;height:38px;border-radius:50%;border:1px solid var(--line-strong);background:rgba(13,20,34,0.85);backdrop-filter:blur(10px);display:grid;place-items:center;cursor:pointer;color:var(--ink-2);transition:all .2s}
   .app-modal-close:hover{color:var(--ink);border-color:var(--ink-3);transform:rotate(90deg)}
@@ -185,6 +185,15 @@
     .app-action .btn{width:100%;justify-content:center}
     .status-soon{width:100%;text-align:center}
   }
+
+  /* Ensure modal always sits above page chrome */
+  .site-header{ z-index:100 !important; }
+  .site-footer{ z-index:1 !important; }
+  .main-nav{ z-index:100; }
+  body.modal-open .site-header,
+  body.modal-open .site-footer,
+  body.modal-open .tabs-bar{ visibility:hidden; }
+
 </style>
 <script>document.documentElement.classList.add("js");</script>
 <script data-goatcounter="https://neurasamu.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -294,12 +303,11 @@
           </div>
         </div>
 
-        <div class="app-actions">
-          <a class="btn btn--primary app-download-btn" id="modalDownload" href="#" download>
+        <div class="app-actions" id="modalActions">
+          <a class="btn btn--primary app-download-btn" id="modalDownload" href="#" download aria-label="Download APK">
             Download APK
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg>
           </a>
-          <span class="app-status-pill" id="modalStatus"></span>
         </div>
 
         <div class="app-stats">
@@ -590,15 +598,11 @@
           dlBtn.setAttribute('aria-disabled', 'true');
           dlBtn.classList.remove('btn--primary');
           dlBtn.classList.add('btn--ghost');
-          dlBtn.style.opacity = '0.65';
+          dlBtn.style.opacity = '0.7';
           dlBtn.style.pointerEvents = 'none';
           dlBtn.innerHTML = (app.status === 'soon' ? 'Release Soon' : 'In Development') + ' <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-info"/></svg>';
         }
       }
-
-      var statusEl = document.getElementById('modalStatus');
-      statusEl.textContent = app.status === 'released' ? 'Available Now' : (app.status === 'soon' ? 'Release Soon' : 'In Development');
-      statusEl.className = 'app-status-pill ' + (app.status === 'released' ? 'released' : 'soon');
 
       var s = app.stats || {};
       document.getElementById('statRating').textContent = s.rating ? s.rating.toFixed(1) + '★' : '—';
@@ -620,6 +624,7 @@
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
       if (modalPanel) modalPanel.focus();
     }
 
@@ -628,6 +633,7 @@
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+      document.body.classList.remove('modal-open');
       if (lastFocused && lastFocused.focus) lastFocused.focus();
     }
 
