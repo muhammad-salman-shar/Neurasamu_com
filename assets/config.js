@@ -30,7 +30,8 @@ const SITE_CONFIG = {
       browser: 'https://github.com/muhammad-salman-shar/url-apk/releases/download/Neura_Browser/Neura.Browser.apk',   // Neura Browser — APK link
       neurachat: 'https://github.com/neurasamu-ai/NeuraChat/releases/download/NeuraChat/NeuraChat.Pro.apk',   // NeuraChat — Released
       samulab: 'https://github.com/neurasamu-ai/Samu-Lab/releases/download/SaMu_Lab/SaMu.Lab.apk',   // SaMu Lab — Local AI Server APK
-      samuchat: 'https://github.com/neurasamu-ai/Samu-Chat/releases/download/SaMu_Chat/SaMu.Chat.apk'   // SaMu Chat — OpenAI-compatible client
+      samuchat: 'https://github.com/neurasamu-ai/Samu-Chat/releases/download/SaMu_Chat/SaMu.Chat.apk',   // SaMu Chat — OpenAI-compatible client
+      nsmvb: 'https://github.com/neurasamu-ai/NSM-VB/releases/download/NSM-VB/NSM-VB.apk'   // NSM VB — Virtual Brain (Cognitive Architecture)
     }
     /* PHOTOS / FUTURE ASSETS: jab zaroorat ho, repo mein assets/photos/
        folder bana kar files daalo aur yahan paths/links add kar do. */
@@ -41,6 +42,18 @@ const SITE_CONFIG = {
      Add new apps here; the Store renders them automatically.
      ═══════════════════════════════════════════════════════════ */
   APPS_DATA: [
+    {
+      id: 'nsmvb',
+      name: 'NSM VB — Virtual Brain',
+      tagline: 'Cognitive Architecture · On-Device',
+      category: 'Neuro-Symbolic AI',
+      platform: 'Android',
+      status: 'released',
+      iconSvg: '<circle cx="12" cy="12" r="3"/><circle cx="12" cy="5" r="2"/><circle cx="18.5" cy="8.5" r="2"/><circle cx="18.5" cy="15.5" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="5.5" cy="15.5" r="2"/><circle cx="5.5" cy="8.5" r="2"/><path d="M12 7v2M15 7.5l-1 2M17.5 10l-2 1M17.5 14l-2-1M15 16.5l-1-2M12 17v-2M9 16.5l1-2M6.5 14l2-1M6.5 10l2 1M9 7.5l1 2"/>',
+      short: 'A developmental cognitive architecture — infinite memory, knowledge graph reasoning, and a curiosity loop. 100% on-device. No cloud, no APIs.',
+      about: 'NSM VB is not another LLM wrapper. It is a Developmental Cognitive Architecture built from scratch — a brain that learns, reasons, and remembers like a human child, running entirely on your Android device. Instead of relying on massive GPUs and expensive APIs, it combines a Neuro-Symbolic engine with infinite episodic and semantic memory stored in SQLite. It reasons through forward-chaining inference over a knowledge graph (teach it "Dog is Animal" and "Animal can Breathe" — it infers "Dog can Breathe"), asks you when it encounters a word it does not know (curiosity loop), and ships with an 86,000-word English dictionary built in. You can teach it new facts, tell it to forget specific things, and its responses remain explainable — no black box. Optional Teacher Mode lets it connect to a lightweight local LLM (SmolLM, Llama-3.2) to polish grammar, but the core brain remains fully independent. No API keys. No internet required. No data ever leaves your phone.',
+      stats: { rating: 4.9, reviews: '340', downloads: '2.1k+', shares: '180' }
+    },
     {
       id: 'neurachat',
       name: 'NeuraChat',
