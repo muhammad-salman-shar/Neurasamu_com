@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSM VB — A Local-First Neuro-Symbolic Cognitive Architecture | NeuraSaMu Research</title>
+<meta name="description" content="NSM VB — a local-first cognitive architecture for Android combining Hyperdimensional Computing, SQLite episodic memory, forward-chaining inference, and Construction Grammar. Runs entirely on-device.">
+<meta name="author" content="Muhammad Salman Shar">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#050810">
+<link rel="canonical" href="https://neurasamu.com/research/nsmvb/">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSM VB — A Local-First Neuro-Symbolic Cognitive Architecture">
+<meta property="og:description" content="Persistent memory, symbolic inference, and local-first cognitive systems on mobile Android devices.">
+<meta property="og:url" content="https://neurasamu.com/research/nsmvb/">
+<meta property="og:site_name" content="NeuraSaMu">
+<meta property="article:author" content="Muhammad Salman Shar">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NSM VB — Local-First Neuro-Symbolic Cognitive Architecture">
+<meta name="twitter:description" content="A cognitive architecture for Android without GPUs or external APIs.">
+
+<link rel="icon" type="image/png" href="/assets/logo.png">
+<link rel="apple-touch-icon" href="/assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "NSM VB: A Local-First Neuro-Symbolic Cognitive Architecture for Mobile Devices",
+  "alternativeHeadline": "NSM VB",
+  "author": {"@type": "Person", "name": "Muhammad Salman Shar"},
+  "publisher": {"@type": "Organization", "name": "NeuraSaMu", "url": "https://neurasamu.com"},
+  "datePublished": "2026-10-19",
+  "abstract": "NSM VB is a lightweight, local-first cognitive architecture designed to run entirely on mobile Android devices. Combining Hyperdimensional Computing, SQLite episodic memory, a forward-chaining inference engine, and Construction Grammar, it achieves persistent memory, zero-latency retrieval, and transitive reasoning without GPUs or external APIs.",
+  "keywords": "Hyperdimensional Computing, Neuro-Symbolic AI, Cognitive Architecture, Local-First AI, Mobile AI, SQLite Memory, Construction Grammar",
+  "url": "https://neurasamu.com/research/nsmvb/",
+  "inLanguage": "en"
+}
+</script>
+
+<style>
+  .paper-hero{padding:calc(var(--header-h) + 72px) 0 clamp(40px,6vw,72px);border-bottom:1px solid var(--line)}
+  .paper-meta{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:28px}
+  .paper-meta .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
+  .paper-title{font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,4.2vw,3rem);line-height:1.08;letter-spacing:-.028em;color:var(--ink);max-width:22ch}
+  .paper-subtitle{margin-top:20px;font-family:var(--serif);font-style:italic;font-size:clamp(1.05rem,1.9vw,1.3rem);line-height:1.5;color:var(--ink-3);max-width:52ch}
+  .paper-byline{margin-top:32px;padding-top:24px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 32px;font-size:.88rem;color:var(--ink-2)}
+  .paper-byline dt{font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
+  .paper-byline dd{color:var(--ink);font-weight:600}
+  .paper-body{padding:clamp(40px,6vw,72px) 0}
+  .paper-body h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.4rem,2.6vw,1.85rem);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin-top:56px;margin-bottom:18px;padding-top:32px;border-top:1px solid var(--line)}
+  .paper-body h2:first-child{margin-top:0;padding-top:0;border-top:none}
+  .paper-body h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.15rem,1.9vw,1.35rem);line-height:1.3;letter-spacing:-.015em;color:var(--ink);margin-top:36px;margin-bottom:14px}
+  .paper-body p{margin-bottom:18px;font-size:1rem;line-height:1.75;color:var(--ink-2)}
+  .paper-body p strong{color:var(--ink);font-weight:600}
+  .paper-body ul{margin:0 0 20px 0;padding-left:0;list-style:none}
+  .paper-body ul li{padding-left:22px;position:relative;margin-bottom:10px;font-size:.98rem;line-height:1.7;color:var(--ink-2)}
+  .paper-body ul li::before{content:'';position:absolute;left:4px;top:.7em;width:8px;height:1px;background:var(--accent)}
+  .abstract-box{background:rgba(13,20,34,0.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line-strong);border-radius:14px;padding:clamp(24px,3.5vw,36px);margin-bottom:40px}
+  .abstract-box .lbl{font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  .abstract-box p{font-family:var(--serif);font-size:clamp(1.05rem,1.7vw,1.2rem);line-height:1.6;color:var(--ink)}
+  .glance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0 36px}
+  .glance-card{background:rgba(13,20,34,0.55);border:1px solid var(--line-strong);border-radius:12px;padding:18px 20px}
+  .glance-card .lbl{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+  .glance-card .val{font-family:var(--serif);font-size:1rem;color:var(--ink);line-height:1.3}
+  @media(max-width:600px){.glance-grid{grid-template-columns:1fr}}
+  .paper-tags{display:flex;flex-wrap:wrap;gap:8px;margin:36px 0}
+  .paper-tags span{padding:5px 12px;border:1px solid var(--line);border-radius:999px;font-size:.75rem;font-weight:500;color:var(--ink-2);background:rgba(13,20,34,0.4)}
+  .paper-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:48px;padding-top:32px;border-top:1px solid var(--line)}
+  .code-inline{background:rgba(76,182,142,.08);color:var(--accent);padding:2px 8px;border-radius:4px;font-family:'SF Mono',Menlo,Consolas,monospace;font-size:.88em}
+</style>
+</head>
+<body>
+
+<canvas id="starfield" aria-hidden="true"></canvas>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 14.5V6.5A2.5 2.5 0 0 1 7.5 4h8"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7.5 8 5.5 8-5.5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 10.5 13.5M21 3l-6.8 18-3.7-8.3L2.2 9z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.4v.2"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/><rect x="10" y="10" width="4" height="4" rx="1"/><path d="M9.5 3.5V6M14.5 3.5V6M9.5 18v2.5M14.5 18v2.5M3.5 9.5H6M3.5 14.5H6M18 9.5h2.5M18 14.5h2.5"/></symbol>
+</svg>
+
+<header class="site-header scrolled">
+  <div class="container header-inner">
+    <a href="/" class="brand" aria-label="NeuraSaMu — home">
+      <img class="mark-img" src="/assets/logo.png" alt="" aria-hidden="true">
+      <span class="brand-name">NeuraSaMu</span>
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="/research/" class="active">Research</a>
+      <a href="/vision/">Vision</a>
+      <a href="/store/">Store</a>
+      <a href="/bureau/">Bureau</a>
+      <a href="/post/">Updates</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+      <svg class="icon ic-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="icon ic-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="menu" id="menu" aria-label="Mobile navigation">
+  <a href="/" class="menu-home" style="transition-delay:.04s"><span class="idx">00</span>Home</a>
+  <a href="/research/" class="active" style="transition-delay:.08s"><span class="idx">01</span>Research</a>
+  <a href="/vision/" style="transition-delay:.12s"><span class="idx">02</span>Vision</a>
+  <a href="/store/" style="transition-delay:.16s"><span class="idx">03</span>Store</a>
+  <a href="/bureau/" style="transition-delay:.20s"><span class="idx">04</span>Bureau</a>
+  <a href="/post/" style="transition-delay:.24s"><span class="idx">05</span>Updates</a>
+  <a href="/contact/" style="transition-delay:.28s"><span class="idx">06</span>Contact</a>
+  <p class="menu-foot">NeuraSaMu · <a href="mailto:neurasamuai@gmail.com">neurasamuai@gmail.com</a></p>
+</nav>
+
+<main>
+
+<section class="paper-hero">
+  <div class="container">
+    <div class="paper-meta">
+      <span>Research Paper</span>
+      <span class="dot"></span>
+      <span>Cognitive Architecture</span>
+      <span class="dot"></span>
+      <span>October 2026</span>
+    </div>
+    <h1 class="paper-title">NSM VB: A Local-First Neuro-Symbolic Cognitive Architecture for Mobile Devices</h1>
+    <p class="paper-subtitle">Persistent memory, symbolic inference, and local-first cognitive systems — running entirely on Android.</p>
+    <dl class="paper-byline">
+      <div><dt>Author</dt><dd>Muhammad Salman Shar</dd></div>
+      <div><dt>Affiliation</dt><dd>NeuraSaMu Research Lab</dd></div>
+      <div><dt>Date</dt><dd>October 2026</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="paper-body">
+  <div class="container">
+
+    <div class="paper-stats" data-paper-stats>
+      <div class="stat-cell">
+        <svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span class="stat-num" data-stat="views">—</span>
+        <span class="stat-lbl">Views</span>
+      </div>
+      <div class="stat-cell">
+        <svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+        <span class="stat-num" data-stat="downloads">—</span>
+        <span class="stat-lbl">Downloads</span>
+      </div>
+      <div class="stat-cell">
+        <svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+        <span class="stat-num" data-stat="shares">—</span>
+        <span class="stat-lbl">Shares</span>
+      </div>
+      <div class="paper-share">
+        <span class="share-lbl">Share</span>
+        <button type="button" class="share-btn" data-share="copy" aria-label="Copy link"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 14.5V6.5A2.5 2.5 0 0 1 7.5 4h8"/></svg></button>
+        <button type="button" class="share-btn" data-share="x" aria-label="Share on X"><svg viewBox="0 0 24 24"><path d="M4 4l7.5 10L4 20h2l6.4-7.4L17.5 20H20l-7.5-10L20 4h-2l-6 6.9L7 4z"/></svg></button>
+        <button type="button" class="share-btn" data-share="linkedin" aria-label="Share on LinkedIn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></button>
+        <button type="button" class="share-btn" data-share="whatsapp" aria-label="Share on WhatsApp"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.7 7.1L4 21l1.9-5.3A8 8 0 1 1 21 12z"/><path d="M8.5 9.5c.5 2 1.5 3 3.5 4l1.5-1.5 2 1-.5 1.5c-2 .5-5-1-6-4l1.5-1.5 2 1z"/></svg></button>
+      </div>
+    </div>
+
+    <div class="abstract-box">
+      <div class="lbl">Abstract</div>
+      <p>Large Language Models have revolutionized natural language processing, yet they suffer from fundamental limitations: high computational costs, severe hallucinations, lack of persistent episodic memory, and a reliance on cloud infrastructure. This paper introduces <strong>NSM VB (NeuraSaMu Virtual Brain)</strong>, a lightweight, local-first cognitive architecture designed to run entirely on mobile Android devices. Unlike traditional auto-regressive models, NSM VB utilizes a hybrid approach combining Hyperdimensional Computing (HDC) for semantic memory, SQLite for episodic memory, a forward-chaining inference engine for logical reasoning, and Construction Grammar for sentence generation. We demonstrate that NSM VB can achieve persistent memory, zero-latency knowledge retrieval, and basic transitive reasoning without requiring GPUs or external APIs — successfully passing a suite of 176 unit tests on a mobile CPU.</p>
+    </div>
+
+    <div class="glance-grid">
+      <div class="glance-card">
+        <div class="lbl">Local-First</div>
+        <div class="val">Designed to run on Android</div>
+      </div>
+      <div class="glance-card">
+        <div class="lbl">Hybrid Memory</div>
+        <div class="val">HDC + SQLite</div>
+      </div>
+      <div class="glance-card">
+        <div class="lbl">Rule-Based Inference</div>
+        <div class="val">Forward chaining</div>
+      </div>
+    </div>
+
+    <h2>1. Introduction</h2>
+    <p>Modern Artificial Intelligence is dominated by massive Transformer-based models (e.g., GPT-4, Llama). While highly fluent, these models operate as statistical next-token predictors. They do not possess a true "understanding" of facts, they cannot update their internal weights on the fly without catastrophic forgetting, and they require massive energy resources.</p>
+    <p>To address these issues, we propose a paradigm shift towards <strong>Developmental Cognitive Architectures</strong>. NSM VB is built on the premise that intelligence can emerge through continuous, incremental interaction with a user. It abandons the billion-parameter neural network in favor of a highly optimized, rule-based, and vector-symbolic hybrid system. NSM VB runs 100% locally on an Android device, ensuring complete data privacy and zero API costs.</p>
+
+    <h2>2. Architecture &amp; Methodology</h2>
+    <p>The NSM VB architecture is composed of four distinct subsystems:</p>
+
+    <h3>2.1. Hyperdimensional Memory (HDC)</h3>
+    <p>For semantic memory, NSM VB utilizes Hyperdimensional Computing (10,000-dimensional binary vectors). Words and concepts are represented as random binary vectors. Relations are bound using the XOR operation, and concepts are bundled using majority voting. This allows NSM to represent hierarchical structures (e.g., Dog IS Animal) and retrieve concepts using Hamming distance, bypassing the need for neural embeddings.</p>
+
+    <h3>2.2. Episodic &amp; Fact Memory</h3>
+    <p>Unlike LLMs that have a fixed context window, NSM VB uses a local SQLite database. Every conversation, fact, and emotional state is stored in a structured JSON format. This grants the system "Infinite Memory." Furthermore, a specific <strong>Forget System</strong> allows users to explicitly delete specific memories — a capability inherently impossible in standard LLMs.</p>
+
+    <h3>2.3. Reasoning &amp; Inference Engine</h3>
+    <p>NSM VB is not just a lookup table; it reasons. The system features a forward-chaining inference engine based on graph traversal. If the system knows <span class="code-inline">Dog IS Animal</span> and <span class="code-inline">Animal CAN Breathe</span>, it algorithmically deduces <span class="code-inline">Dog CAN Breathe</span>. This ensures hallucination-free logical deductions.</p>
+
+    <h3>2.4. Construction Grammar &amp; Production</h3>
+    <p>To generate language, NSM VB uses Construction Grammar, mapping "Form" (sentence structure) to "Meaning" (semantic representation). The Parser extracts meaning from input, and the Realizer generates grammatically correct sentences based on stored facts and tenses (Past, Present, Future).</p>
+
+    <h2>3. The "Curiosity Loop"</h2>
+    <p>A novel feature of this architecture is the <strong>Curiosity Loop</strong>. When NSM VB encounters a word not present in its 86,000-word dictionary, it does not hallucinate an answer. Instead, it triggers a question: <em>"I know the word 'X' but I don't know its meaning. Can you tell me?"</em> It recursively asks about unknown words in the explanation, mimicking the learning process of a human child.</p>
+
+    <h2>4. Implementation</h2>
+    <ul>
+      <li><strong>Core Engine:</strong> Python.</li>
+      <li><strong>Deployment:</strong> The Python runtime is embedded into an Android APK using Chaquopy. The UI is a custom HTML/JS WebView.</li>
+      <li><strong>Optional Teacher Mode:</strong> While independent, the system can optionally connect to a tiny local LLM (e.g., SmolLM 360M via LM Studio/SaMu Lab) using an OpenAI-compatible API. The LLM acts only as a language polisher, ensuring fluency without overriding NSM's core reasoning.</li>
+    </ul>
+
+    <h2>5. Evaluation &amp; Results</h2>
+    <p>The system was evaluated using a custom test suite of 176 unit tests covering memory retention, logical inference, grammar generation, and multi-user isolation. The tests achieved a 100% pass rate on a mobile CPU. The system demonstrated:</p>
+    <ul>
+      <li><strong>Zero API Latency:</strong> Local retrieval happens in milliseconds.</li>
+      <li><strong>Perfect Memory Retention:</strong> Facts learned days ago are retrieved accurately.</li>
+      <li><strong>Zero Hallucination in Logic:</strong> Inference tasks (e.g., A → B → C) are strictly deterministic.</li>
+    </ul>
+
+    <h2>6. Limitations &amp; Future Work</h2>
+    <p>Currently, NSM VB requires structured input formats to generate complex grammar. Future iterations will focus on expanding the Construction Grammar registry to support passive voice, multi-clause sentences, and integrating multi-modal inputs (vision and audio) to allow the system to learn from the physical world.</p>
+
+    <h2>7. Conclusion</h2>
+    <p>NSM VB demonstrates that a lightweight, explainable, and reasoning-capable AI can run on consumer mobile hardware without reliance on cloud servers. By combining Hyperdimensional Computing, Construction Grammar, and incremental learning, this research provides a viable, privacy-first alternative to traditional Large Language Models.</p>
+
+    <ul class="paper-tags">
+      <li>Hyperdimensional Computing</li>
+      <li>Neuro-Symbolic AI</li>
+      <li>Cognitive Architecture</li>
+      <li>Local-First AI</li>
+      <li>Mobile AI</li>
+      <li>Construction Grammar</li>
+    </ul>
+
+    <div class="paper-cta">
+      <a class="btn btn--primary" href="https://github.com/neurasamu-ai/NSM-VB/releases/download/NSM-VB/NSM_VB_Research_Paper_NeuraSaMu.pdf" target="_blank" rel="noopener">
+        Download Full Paper
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+      </a>
+      <a class="btn btn--ghost" href="/research/">
+        All research
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="f-bottom" style="border-top:none;padding-top:0">
+      <span>© 2026 NeuraSaMu · <a href="/" style="color:var(--green-dark);text-decoration:none">neurasamu.com</a></span>
+      <span>Dreamed &amp; built in Pakistan.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/config.js"></script>
+<script src="/assets/stats.js"></script>
+<script src="/assets/app.js"></script>
+</body>
+</html>

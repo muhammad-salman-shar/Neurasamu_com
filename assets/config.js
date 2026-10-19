@@ -21,7 +21,8 @@ const SITE_CONFIG = {
       cspm: 'https://www.kaggle.com/datasets/muhammadsalmanshar/cspm-by-muhammad-salman-shar',   // CSPM whitepaper PDF ka GitHub release link
       smg:  'https://www.kaggle.com/datasets/muhammadsalmanshar/ai-synapse-memory-graph-version-2-0',   // SMG v2 whitepaper PDF ka link
       abh:  'https://www.kaggle.com/datasets/muhammadsalmanshar/agi-anthropomorphic-breach-hypothesis',   // AGI Anthropomorphic Breach Hypothesis paper ka link
-      aao:  'https://www.kaggle.com/datasets/muhammadsalmanshar/agi-and-asi-outlook-through-2031'    // AGI & ASI Outlook Through 2031 paper ka link
+      aao:  'https://www.kaggle.com/datasets/muhammadsalmanshar/agi-and-asi-outlook-through-2031',   // AGI & ASI Outlook Through 2031 paper ka link
+      nsmvb: 'https://github.com/neurasamu-ai/NSM-VB/releases/download/NSM-VB/NSM_VB_Research_Paper_NeuraSaMu.pdf'   // NSM VB Research Paper
     },
     apps: {
       compiler:  'https://github.com/muhammad-salman-shar/Cpp_compiler/releases/download/C%2B%2BCompiler_lite_apk/C++.Compiler.lite.apk',   // NeuraSaMu C++ Compiler — APK link
