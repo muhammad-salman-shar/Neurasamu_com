@@ -853,3 +853,144 @@ body.menu-open #menuClose{ display:grid; }
 /* Header above menu */
 .site-header{ z-index:300 !important; }
 .menu{ z-index:200 !important; }
+
+/* ============================================================
+   NSM VB — promotional popup
+   ============================================================ */
+.nsmvb-popup{
+  position:fixed;
+  bottom:24px;
+  left:24px;
+  z-index:8000;
+  width:340px;
+  max-width:calc(100vw - 48px);
+  background:linear-gradient(145deg,#13151b,#0c0d12);
+  border:1px solid rgba(76,182,142,0.35);
+  border-radius:16px;
+  padding:18px 20px 16px;
+  box-shadow:0 24px 60px -20px rgba(0,0,0,0.85);
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  transform:translateY(120%);
+  opacity:0;
+  transition:transform .55s cubic-bezier(.19,1,.22,1), opacity .4s ease;
+}
+.nsmvb-popup.nsmvb-visible{
+  transform:translateY(0);
+  opacity:1;
+}
+.nsmvb-popup.nsmvb-leaving{
+  transform:translateY(120%);
+  opacity:0;
+}
+.nsmvb-close{
+  position:absolute;
+  top:8px;
+  right:8px;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  border:none;
+  background:rgba(255,255,255,0.05);
+  color:var(--ink-3);
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  transition:all .2s;
+}
+.nsmvb-close:hover{
+  color:var(--ink);
+  background:rgba(255,255,255,0.12);
+}
+.nsmvb-close svg{
+  width:12px;
+  height:12px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2.2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.nsmvb-icon{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  background:rgba(76,182,142,0.12);
+  border:1px solid rgba(76,182,142,0.3);
+  display:grid;
+  place-items:center;
+  color:var(--accent);
+  flex-shrink:0;
+  margin-top:2px;
+}
+.nsmvb-icon svg{
+  width:22px;
+  height:22px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.nsmvb-content{
+  flex:1;
+  min-width:0;
+}
+.nsmvb-badge{
+  display:inline-block;
+  font-size:.58rem;
+  font-weight:700;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--accent);
+  background:rgba(76,182,142,0.1);
+  border:1px solid rgba(76,182,142,0.25);
+  padding:3px 8px;
+  border-radius:999px;
+  margin-bottom:8px;
+}
+.nsmvb-content h3{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:1.05rem;
+  letter-spacing:-.02em;
+  color:var(--ink);
+  line-height:1.2;
+  margin:0 0 6px;
+}
+.nsmvb-content p{
+  font-size:.8rem;
+  line-height:1.55;
+  color:var(--ink-2);
+  margin:0 0 10px;
+}
+.nsmvb-cta{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-size:.8rem;
+  font-weight:600;
+  color:var(--accent);
+  text-decoration:none;
+  transition:gap .2s;
+}
+.nsmvb-cta:hover{
+  gap:9px;
+}
+@media (max-width:520px){
+  .nsmvb-popup{
+    left:16px;
+    right:16px;
+    bottom:16px;
+    width:auto;
+    max-width:none;
+    padding:16px 16px 14px;
+  }
+  .nsmvb-icon{
+    width:40px;
+    height:40px;
+  }
+  .nsmvb-content h3{ font-size:1rem; }
+  .nsmvb-content p{ font-size:.78rem; }
+}

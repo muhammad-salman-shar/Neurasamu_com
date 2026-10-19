@@ -1032,8 +1032,67 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
   } else {
     wake();
   }
+/* ============================================================
+   NSM VB — promotional popup
+   Appears once every 7 days on non-store pages
+   ============================================================ */
+(function nsmvbPopup(){
+  'use strict';
+
+  // Skip on store page (already there) and audition
+  if (window.location.pathname.indexOf('/store') !== -1) return;
+
+  var DISMISS_KEY = 'nsmvb-popup-dismissed-v1';
+  var DISMISS_DAYS = 7;
+
+  try {
+    var dismissed = localStorage.getItem(DISMISS_KEY);
+    if (dismissed) {
+      var elapsed = Date.now() - parseInt(dismissed, 10);
+      if (elapsed < DISMISS_DAYS * 24 * 60 * 60 * 1000) return;
+    }
+  } catch(e){}
+
+  function createPopup(){
+    if (document.querySelector('.nsmvb-popup')) return;
+
+    var popup = document.createElement('div');
+    popup.className = 'nsmvb-popup';
+    popup.setAttribute('role', 'dialog');
+    popup.setAttribute('aria-label', 'New release: NSM VB');
+    popup.innerHTML =
+      '<button type="button" class="nsmvb-close" aria-label="Dismiss">' +
+        '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>' +
+      '</button>' +
+      '<div class="nsmvb-icon" aria-hidden="true">' +
+        '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.5"/><circle cx="12" cy="5" r="1.5"/><circle cx="18" cy="9" r="1.5"/><circle cx="18" cy="15" r="1.5"/><circle cx="12" cy="19" r="1.5"/><circle cx="6" cy="15" r="1.5"/><circle cx="6" cy="9" r="1.5"/><path d="M12 6.5v3M15 7.5l-1.5 2M16.5 10l-2 1M16.5 14l-2-1M15 16.5l-1.5-2M12 17.5v-3M9 16.5l1.5-2M7.5 14l2-1M7.5 10l2 1M9 7.5l1.5 2"/></svg>' +
+      '</div>' +
+      '<div class="nsmvb-content">' +
+        '<div class="nsmvb-badge">New Release</div>' +
+        '<h3>Try NSM VB</h3>' +
+        '<p>A cognitive architecture that learns, reasons, and remembers — 100% on-device. No cloud. No APIs.</p>' +
+        '<a href="/store/#nsmvb" class="nsmvb-cta">Try it now <svg viewBox="0 0 24 24" style="width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>' +
+      '</div>';
+
+    document.body.appendChild(popup);
+
+    popup.querySelector('.nsmvb-close').addEventListener('click', function(){
+      popup.classList.add('nsmvb-leaving');
+      try { localStorage.setItem(DISMISS_KEY, String(Date.now())); } catch(e){}
+      setTimeout(function(){ try { popup.remove(); } catch(e){} }, 400);
+    });
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) {
+      popup.classList.add('nsmvb-visible');
+    } else {
+      requestAnimationFrame(function(){
+        setTimeout(function(){ popup.classList.add('nsmvb-visible'); }, 60);
+      });
+    }
+  }
+
+  setTimeout(createPopup, 7000);
 })();
-
-
 
 })();
