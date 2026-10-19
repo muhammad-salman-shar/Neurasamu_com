@@ -667,16 +667,16 @@ body::after {
   margin-right:4px;
 }
 .share-btn{
-  width:34px;
-  height:34px;
+  width:36px;
+  height:36px;
   border-radius:50%;
-  border:1px solid var(--line-strong);
-  background:rgba(255,255,255,.5);
+  border:1px solid rgba(240,237,230,.22);
+  background:rgba(240,237,230,.08);
   display:grid;
   place-items:center;
-  color:var(--ink-3);
+  color:rgba(240,237,230,.75);
   cursor:pointer;
-  transition:border-color .25s var(--e), color .25s var(--e), transform .25s var(--e);
+  transition:border-color .25s var(--e), color .25s var(--e), transform .25s var(--e), background .25s var(--e);
 }
 .share-btn:hover{
   border-color:var(--accent);
@@ -684,7 +684,7 @@ body::after {
   transform:translateY(-1px);
 }
 .share-btn svg{
-  width:15px;
+  width:16px;
   height:15px;
   fill:none;
   stroke:currentColor;
