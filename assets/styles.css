@@ -994,3 +994,30 @@ body.menu-open #menuClose{ display:grid; }
   .nsmvb-content h3{ font-size:1rem; }
   .nsmvb-content p{ font-size:.78rem; }
 }
+
+/* ============================================================
+   Latest cards — replaces stats row
+   ============================================================ */
+.latest-row{padding-block:clamp(60px,9vw,110px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.latest-head{margin-bottom:clamp(32px,4.5vw,52px);max-width:640px}
+.latest-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.5vw,28px)}
+.latest-card{display:flex;flex-direction:column;gap:14px;padding:clamp(26px,3.5vw,40px);border:1px solid var(--line-strong);border-radius:18px;background:rgba(13,20,34,0.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);text-decoration:none;color:inherit;transition:all .3s cubic-bezier(.19,1,.22,1);position:relative;overflow:hidden}
+.latest-card:hover{border-color:rgba(76,182,142,0.5);transform:translateY(-3px);background:rgba(13,20,34,0.75);box-shadow:0 24px 48px -24px rgba(0,0,0,0.7)}
+.latest-tag{display:inline-flex;align-items:center;gap:8px;font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.latest-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(76,182,142,0.6);animation:latestPulse 2.4s ease-out infinite}
+@keyframes latestPulse{0%{box-shadow:0 0 0 0 rgba(76,182,142,0.6)}70%{box-shadow:0 0 0 10px rgba(76,182,142,0)}100%{box-shadow:0 0 0 0 rgba(76,182,142,0)}}
+.latest-ico{width:48px;height:48px;border-radius:12px;background:rgba(76,182,142,0.08);border:1px solid rgba(76,182,142,0.28);display:grid;place-items:center;color:var(--accent);flex-shrink:0}
+.latest-ico svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.latest-title{font-family:var(--serif);font-weight:500;font-size:clamp(1.2rem,1.9vw,1.4rem);letter-spacing:-.02em;color:var(--ink);line-height:1.25}
+.latest-desc{font-size:.92rem;line-height:1.65;color:var(--ink-2);flex:1;max-width:52ch}
+.latest-cta{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;color:var(--accent);padding-top:12px;border-top:1px solid var(--line)}
+.latest-cta svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s var(--e)}
+.latest-card:hover .latest-cta svg{transform:translateX(3px)}
+@media(max-width:720px){
+  .latest-grid{grid-template-columns:1fr}
+}
+
+/* ============================================================
+   Menu close button — hidden (using burger as toggle)
+   ============================================================ */
+#menuClose,.menu-close{display:none !important}

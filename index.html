@@ -87,6 +87,7 @@
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobile">
+  <a href="/" class="menu-home" style="transition-delay:.02s"><span class="idx">00</span>Home</a>
   <a href="/research/" style="transition-delay:.06s"><span class="idx">01</span>Research</a>
   <a href="/vision/" style="transition-delay:.12s"><span class="idx">02</span>Vision</a>
   <a href="/store/" style="transition-delay:.18s"><span class="idx">03</span>Store</a>
@@ -95,10 +96,6 @@
   <a href="/contact/" style="transition-delay:.36s"><span class="idx">06</span>Contact</a>
   <p class="menu-foot">NeuraSaMu · <a href="mailto:neurasamuai@gmail.com">neurasamuai@gmail.com</a></p>
 </nav>
-
-<button type="button" class="menu-close" id="menuClose" aria-label="Close menu">
-  <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
-</button>
 
 <main id="main">
 
@@ -196,30 +193,47 @@
   <!-- ═══════════════════════════════════════════════════════════
        STATS — real, honest numbers only
        ═══════════════════════════════════════════════════════════ -->
-  <section class="stats-row" aria-label="Organization facts">
+  <!-- ═══════════════════════════════════════════════════════════
+       LATEST — newest app + newest research
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="latest-row" aria-labelledby="latestTitle">
     <div class="container">
-      <div class="stats-grid" data-reveal>
-        <div class="stat-cell">
-          <span class="stat-num-lg">2023</span>
-          <span class="stat-lbl-lg">Founded</span>
-        </div>
-        <div class="stat-cell">
-          <span class="stat-num-lg">4</span>
-          <span class="stat-lbl-lg">Published Papers</span>
-        </div>
-        <div class="stat-cell">
-          <span class="stat-num-lg">3</span>
-          <span class="stat-lbl-lg">Native Apps</span>
-        </div>
-        <div class="stat-cell">
-          <span class="stat-num-lg">Google</span>
-          <span class="stat-lbl-lg">AI Overview Cited</span>
-        </div>
+      <div class="latest-head" data-reveal>
+        <div class="sec-eyebrow"><span class="idx">02</span><span class="lbl">Latest</span><span class="rule"></span></div>
+        <h2 class="section-head-title" id="latestTitle">What's new from the lab.</h2>
+      </div>
+
+      <div class="latest-grid">
+        <a href="/store/#nsmvb" class="latest-card" data-reveal>
+          <div class="latest-tag">
+            <span class="latest-dot" aria-hidden="true"></span>
+            Latest Release
+          </div>
+          <div class="latest-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.5"/><circle cx="12" cy="5" r="1.5"/><circle cx="18" cy="9" r="1.5"/><circle cx="18" cy="15" r="1.5"/><circle cx="12" cy="19" r="1.5"/><circle cx="6" cy="15" r="1.5"/><circle cx="6" cy="9" r="1.5"/><path d="M12 6.5v3M15 7.5l-1.5 2M16.5 10l-2 1M16.5 14l-2-1M15 16.5l-1.5-2M12 17.5v-3M9 16.5l1.5-2M7.5 14l2-1M7.5 10l2 1M9 7.5l1.5 2"/></svg>
+          </div>
+          <h3 class="latest-title">NSM VB — Virtual Brain</h3>
+          <p class="latest-desc">A cognitive architecture that learns, reasons, and remembers — 100% on-device. No cloud. No APIs.</p>
+          <span class="latest-cta">Download APK <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+
+        <a href="/research/nsmvb/" class="latest-card" data-reveal="1">
+          <div class="latest-tag">
+            <span class="latest-dot" aria-hidden="true"></span>
+            Latest Research
+          </div>
+          <div class="latest-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M6.5 3.5h7L18 8v12.5h-11.5z"/><path d="M13.5 3.5V8H18M9.5 12.5h5M9.5 16h5"/></svg>
+          </div>
+          <h3 class="latest-title">NSM VB — Research Paper</h3>
+          <p class="latest-desc">A local-first neuro-symbolic architecture: HDC memory, symbolic inference, and Construction Grammar on mobile.</p>
+          <span class="latest-cta">Read Paper <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="home-shortcuts" aria-label="Explore">
+<section class="home-shortcuts" aria-label="Explore">
     <div class="container">
       <div class="sec-eyebrow" data-reveal><span class="idx">→</span><span class="lbl">Explore</span><span class="rule"></span></div>
       <div class="shortcut-grid">
