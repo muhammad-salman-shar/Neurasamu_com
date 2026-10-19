@@ -40,21 +40,36 @@
 <canvas id="starfield" aria-hidden="true"></canvas>
 
 <header class="site-header scrolled">
-  <div class="container header-inner" style="background:transparent">
+  <div class="container header-inner">
     <a href="/" class="brand" aria-label="NeuraSaMu — home">
       <img class="mark-img" src="/assets/logo.png" alt="" aria-hidden="true">
-      <span class="brand-name" style="color:var(--on-dark)">NeuraSaMu</span>
+      <span class="brand-name">NeuraSaMu</span>
     </a>
-    <nav class="main-nav" aria-label="Primary" style="display:flex">
-      <a href="/research/" style="color:var(--on-dark-2)">Research</a>
-      <a href="/vision/" class="active" style="color:var(--on-dark)">Vision</a>
-      <a href="/store/" style="color:var(--on-dark-2)">Store</a>
-      <a href="/bureau/" style="color:var(--on-dark-2)">Bureau</a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="/research/">Research</a>
+      <a href="/vision/" class="active">Vision</a>
+      <a href="/store/">Store</a>
+      <a href="/bureau/">Bureau</a>
       <a href="/post/">Updates</a>
-      <a href="/contact/" style="color:var(--on-dark-2)">Contact</a>
+      <a href="/contact/">Contact</a>
     </nav>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+      <svg class="icon ic-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="icon ic-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
   </div>
 </header>
+
+<nav class="menu" id="menu" aria-label="Mobile navigation">
+  <a href="/" class="menu-home" style="transition-delay:.02s"><span class="idx">00</span>Home</a>
+  <a href="/research/" style="transition-delay:.06s"><span class="idx">01</span>Research</a>
+  <a href="/vision/" class="active" style="transition-delay:.12s"><span class="idx">02</span>Vision</a>
+  <a href="/store/" style="transition-delay:.18s"><span class="idx">03</span>Store</a>
+  <a href="/bureau/" style="transition-delay:.24s"><span class="idx">04</span>Bureau</a>
+  <a href="/post/" style="transition-delay:.30s"><span class="idx">05</span>Updates</a>
+  <a href="/contact/" style="transition-delay:.36s"><span class="idx">06</span>Contact</a>
+  <p class="menu-foot">NeuraSaMu · <a href="mailto:neurasamuai@gmail.com">neurasamuai@gmail.com</a></p>
+</nav>
 
 <main>
   <section class="page-head">
