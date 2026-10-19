@@ -1021,3 +1021,16 @@ body.menu-open #menuClose{ display:grid; }
    Menu close button — hidden (using burger as toggle)
    ============================================================ */
 #menuClose,.menu-close{display:none !important}
+/* Research Domains (Replaces Mind Graph) */
+.research-domains{padding-block:clamp(72px,10vw,120px);border-bottom:1px solid var(--line)}
+.domain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.5vw,28px);margin-top:clamp(32px,4.5vw,52px)}
+.domain-card{display:flex;flex-direction:column;padding:clamp(24px,3.5vw,36px);border:1px solid var(--line-strong);border-radius:18px;background:rgba(13,20,34,0.4);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);text-decoration:none;color:inherit;transition:all .3s cubic-bezier(.19,1,.22,1)}
+.domain-card:hover{transform:translateY(-3px);background:rgba(13,20,34,0.7);border-color:rgba(76,182,142,0.4);box-shadow:0 20px 40px -24px rgba(0,0,0,0.8)}
+.domain-icon{width:48px;height:48px;border-radius:12px;background:rgba(76,182,142,0.08);border:1px solid rgba(76,182,142,0.25);display:grid;place-items:center;color:var(--accent);margin-bottom:20px;transition:transform .3s cubic-bezier(.19,1,.22,1)}
+.domain-card:hover .domain-icon{transform:scale(1.08) rotate(3deg);border-color:rgba(76,182,142,0.5)}
+.domain-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.domain-card h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.2rem,1.8vw,1.4rem);letter-spacing:-.02em;color:var(--ink);margin-bottom:12px;line-height:1.2}
+.domain-card p{font-size:.92rem;line-height:1.65;color:var(--ink-2);flex:1;margin-bottom:24px}
+.domain-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.domain-tags span{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--accent);background:rgba(76,182,142,.05)}
+@media(max-width:860px){.domain-grid{grid-template-columns:1fr}}
