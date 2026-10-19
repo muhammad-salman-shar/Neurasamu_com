@@ -1032,6 +1032,8 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
   } else {
     wake();
   }
+})();
+
 /* ============================================================
    NSM VB — promotional popup
    Appears once every 7 days on non-store pages
