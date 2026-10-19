@@ -15,7 +15,8 @@
     cspm: { views: 892,  downloads: 47, shares: 11 },
     smg:  { views: 1473, downloads: 82, shares: 19 },
     abh:  { views: 1024, downloads: 33, shares: 8  },
-    aao:  { views: 567,  downloads: 19, shares: 4  }
+    aao:  { views: 567,  downloads: 19, shares: 4  },
+    nsmvb: { views: 1240, downloads: 156, shares: 42 }
   };
 
   var NAMESPACE = 'neurasamu-v1';
