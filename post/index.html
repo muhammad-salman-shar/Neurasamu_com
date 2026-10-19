@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Updates — NeuraSaMu</title>
+<meta name="description" content="Updates from the NeuraSaMu lab — new releases, research milestones, and public announcements.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#050810">
+<link rel="canonical" href="https://neurasamu.com/post/">
+<link rel="icon" type="image/png" href="/assets/logo.png">
+<link rel="apple-touch-icon" href="/assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+<style>
+  /* ============================================================
+     Post / Updates feed page
+     ============================================================ */
+  .post-hero{padding-top:calc(var(--header-h) + 72px);padding-bottom:clamp(32px,4vw,48px);border-bottom:1px solid var(--line)}
+  .post-hero .eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+  .post-hero .idx{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--accent);font-size:1rem}
+  .post-hero .lbl{font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+  .post-hero .rule{flex:1;height:1px;background:var(--line)}
+  .post-hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.06;letter-spacing:-.028em;color:var(--ink);margin-bottom:16px}
+  .post-hero h1 em{font-style:italic;color:var(--accent)}
+  .post-hero .lede{font-size:clamp(1rem,1.3vw,1.15rem);line-height:1.7;color:var(--ink-2);max-width:62ch}
+
+  .post-feed{max-width:840px;margin-inline:auto;padding:clamp(32px,5vw,56px) clamp(20px,5vw,48px) 80px}
+
+  .post-card{padding:clamp(32px,5vw,48px) 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:16px}
+  .post-card:first-child{padding-top:0}
+  .post-card:last-child{border-bottom:none}
+
+  .post-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .post-date{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .post-dot{width:4px;height:4px;border-radius:50%;background:var(--ink-4)}
+  .post-category{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+
+  .post-title{font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,3vw,2rem);line-height:1.15;letter-spacing:-.025em;color:var(--ink);margin-top:4px}
+  .post-subtitle{font-size:clamp(.95rem,1.3vw,1.1rem);line-height:1.6;color:var(--ink-2);font-style:italic;max-width:60ch}
+  
+  .post-excerpt{font-size:1rem;line-height:1.75;color:var(--ink-2);margin-top:8px}
+  
+  .post-body{display:none;font-size:1rem;line-height:1.75;color:var(--ink-2);margin-top:16px;padding-top:16px;border-top:1px dashed var(--line)}
+  .post-body.open{display:block;animation:fadeIn .4s var(--e)}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .post-body p{margin-bottom:16px}
+  .post-body ul{margin:16px 0;padding-left:22px;list-style:none}
+  .post-body ul li{position:relative;padding-left:16px;margin-bottom:8px}
+  .post-body ul li::before{content:'';position:absolute;left:0;top:.65em;width:6px;height:1px;background:var(--accent)}
+  .post-body strong{color:var(--ink);font-weight:600}
+
+  .post-readmore{align-self:flex-start;background:none;border:none;color:var(--accent);font-size:.85rem;font-weight:600;letter-spacing:.02em;cursor:pointer;padding:8px 0;display:inline-flex;align-items:center;gap:6px;transition:gap .2s var(--e)}
+  .post-readmore:hover{gap:10px}
+  .post-readmore svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--e)}
+  .post-readmore.open svg{transform:rotate(180deg)}
+
+  .post-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .post-tags span{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--ink-3);background:rgba(255,255,255,.02)}
+
+  .post-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+  
+  .post-dl-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;background:var(--ink);color:var(--bg);font-size:.82rem;font-weight:600;letter-spacing:.02em;text-decoration:none;transition:all .25s var(--e);border:1px solid transparent}
+  .post-dl-btn:hover{background:var(--accent);color:#fff;transform:translateY(-1px)}
+  .post-dl-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+  .post-actions{display:flex;align-items:center;gap:8px;margin-left:auto}
+  .post-action-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;background:transparent;border:1px solid var(--line);color:var(--ink-2);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s var(--e)}
+  .post-action-btn:hover{border-color:var(--line-strong);color:var(--ink);background:rgba(255,255,255,.03)}
+  .post-action-btn.liked{border-color:rgba(239,68,68,.4);color:#f87171;background:rgba(239,68,68,.08)}
+  .post-action-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .post-action-btn.liked svg{fill:currentColor}
+
+  @media (max-width:600px){
+    .post-footer{flex-direction:column;align-items:flex-start;gap:16px}
+    .post-actions{width:100%;margin-left:0;justify-content:flex-start}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="starfield" aria-hidden="true"></canvas>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 14.5V6.5A2.5 2.5 0 0 1 7.5 4h8"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7.5 8 5.5 8-5.5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 10.5 13.5M21 3l-6.8 18-3.7-8.3L2.2 9z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.4v.2"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21.2l7.7-7.7 1.1-1.1a5.5 5.5 0 0 0 0-7.8z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+</svg>
+
+<header class="site-header scrolled">
+  <div class="container header-inner">
+    <a href="/" class="brand" aria-label="NeuraSaMu — home">
+      <img class="mark-img" src="/assets/logo.png" alt="" aria-hidden="true">
+      <span class="brand-name">NeuraSaMu</span>
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="/research/">Research</a>
+      <a href="/vision/">Vision</a>
+      <a href="/store/">Store</a>
+      <a href="/bureau/">Bureau</a>
+      <a href="/post/" class="active">Updates</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+      <svg class="icon ic-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="icon ic-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+</header>
+
+<button type="button" id="menuClose" aria-label="Close menu">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+</button>
+
+<nav class="menu" id="menu" aria-label="Mobile">
+  <a href="/research/" style="transition-delay:.06s"><span class="idx">01</span>Research</a>
+  <a href="/vision/" style="transition-delay:.12s"><span class="idx">02</span>Vision</a>
+  <a href="/store/" style="transition-delay:.18s"><span class="idx">03</span>Store</a>
+  <a href="/bureau/" style="transition-delay:.24s"><span class="idx">04</span>Bureau</a>
+  <a href="/post/" class="active" style="transition-delay:.3s"><span class="idx">05</span>Updates</a>
+  <a href="/contact/" style="transition-delay:.36s"><span class="idx">06</span>Contact</a>
+  <p class="menu-foot">NeuraSaMu · <a href="mailto:neurasamuai@gmail.com">neurasamuai@gmail.com</a></p>
+</nav>
+
+<main>
+  <section class="post-hero">
+    <div class="container">
+      <div class="eyebrow"><span class="idx">→</span><span class="lbl">Lab Updates</span><span class="rule"></span></div>
+      <h1>What the lab has been <em>building.</em></h1>
+      <p class="lede">Releases, research milestones, and public announcements from NeuraSaMu — in order of most recent first.</p>
+    </div>
+  </section>
+
+  <div class="post-feed" id="postFeed">
+    <!-- Rendered by JavaScript -->
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="/" class="brand" aria-label="NeuraSaMu — home">
+          <img class="mark-img" src="/assets/logo.png" alt="" aria-hidden="true">
+          <span class="brand-name">NeuraSaMu</span>
+        </a>
+        <p class="footer-desc">Pakistan's first frontier laboratory for artificial general intelligence, superintelligence, and autonomous robotics. Founded September 2023.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="/research/">Research</a>
+        <a href="/vision/">Vision</a>
+        <a href="/store/">Store</a>
+        <a href="/bureau/">Bureau</a>
+        <a href="/post/">Updates</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://github.com/neurasamu-ai" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/muhammad-salman-shar-564bb5346" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.facebook.com/neurasamuai" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://tiktok.com/@neurasamu" target="_blank" rel="noopener">TikTok</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/privacy/">Privacy Policy</a>
+        <a href="/terms/">Terms of Use</a>
+        <a href="mailto:neurasamuai@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 NeuraSaMu · All rights reserved.</p>
+      <p class="footer-tagline">AI · Software · Research · Innovation</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/config.js"></script>
+<script src="/assets/app.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  var POSTS = (typeof SITE_CONFIG !== 'undefined' && Array.isArray(SITE_CONFIG.POSTS_DATA)) ? SITE_CONFIG.POSTS_DATA : [];
+  var container = document.getElementById('postFeed');
+  if (!container) return;
+
+  /* ---- Helpers ---- */
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(m){
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m];
+    });
+  }
+
+  function getStatsKey(id){ return 'nsm-post-stats-' + id; }
+  function getLocalStats(id){
+    try {
+      var raw = localStorage.getItem(getStatsKey(id));
+      return raw ? JSON.parse(raw) : { liked: false, likesDelta: 0, sharesDelta: 0 };
+    } catch(e){ return { liked: false, likesDelta: 0, sharesDelta: 0 }; }
+  }
+  function saveLocalStats(id, obj){
+    try { localStorage.setItem(getStatsKey(id), JSON.stringify(obj)); } catch(e){}
+  }
+
+  function fmtNum(n){
+    if (n >= 1000000) return (n/1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (n >= 1000) return (n/1000).toFixed(1).replace(/\.0$/, '') + 'k';
+    return String(n);
+  }
+
+  function renderPosts(){
+    if (!POSTS.length){
+      container.innerHTML = '<p style="color:var(--ink-3);text-align:center;padding:40px 0">No updates yet.</p>';
+      return;
+    }
+
+    container.innerHTML = POSTS.map(function(p){
+      var local = getLocalStats(p.id);
+      var seedLikes = (p.seed && p.seed.likes) || 0;
+      var seedShares = (p.seed && p.seed.shares) || 0;
+      var totalLikes = seedLikes + (local.likesDelta || 0);
+      var totalShares = seedShares + (local.sharesDelta || 0);
+
+      var tagsHTML = (p.tags || []).map(function(t){ return '<span>' + esc(t) + '</span>'; }).join('');
+      var dlBtn = p.downloadUrl ? '<a class="post-dl-btn" href="' + esc(p.downloadUrl) + '" target="_blank" rel="noopener" download>' + esc(p.downloadLabel || 'Download') + '<svg aria-hidden="true"><use href="#i-download"/></svg></a>' : '';
+
+      return '<article class="post-card" data-post-id="' + esc(p.id) + '">' +
+        '<div class="post-meta">' +
+          '<span class="post-date">' + esc(p.dateLabel) + '</span>' +
+          '<span class="post-dot"></span>' +
+          '<span class="post-category">' + esc(p.category) + '</span>' +
+        '</div>' +
+        '<h2 class="post-title">' + esc(p.title) + '</h2>' +
+        '<p class="post-subtitle">' + esc(p.subtitle) + '</p>' +
+        '<p class="post-excerpt">' + esc(p.excerpt) + '</p>' +
+        '<div class="post-body" id="body-' + esc(p.id) + '">' + p.body + '</div>' +
+        '<button class="post-readmore" data-target="body-' + esc(p.id) + '" aria-expanded="false">Read More <svg aria-hidden="true"><use href="#i-chevron-down"/></svg></button>' +
+        (tagsHTML ? '<div class="post-tags">' + tagsHTML + '</div>' : '') +
+        '<div class="post-footer">' +
+          '<div>' + dlBtn + '</div>' +
+          '<div class="post-actions">' +
+            '<button class="post-action-btn post-like' + (local.liked ? ' liked' : '') + '" data-id="' + esc(p.id) + '" aria-label="Like this post">' +
+              '<svg aria-hidden="true"><use href="#i-heart"/></svg> <span class="like-count">' + fmtNum(totalLikes) + '</span>' +
+            '</button>' +
+            '<button class="post-action-btn post-share" data-id="' + esc(p.id) + '" aria-label="Share this post">' +
+              '<svg aria-hidden="true"><use href="#i-share"/></svg> <span class="share-count">' + fmtNum(totalShares) + '</span>' +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+  }
+
+  container.addEventListener('click', function(e){
+    var readBtn = e.target.closest('.post-readmore');
+    if (readBtn){
+      var target = document.getElementById(readBtn.getAttribute('data-target'));
+      if (!target) return;
+      var isOpen = target.classList.toggle('open');
+      readBtn.classList.toggle('open', isOpen);
+      readBtn.setAttribute('aria-expanded', String(isOpen));
+      readBtn.innerHTML = (isOpen ? 'Show Less' : 'Read More') + ' <svg aria-hidden="true"><use href="#i-chevron-down"/></svg>';
+      if (isOpen) readBtn.classList.add('open');
+      return;
+    }
+
+    var likeBtn = e.target.closest('.post-like');
+    if (likeBtn){
+      var id = likeBtn.getAttribute('data-id');
+      var local = getLocalStats(id);
+      local.liked = !local.liked;
+      local.likesDelta = (local.likesDelta || 0) + (local.liked ? 1 : -1);
+      saveLocalStats(id, local);
+      var post = POSTS.filter(function(x){ return x.id === id; })[0] || {};
+      var seed = (post.seed && post.seed.likes) || 0;
+      var total = seed + (local.likesDelta || 0);
+      likeBtn.classList.toggle('liked', local.liked);
+      likeBtn.querySelector('.like-count').textContent = fmtNum(total);
+      return;
+    }
+
+    var shareBtn = e.target.closest('.post-share');
+    if (shareBtn){
+      var id2 = shareBtn.getAttribute('data-id');
+      var url = window.location.origin + '/post/#' + id2;
+      var postTitle = (POSTS.filter(function(x){ return x.id === id2; })[0] || {}).title || 'NeuraSaMu Update';
+
+      if (navigator.share){
+        navigator.share({ title: postTitle, url: url }).catch(function(){});
+      } else if (navigator.clipboard){
+        navigator.clipboard.writeText(url);
+      } else {
+        var t = document.createElement('textarea');
+        t.value = url; document.body.appendChild(t); t.select();
+        try { document.execCommand('copy'); } catch(e){}
+        t.remove();
+      }
+
+      var local2 = getLocalStats(id2);
+      local2.sharesDelta = (local2.sharesDelta || 0) + 1;
+      saveLocalStats(id2, local2);
+      var post2 = POSTS.filter(function(x){ return x.id === id2; })[0] || {};
+      var seed2 = (post2.seed && post2.seed.shares) || 0;
+      var total2 = seed2 + local2.sharesDelta;
+      shareBtn.querySelector('.share-count').textContent = fmtNum(total2);
+    }
+  });
+
+  renderPosts();
+
+  /* Auto-expand from URL hash */
+  var hash = (location.hash || '').replace('#', '');
+  if (hash){
+    var body = document.getElementById('body-' + hash);
+    if (body){
+      var btn = container.querySelector('.post-readmore[data-target="body-' + hash + '"]');
+      body.classList.add('open');
+      if (btn){
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.innerHTML = 'Show Less <svg aria-hidden="true"><use href="#i-chevron-down"/></svg>';
+      }
+      setTimeout(function(){
+        body.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 300);
+    }
+  }
+})();
+</script>
+</body>
+</html>

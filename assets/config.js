@@ -136,4 +136,64 @@ const SITE_CONFIG = {
     { name: 'Facebook', url: 'https://www.facebook.com/neurasamuai',                                             handle: '@neurasamuai' },
     { name: 'TikTok',   url: 'https://tiktok.com/@neurasamu',                                         handle: '@neurasamu' }
   ]
+,
+
+  /* ═══════════════════════════════════════════════════════════
+     POSTS_DATA — updates from the lab (rendered on /post/)
+     Add new posts at the top. Date format: YYYY-MM-DD
+     ═══════════════════════════════════════════════════════════ */
+  POSTS_DATA: [
+    {
+      id: 'nsm-vb-launch',
+      date: '2026-10-19',
+      dateLabel: 'October 19, 2026',
+      category: 'Release',
+      title: 'NSM VB — Virtual Brain',
+      subtitle: 'A developmental cognitive architecture, running entirely on-device.',
+      excerpt: 'A neuro-symbolic brain that learns, reasons, and remembers — no cloud, no APIs, no LLMs required. Infinite memory, knowledge-graph reasoning, and a built-in 86,000-word dictionary.',
+      body: '<p>Today we are releasing <strong>NSM VB</strong> — the NeuraSaMu Virtual Brain. It is not another LLM wrapper. It is a Developmental Cognitive Architecture built from scratch.</p><p>Most modern LLMs suffer from three structural problems: they hallucinate facts, they forget you between sessions, and they cannot explain why they said something. NSM VB flips the model.</p><ul><li><strong>Infinite memory</strong> — facts, relations, and conversations are stored in SQLite with episodic and semantic separation. You can ask it to forget specific things.</li><li><strong>Logical reasoning</strong> — teach it "Dog is Animal" and "Animal can Breathe," and it will infer "Dog can Breathe" through forward-chaining over a knowledge graph.</li><li><strong>Curiosity loop</strong> — when it encounters a word it does not know, it asks you.</li><li><strong>Zero API costs and 100% privacy</strong> — the entire brain runs locally on your Android device.</li><li><strong>86,000-word English dictionary</strong> — built in, ready from first launch.</li><li><strong>Optional Teacher Mode</strong> — connect a lightweight local LLM (SmolLM, Llama-3.2) to polish grammar, but the core brain remains independent.</li></ul><p>Built with Python via Chaquopy, SQLite, forward-chaining inference, and Construction Grammar for language generation. All wrapped in a custom HTML/JS interface built for mobile.</p><p>Download it from the Store — free, no signup, no telemetry.</p>',
+      tags: ['AI', 'Neuro-Symbolic', 'On-Device', 'Release'],
+      downloadUrl: 'https://github.com/neurasamu-ai/NSM-VB/releases/download/NSM-VB/NSM-VB.apk',
+      downloadLabel: 'Download APK',
+      seed: { likes: 247, shares: 89 }
+    },
+    {
+      id: 'google-recognition',
+      date: '2026-10-14',
+      dateLabel: 'October 14, 2026',
+      category: 'Milestone',
+      title: 'Google AI Overview recognizes NeuraSaMu',
+      subtitle: 'A public benchmark of the lab's research visibility.',
+      excerpt: 'Google's AI Overview now cites NeuraSaMu as Pakistan's first frontier AGI laboratory, referencing all four published research papers as primary sources.',
+      body: '<p>This week, <strong>Google's AI Overview</strong> began citing NeuraSaMu as Pakistan's first frontier laboratory dedicated to artificial general intelligence, superintelligence, and autonomous robotics — referencing all four of our published research papers as primary sources.</p><p>This is not the result of a marketing campaign. It is the result of publishing openly, structuring research for machine readability, and maintaining the corpus as a living document over years.</p><p>The four cited papers:</p><ul><li><strong>CSPM</strong> — Continuous Subconscious Processing Model</li><li><strong>SMG v2</strong> — Synapse AI Memory Graph</li><li><strong>ABH</strong> — AGI Anthropomorphic Breach Hypothesis</li><li><strong>AAO</strong> — AGI &amp; ASI Outlook Through 2031</li></ul><p>All four remain free and publicly available. We believe frontier research should be inspectable by anyone.</p>',
+      tags: ['Recognition', 'Research', 'Milestone'],
+      seed: { likes: 412, shares: 156 }
+    },
+    {
+      id: 'smg-v2-published',
+      date: '2026-09-28',
+      dateLabel: 'September 28, 2026',
+      category: 'Research',
+      title: 'SMG v2 — Synapse AI Memory Graph',
+      subtitle: 'Pointer-virtualized long-term memory for large language models.',
+      excerpt: 'Version 2.0 of the Synapse AI Memory Graph introduces a dual-tier architecture for episodic memory: a bounded active buffer, a semantic keyword box, and an encrypted virtual vault.',
+      body: '<p>We have published <strong>SMG v2</strong> — the second version of the Synapse AI Memory Graph, our architecture for episodic, pointer-virtualized long-term memory in LLMs.</p><p>The core insight is simple: do not make the context window carry the entire memory system. Make the context window a bounded execution surface, and make long-term memory a searchable, addressable external system.</p><p>Three pillars:</p><ul><li><strong>L1 Active Buffer</strong> — a strictly capped four-turn sliding window in the model's volatile memory.</li><li><strong>L2 Keyword Box</strong> — a semantic index of atomic keywords, each mapped to a unique identifier.</li><li><strong>L2 Chat Store</strong> — an encrypted virtual vault holding the raw conversation payloads.</li></ul><p>Retrieval is demand-paged: a query resolves to a semantic identifier, which then resolves against the vault to load only the micro-context required at inference time. The full paper is available on Kaggle.</p>',
+      tags: ['Research', 'LLM', 'Memory', 'Architecture'],
+      seed: { likes: 183, shares: 67 }
+    },
+    {
+      id: 'neura-browser-release',
+      date: '2026-09-26',
+      dateLabel: 'September 26, 2026',
+      category: 'Release',
+      title: 'Neura Browser — fullscreen, ad-free',
+      subtitle: 'A browser that gets out of the way.',
+      excerpt: 'A fullscreen Android browser with no tabs, no bookmarks bar, no dashboard — just a single draggable pill and the entire screen for the site.',
+      body: '<p>Neura Browser is now live on the Store. It is a fullscreen Android browser with a single draggable pill — no tabs, no bookmarks bar, no dashboard, no news feed.</p><p>Features:</p><ul><li><strong>100% fullscreen</strong> — every pixel belongs to the site.</li><li><strong>One floating button</strong> — URL entry, navigation, history, downloads, desktop toggle, all inside one compact card.</li><li><strong>Built-in 3-layer ad blocker</strong> — neutralizes 140+ ad networks including Google Ads, Facebook Pixel, Taboola, and PropellerAds. No VPN, no root.</li><li><strong>Custom download engine</strong> — OkHttp-based, with live speed, ETA, pause, resume, and notification controls.</li><li><strong>Persistent logins</strong> — cookies are flushed to disk properly.</li><li><strong>~5 MB APK</strong> — zero telemetry, zero analytics, zero ads.</li></ul><p>Free, forever. Download from the Store.</p>',
+      tags: ['Release', 'Android', 'Browser'],
+      downloadUrl: 'https://github.com/muhammad-salman-shar/url-apk/releases/download/Neura_Browser/Neura.Browser.apk',
+      downloadLabel: 'Download APK',
+      seed: { likes: 226, shares: 94 }
+    }
+  ]
 };
