@@ -610,7 +610,7 @@
       document.getElementById('statDownloads').textContent = s.downloads || '—';
       document.getElementById('statShares').textContent = s.shares || '—';
 
-      document.getElementById('modalAbout').textContent = app.about || app.short || '';
+      document.getElementById('modalAbout').innerHTML = (app.about || app.short || '').replace(/\n/g, '<br>');
 
       /* Reset comment form */
       var cForm = document.getElementById('commentForm');
