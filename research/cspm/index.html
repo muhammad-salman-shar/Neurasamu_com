@@ -115,7 +115,7 @@
 <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
-<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true" style="display:none" aria-hidden="true">
   <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
@@ -128,19 +128,14 @@
 
 
 
-<header class="topbar">
-  <div class="topbar-inner">
-    <a class="brand" href="https://neurasamu.com/" aria-label="NeuraSaMu — home">
-      <svg viewBox="0 0 26 26" aria-hidden="true">
-        <path d="M6.5 19.5 13 6.5l7 9" fill="none" stroke="currentColor" stroke-width="1.4"/>
-        <circle cx="6.5" cy="19.5" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/>
-        <circle cx="13" cy="6.5" r="2.4" fill="#0E5C45"/>
-        <circle cx="20" cy="15.5" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/>
-      </svg>
+<header class="site-header scrolled">
+  <div class="container header-inner">
+    <a href="/" class="brand" aria-label="NeuraSaMu — home">
+      <img class="mark-img" src="/assets/logo.png" alt="" aria-hidden="true">
       <span class="brand-name">NeuraSaMu</span>
     </a>
-    <a class="back-link" href="https://neurasamu.com/">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+    <a class="back-link" href="/research/" style="display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--ink-2);text-decoration:none;transition:color .2s">
+      <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
       Back to lab
     </a>
   </div>
