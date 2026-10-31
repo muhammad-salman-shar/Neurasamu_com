@@ -20,7 +20,8 @@ const SITE_CONFIG = {
       "neurachat": "https://github.com/neurasamu-ai/NeuraChat/releases/download/NeuraChat/NeuraChat.Pro.apk",
       "samulab": "https://github.com/neurasamu-ai/Samu-Lab/releases/download/SaMu_Lab/SaMu.Lab.apk",
       "samuchat": "https://github.com/neurasamu-ai/Samu-Chat/releases/download/SaMu_Chat/SaMu.Chat.apk",
-      "nsmvb": "https://github.com/neurasamu-ai/NSM-VB/releases/download/NSM-VB/NSM-VB.apk"
+      "nsmvb": "https://github.com/neurasamu-ai/NSM-VB/releases/download/NSM-VB/NSM-VB.apk",
+      "sltasker": "https://github.com/muhammad-salman-shar/sl-tasker/actions/runs/41049361320/artifacts/12974106344"
     }
   },
   "SOCIALS": [
@@ -55,7 +56,7 @@ const SITE_CONFIG = {
       "status": "released",
       "iconSvg": "<circle cx=\"12\" cy=\"12\" r=\"3\"/><circle cx=\"12\" cy=\"5\" r=\"2\"/><circle cx=\"18.5\" cy=\"8.5\" r=\"2\"/><circle cx=\"18.5\" cy=\"15.5\" r=\"2\"/><circle cx=\"12\" cy=\"19\" r=\"2\"/><circle cx=\"5.5\" cy=\"15.5\" r=\"2\"/><circle cx=\"5.5\" cy=\"8.5\" r=\"2\"/><path d=\"M12 7v2M15 7.5l-1 2M17.5 10l-2 1M17.5 14l-2-1M15 16.5l-1-2M12 17v-2M9 16.5l1-2M6.5 14l2-1M6.5 10l2 1M9 7.5l1 2\"/>",
       "short": "The 100% Offline, Private, and Continuously Learning AI. A neuro-symbolic cognitive architecture with infinite memory and logical reasoning, built from scratch to run entirely on your device.",
-      "about": "Most \"AI apps\" today are just ChatGPT wrappers that hallucinate facts and forget you the moment you close the tab. NSM VB is fundamentally different. It is a lightweight, neuro-symbolic cognitive architecture built from scratch to run entirely on your Android device\u2014no internet, no GPUs, and zero API costs.\n\nWhy NSM VB is a Game-Changer:\n\ud83d\udd12 Absolute Privacy: 100% offline. Your personal data, secrets, and memories never leave your phone.\n\ud83e\udde0 Infinite Memory: It remembers facts, relations, and conversations forever. Teach it your name or your favorite food, and it won't forget. You can even command it to \"forget\" specific details.\n\ud83d\udd78\ufe0f Logical Reasoning: It uses a Knowledge Graph. Teach it \"Dog is Animal\" and \"Animal can Breathe,\" and it will autonomously deduce that \"Dog can breathe\" without being explicitly programmed.\n\u2753 Curiosity Loop: When it encounters a word it doesn't know, it doesn't guess. It asks you for the meaning, acting like a curious child.\n\ud83d\udcda 86k-Word Dictionary: Comes pre-loaded with a massive English vocabulary.\n\ud83c\udf93 Optional Teacher Mode: Connect it to a local LLM (like SmolLM or Llama) to polish its grammar. The LLM acts only as a \"tongue,\" while the core reasoning stays inside NSM.\n\nUnder the Hood:\nBuilt with pure Python via Chaquopy, utilizing SQLite for episodic memory, Hyperdimensional Computing (HDC) for semantic associations, and a custom Construction Grammar engine for dynamic sentence generation.\n\nThis isn't just a chatbot. It's a foundational experiment in Developmental AI. It learns from the real world, one interaction at a time.\n\nDownload the APK and start teaching your personal AI today. \nDeveloped by NeuraSaMu.",
+      "about": "Most \"AI apps\" today are just ChatGPT wrappers that hallucinate facts and forget you the moment you close the tab. NSM VB is fundamentally different. It is a lightweight, neuro-symbolic cognitive architecture built from scratch to run entirely on your Android device—no internet, no GPUs, and zero API costs.\n\nWhy NSM VB is a Game-Changer:\n🔒 Absolute Privacy: 100% offline. Your personal data, secrets, and memories never leave your phone.\n🧠 Infinite Memory: It remembers facts, relations, and conversations forever. Teach it your name or your favorite food, and it won't forget. You can even command it to \"forget\" specific details.\n🕸️ Logical Reasoning: It uses a Knowledge Graph. Teach it \"Dog is Animal\" and \"Animal can Breathe,\" and it will autonomously deduce that \"Dog can breathe\" without being explicitly programmed.\n❓ Curiosity Loop: When it encounters a word it doesn't know, it doesn't guess. It asks you for the meaning, acting like a curious child.\n📚 86k-Word Dictionary: Comes pre-loaded with a massive English vocabulary.\n🎓 Optional Teacher Mode: Connect it to a local LLM (like SmolLM or Llama) to polish its grammar. The LLM acts only as a \"tongue,\" while the core reasoning stays inside NSM.\n\nUnder the Hood:\nBuilt with pure Python via Chaquopy, utilizing SQLite for episodic memory, Hyperdimensional Computing (HDC) for semantic associations, and a custom Construction Grammar engine for dynamic sentence generation.\n\nThis isn't just a chatbot. It's a foundational experiment in Developmental AI. It learns from the real world, one interaction at a time.\n\nDownload the APK and start teaching your personal AI today. \nDeveloped by NeuraSaMu.",
       "stats": {
         "rating": 4.9,
         "reviews": "340",
@@ -151,22 +152,44 @@ const SITE_CONFIG = {
     {
       "id": "sltasker",
       "name": "SL Tasker",
-      "tagline": "Release Soon",
+      "tagline": "Gamified Productivity · System",
       "category": "Productivity · Gamification",
       "platform": "Android",
-      "status": "soon",
+      "status": "released",
       "iconSvg": "<path d=\"M8 21h8M12 17v4M17 4H7v5a5 5 0 0 0 10 0V4zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3\"/>",
-      "short": "Solo Leveling-style quest system for daily tasks — earn EP, level up, and build real discipline.",
-      "about": "SL Tasker turns your daily to-dos into a Solo Leveling-style quest system. Every task is a quest — Medium, Hard, or Critical — with rewards (HP & energy) for finishing and penalties for ignoring. Hard and Critical quests unlock focus timers, and the built-in Block System locks distracting apps until your work is done.",
+      "short": "Turn your life into a System. Gamified tasks, penalties, streaks, and focus blockers inspired by Solo Leveling.",
+      "about": "⚔️ SL TASKER — Turn your life into a System.\n\nEvery task is a quest. Every miss is a penalty. Level up by doing — not dreaming.\n\nInspired by Solo Leveling, SL Tasker transforms your real-life productivity into a Hunter's journey. Create quests, earn EP, protect your HP, climb the ranks from E to S.\n\n━━━━━━━━━━━━━━━━━━\n\n🎯 QUESTS (TASKS)\nMedium, Hard, or Critical difficulty. Single-day or repeating. Locked until scheduled time — no cheating. START a timer with floating bubble for Hard/Critical quests. Complete Medium quests instantly with haptic feedback.\n\n🩸 PENALTY SYSTEM\nMiss a task → lose HP every minute. HP drops below 50 → Penalty Dungeon opens. Restore HP only by earning EP through real tasks.\n\n🔥 STREAKS\nDaily streak with milestone bonuses at 3, 7, 14, 30, 60, 100, 365 days. Skip a day, streak resets.\n\n⏰ ALARMS\nDismiss with EASY, PIN, or MATH challenges. Full-screen swipe gestures. Custom sounds. 5-minute pre-alerts. Device-lock bypass if you forget.\n\n🛡️ FOCUS BLOCKER\nBlocks distracting apps via Accessibility. Triggered by Critical tasks or low HP. Test & Strict modes.\n\n🧠 AI HUB\nBring your own API key. Type in plain English → AI creates tasks and alarms automatically. Works with OpenAI, OpenRouter, Groq, or local models (SmolLM2, Gemma, Qwen). Chat and Agent modes.\n\n📊 HUNTER STATS\nLevel, rank (E→S), HP, EP, streak, activity feed. Share your player card as a PNG.\n\n🏆 DAILY QUESTS\n3 auto-generated challenges every day. Complete all 3 for Perfect Day bonus.\n\n📅 CALENDAR · 📱 WIDGET · 🎨 DARK + LIGHT THEMES\n\n━━━━━━━━━━━━━━━━━━\n\n✔️ No ads. No loot boxes. No noise.\n✔️ Offline-first. Your data stays on your device.\n✔️ Built for students, dreamers, and Hunters.\n\nThe System does not negotiate.\n\nDownload free → neurasamu.com",
       "stats": {
-        "rating": 4.8,
-        "reviews": "210",
-        "downloads": "1.2k+",
-        "shares": "89"
+        "rating": 4.9,
+        "reviews": "420",
+        "downloads": "1.8k+",
+        "shares": "156"
       }
     }
   ],
   "POSTS_DATA": [
+    {
+      "id": "sl-tasker-launch",
+      "date": "2026-10-31",
+      "dateLabel": "October 31, 2026",
+      "category": "Release",
+      "title": "SL Tasker — Turn your life into a System",
+      "subtitle": "A gamified productivity app inspired by Solo Leveling.",
+      "excerpt": "Every task is a quest. Every miss is a penalty. Level up your real life from Rank E to Rank S with focus timers, AI task creation, and app blocking.",
+      "body": "<p>Today we are releasing <strong>SL Tasker</strong> — a productivity system that treats your real life like a Hunter's journey.</p><p>Inspired by Solo Leveling, SL Tasker transforms your to-do list into a quest log. You create tasks based on difficulty (Medium, Hard, Critical), earn EP for completing them, and lose HP if you miss them. Drop below 50 HP and the Penalty Dungeon opens.</p><ul><li><strong>Quests:</strong> Start timers with a floating bubble, get haptic feedback, and lock tasks until scheduled.</li><li><strong>Alarms:</strong> Dismiss them using EASY, PIN, or MATH challenges so you can't sleep through them.</li><li><strong>Focus Blocker:</strong> Blocks distracting apps via Accessibility when you start a Critical quest or drop low on HP.</li><li><strong>AI Hub:</strong> Bring your own API key. Type in plain English, and AI creates tasks and alarms for you.</li><li><strong>Hunter Stats:</strong> Track your rank (E→S), HP, EP, and streaks. Share your player card as a PNG.</li></ul><p>It's offline-first, has no ads, and your data stays on your device.</p><p>The System does not negotiate. Download it now from the Store.</p>",
+      "tags": [
+        "Productivity",
+        "Gamification",
+        "Solo Leveling",
+        "Release"
+      ],
+      "downloadUrl": "https://github.com/muhammad-salman-shar/sl-tasker/actions/runs/41049361320/artifacts/12974106344",
+      "downloadLabel": "Download APK",
+      "seed": {
+        "likes": 189,
+        "shares": 52
+      }
+    },
     {
       "id": "nsm-vb-launch",
       "date": "2026-10-19",
