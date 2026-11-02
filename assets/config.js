@@ -15,7 +15,7 @@ const SITE_CONFIG = {
       "nsmvb": "https://github.com/neurasamu-ai/NSM-VB/releases/download/NSM-VB/NSM_VB_Research_Paper_NeuraSaMu.pdf"
     },
     "apps": {
-      "compiler": "https://github.com/muhammad-salman-shar/Cpp_compiler/releases/download/C%2B%2BCompiler_lite_apk/C++.Compiler.lite.apk",
+      "compiler": "https://github.com/muhammad-salman-shar/Cpp_compiler/releases/download/C%2B%2BCompiler_lite_apk/C++.Compiler.Lite.v1.5.apk",
       "browser": "https://github.com/muhammad-salman-shar/url-apk/releases/download/Neura_Browser/Neura.Browser.apk",
       "neurachat": "https://github.com/neurasamu-ai/NeuraChat/releases/download/NeuraChat/NeuraChat.Pro.apk",
       "samulab": "https://github.com/neurasamu-ai/Samu-Lab/releases/download/SaMu_Lab/SaMu.Lab.apk",
