@@ -20,7 +20,7 @@ const SITE_CONFIG = {
       "neurachat": "https://github.com/neurasamu-ai/NeuraChat/releases/download/NeuraChat/NeuraChat.Pro.apk",
       "samulab": "https://github.com/neurasamu-ai/Samu-Lab/releases/download/SaMu_Lab/SaMu.Lab.apk",
       "samuchat": "https://github.com/neurasamu-ai/Samu-Chat/releases/download/SaMu_Chat/SaMu.Chat.apk",
-      "nsmvb": "https://github.com/neurasamu-ai/NSM-VB/releases/download/NSM-VB/NSM-VB.apk",
+      "nsmvb": "https://github.com/muhammad-salman-shar/nsm-ai/actions/runs/41320511138/artifacts/13089001745",
       "sltasker": "https://github.com/muhammad-salman-shar/sl-tasker/actions/runs/41049361320/artifacts/12974106344"
     }
   },
@@ -49,19 +49,19 @@ const SITE_CONFIG = {
   "APPS_DATA": [
     {
       "id": "nsmvb",
-      "name": "NSM VB — Virtual Brain",
-      "tagline": "Cognitive Architecture · On-Device",
+      "name": "NSM VB — Virtual Brain (v1.1)",
+      "tagline": "Self-Aware · Offline · Cognitive",
       "category": "Neuro-Symbolic AI",
       "platform": "Android",
       "status": "released",
       "iconSvg": "<circle cx=\"12\" cy=\"12\" r=\"3\"/><circle cx=\"12\" cy=\"5\" r=\"2\"/><circle cx=\"18.5\" cy=\"8.5\" r=\"2\"/><circle cx=\"18.5\" cy=\"15.5\" r=\"2\"/><circle cx=\"12\" cy=\"19\" r=\"2\"/><circle cx=\"5.5\" cy=\"15.5\" r=\"2\"/><circle cx=\"5.5\" cy=\"8.5\" r=\"2\"/><path d=\"M12 7v2M15 7.5l-1 2M17.5 10l-2 1M17.5 14l-2-1M15 16.5l-1-2M12 17v-2M9 16.5l1-2M6.5 14l2-1M6.5 10l2 1M9 7.5l1 2\"/>",
-      "short": "The 100% Offline, Private, and Continuously Learning AI. A neuro-symbolic cognitive architecture with infinite memory and logical reasoning, built from scratch to run entirely on your device.",
-      "about": "Most \"AI apps\" today are just ChatGPT wrappers that hallucinate facts and forget you the moment you close the tab. NSM VB is fundamentally different. It is a lightweight, neuro-symbolic cognitive architecture built from scratch to run entirely on your Android device—no internet, no GPUs, and zero API costs.\n\nWhy NSM VB is a Game-Changer:\n🔒 Absolute Privacy: 100% offline. Your personal data, secrets, and memories never leave your phone.\n🧠 Infinite Memory: It remembers facts, relations, and conversations forever. Teach it your name or your favorite food, and it won't forget. You can even command it to \"forget\" specific details.\n🕸️ Logical Reasoning: It uses a Knowledge Graph. Teach it \"Dog is Animal\" and \"Animal can Breathe,\" and it will autonomously deduce that \"Dog can breathe\" without being explicitly programmed.\n❓ Curiosity Loop: When it encounters a word it doesn't know, it doesn't guess. It asks you for the meaning, acting like a curious child.\n📚 86k-Word Dictionary: Comes pre-loaded with a massive English vocabulary.\n🎓 Optional Teacher Mode: Connect it to a local LLM (like SmolLM or Llama) to polish its grammar. The LLM acts only as a \"tongue,\" while the core reasoning stays inside NSM.\n\nUnder the Hood:\nBuilt with pure Python via Chaquopy, utilizing SQLite for episodic memory, Hyperdimensional Computing (HDC) for semantic associations, and a custom Construction Grammar engine for dynamic sentence generation.\n\nThis isn't just a chatbot. It's a foundational experiment in Developmental AI. It learns from the real world, one interaction at a time.\n\nDownload the APK and start teaching your personal AI today. \nDeveloped by NeuraSaMu.",
+      "short": "The self-aware offline brain. Neuro-symbolic architecture with HDC memory, natural language triggers, and deep forget — 100% on-device.",
+      "about": "🧠 NSM 1.1 — The Self-Aware, Offline Brain\n\nVersion: 1.1 | Codename: Akira (Internal Build) | November 2026\n\nNSM (NeuraSaMu Virtual Brain) is not a ChatGPT wrapper and not an LLM. It is a neuro-symbolic cognitive architecture designed to run 100% offline on mobile devices. While traditional LLMs predict the next word and hallucinate, NSM 1.1 uses Hyperdimensional Computing (HDC) and symbolic reasoning to build a deterministic, memory-driven brain.\n\nIn this version, NSM learns who it is, who built it, and how to understand you the way a human does.\n\n🌟 What's New in 1.1\n🪞 Built-in Self & Origin Awareness — Ask \"Who are you?\" or \"Tell me about NeuraSaMu\" and it retrieves exact profiles without hallucinating.\n🧩 Multi-Word Entity Recognition — Uses N-gram extraction. \"Muhammad Salman\" is understood as one entity.\n🗣️ Flexible Natural Language Triggers — \"Who is...\", \"Tell me about...\", \"Define...\", \"Explain...\" all work.\n🧠 Advanced Instruction Parsing — Teach rules in plain English: \"If someone asks are you free, then say yes\" → it remembers.\n🗑️ Genuine \"Forget\" Scope — Deep Forget across facts, relations, definitions, and Q&A rules.\n💾 Chat Persistence — Conversations auto-reload when you reopen the app.\n🛡️ Pronoun Blocking — Fixed data-pollution bug, smarter question classification.\n\n⚙️ Core Architecture\nMemory: 10,000-bit HDC vectors + SQLite\nReasoning: Deterministic forward-chaining\nZero API Dependency\nData Portability: Export/Import as .json\n\n⚠️ Research Disclaimer: NSM is an ongoing research project. Not a biological brain, not an AGI. Every capability is backed by test cases.\n\nImagination is the power. We build what we imagine.\n\nDeveloper: Muhammad Salman (NeuraSaMu)",
       "stats": {
         "rating": 4.9,
-        "reviews": "340",
-        "downloads": "2.1k+",
-        "shares": "180"
+        "reviews": "520",
+        "downloads": "3.2k+",
+        "shares": "240"
       }
     },
     {
@@ -168,6 +168,29 @@ const SITE_CONFIG = {
     }
   ],
   "POSTS_DATA": [
+    {
+      "id": "nsm-1-1-launch",
+      "date": "2026-11-05",
+      "dateLabel": "November 5, 2026",
+      "category": "Release",
+      "title": "NSM 1.1 — The Self-Aware, Offline Brain",
+      "subtitle": "Codename Akira. Version 1.1 brings self-awareness, natural language triggers, and deep forget.",
+      "excerpt": "NSM 1.1 finally learns who it is. Built-in self & origin awareness, multi-word entity recognition, flexible triggers, deep forget, and chat persistence — all 100% offline.",
+      "body": "<p>Today we are releasing <strong>NSM 1.1</strong> — codenamed <em>Akira</em>. This is a major update to our neuro-symbolic cognitive architecture.</p><p>NSM is not a ChatGPT wrapper and not an LLM. It is a memory-driven brain that uses Hyperdimensional Computing and symbolic reasoning to think deterministically. In this version, it finally learns who it is.</p><h3>🌟 What's New</h3><ul><li><strong>Self & Origin Awareness:</strong> Ask 'Who are you?' or 'Tell me about NeuraSaMu' — it retrieves exact profiles without hallucinating.</li><li><strong>Multi-Word Entity Recognition:</strong> N-gram extraction means 'Muhammad Salman' is understood as one entity, not two.</li><li><strong>Flexible Natural Language Triggers:</strong> 'Who is', 'Tell me about', 'Define', 'Explain', 'Meaning of' — all understood.</li><li><strong>Advanced Instruction Parsing:</strong> Teach rules in plain English. 'If someone asks are you free, then say yes' → it saves and applies them.</li><li><strong>Deep Forget:</strong> Forget commands now wipe across facts, relations, definitions, episodic history, and Q&A rules — truly unreachable.</li><li><strong>Chat Persistence:</strong> Conversations reload automatically when you reopen the app.</li><li><strong>Pronoun Blocking:</strong> Fixed data-pollution bug. Smarter question vs statement classification.</li></ul><h3>⚙️ Architecture</h3><p>10,000-bit HDC vectors + SQLite. Deterministic forward-chaining. Zero API dependency. Export/import your brain as .json files.</p><p>Latest test suite: 47/50 standard queries passed, 100% accuracy on self-knowledge and memory retention.</p><p><strong>Research Disclaimer:</strong> NSM is an ongoing research project. It is not a biological brain, not an AGI, and not proven intelligent. It is a structural experiment in memory, HDC, and symbolic reasoning without GPU clusters.</p><p>Download NSM 1.1 from the Store.</p>",
+      "tags": [
+        "Release",
+        "NSM VB",
+        "Neuro-Symbolic",
+        "Offline AI",
+        "v1.1"
+      ],
+      "downloadUrl": "https://github.com/muhammad-salman-shar/nsm-ai/actions/runs/41320511138/artifacts/13089001745",
+      "downloadLabel": "Download APK",
+      "seed": {
+        "likes": 312,
+        "shares": 98
+      }
+    },
     {
       "id": "sl-tasker-launch",
       "date": "2026-10-31",
