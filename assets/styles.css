@@ -1034,3 +1034,24 @@ body.menu-open #menuClose{ display:grid; }
 .domain-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
 .domain-tags span{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--accent);background:rgba(76,182,142,.05)}
 @media(max-width:860px){.domain-grid{grid-template-columns:1fr}}
+/* ============================================================
+   Hire the Lab — Fiverr services section
+   ============================================================ */
+.hire-section{padding-block:clamp(72px,10vw,120px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.hire-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,0.7fr);gap:clamp(32px,5vw,72px);align-items:center}
+.hire-content .section-head-title{font-size:clamp(1.75rem,3.2vw,2.5rem);margin-bottom:16px}
+.hire-lede{font-size:clamp(.95rem,1.2vw,1.05rem);line-height:1.7;color:var(--ink-2);max-width:58ch;margin-bottom:24px}
+.hire-list{list-style:none;padding:0;margin:0 0 32px 0;display:flex;flex-direction:column;gap:10px}
+.hire-list li{display:flex;align-items:baseline;gap:10px;font-size:.92rem;color:var(--ink-2)}
+.hire-list li::before{content:'';flex-shrink:0;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:.5em}
+.hire-cta{align-self:flex-start}
+.hire-note{font-size:.78rem;color:var(--ink-3);margin-top:16px;font-style:italic}
+
+.hire-stats{display:flex;flex-direction:column;gap:16px}
+.hire-stat-card{display:flex;align-items:center;gap:16px;padding:20px 24px;border:1px solid var(--line-strong);border-radius:14px;background:rgba(13,20,34,0.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .3s var(--e), border-color .3s var(--e)}
+.hire-stat-card:hover{transform:translateX(4px);border-color:rgba(76,182,142,0.4)}
+.hire-stat-icon{width:40px;height:40px;flex-shrink:0;border-radius:10px;background:rgba(76,182,142,0.08);border:1px solid rgba(76,182,142,0.25);display:grid;place-items:center;color:var(--accent)}
+.hire-stat-icon svg{width:20px;height:20px}
+.hire-stat-value{font-family:var(--serif);font-weight:600;font-size:1.5rem;letter-spacing:-.02em;color:var(--ink);line-height:1}
+.hire-stat-label{font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+@media(max-width:860px){.hire-grid{grid-template-columns:1fr}.hire-stats{flex-direction:row;flex-wrap:wrap}.hire-stat-card{flex:1;min-width:140px}}
