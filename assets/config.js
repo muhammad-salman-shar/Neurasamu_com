@@ -21,7 +21,7 @@ const SITE_CONFIG = {
       "samulab": "https://github.com/neurasamu-ai/Samu-Lab/releases/download/SaMu_Lab/SaMu.Lab.apk",
       "samuchat": "https://github.com/neurasamu-ai/Samu-Chat/releases/download/SaMu_Chat/SaMu.Chat.apk",
       "nsmvb": "https://github.com/muhammad-salman-shar/nsm-ai/actions/runs/41320511138/artifacts/13089001745",
-      "sltasker": "https://github.com/muhammad-salman-shar/sl-tasker/actions/runs/44511273161/artifacts/14523983171"
+      "sltasker": "https://github.com/neurasamu-ai/Sl-tasker/releases/download/%23sl-tasker1.2/sl.tasker.apk"
     }
   },
   "SOCIALS": [
@@ -151,8 +151,8 @@ const SITE_CONFIG = {
     },
     {
       "id": "sltasker",
-      "name": "SL Tasker",
-      "tagline": "RPG Hunter System · Gamified",
+      "name": "SL Tasker v1.2",
+      "tagline": "RPG Hunter System · v1.2",
       "category": "Productivity · Gamification",
       "platform": "Android",
       "status": "released",

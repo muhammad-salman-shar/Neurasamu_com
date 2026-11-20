@@ -812,16 +812,14 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
 })();
 
 /* ============================================================
-   NSM VB — promotional popup
-   Appears once every 7 days on non-store pages
+   SL TASKER v1.2 — promotional popup
    ============================================================ */
-(function nsmvbPopup(){
+(function sltaskerPopup(){
   'use strict';
 
-  // Skip on store page (already there) and audition
   if (window.location.pathname.indexOf('/store') !== -1) return;
 
-  var DISMISS_KEY = 'nsmvb-popup-dismissed-v1';
+  var DISMISS_KEY = 'sltasker-popup-dismissed-v1.2';
   var DISMISS_DAYS = 7;
 
   try {
@@ -836,21 +834,25 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
     if (document.querySelector('.nsmvb-popup')) return;
 
     var popup = document.createElement('div');
-    popup.className = 'nsmvb-popup';
+    popup.className = 'nsmvb-popup'; // Reusing existing CSS
     popup.setAttribute('role', 'dialog');
-    popup.setAttribute('aria-label', 'New release: NSM VB');
+    popup.setAttribute('aria-label', 'New release: SL Tasker v1.2');
+    
+    // Sword icon for SL Tasker
+    var iconSvg = '<path d="M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/>';
+    
     popup.innerHTML =
       '<button type="button" class="nsmvb-close" aria-label="Dismiss">' +
         '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>' +
       '</button>' +
       '<div class="nsmvb-icon" aria-hidden="true">' +
-        '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.5"/><circle cx="12" cy="5" r="1.5"/><circle cx="18" cy="9" r="1.5"/><circle cx="18" cy="15" r="1.5"/><circle cx="12" cy="19" r="1.5"/><circle cx="6" cy="15" r="1.5"/><circle cx="6" cy="9" r="1.5"/><path d="M12 6.5v3M15 7.5l-1.5 2M16.5 10l-2 1M16.5 14l-2-1M15 16.5l-1.5-2M12 17.5v-3M9 16.5l1.5-2M7.5 14l2-1M7.5 10l2 1M9 7.5l1.5 2"/></svg>' +
+        '<svg viewBox="0 0 24 24">' + iconSvg + '</svg>' +
       '</div>' +
       '<div class="nsmvb-content">' +
-        '<div class="nsmvb-badge">New Release</div>' +
-        '<h3>Try NSM VB</h3>' +
-        '<p>A cognitive architecture that learns, reasons, and remembers — 100% on-device. No cloud. No APIs.</p>' +
-        '<a href="/store/#nsmvb" class="nsmvb-cta">Try it now <svg viewBox="0 0 24 24" style="width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>' +
+        '<div class="nsmvb-badge">Version 1.2</div>' +
+        '<h3>Try SL Tasker</h3>' +
+        '<p>Turn your life into a System. The ruthless RPG Hunter System is now live.</p>' +
+        '<a href="/store/#sltasker" class="nsmvb-cta">Try it now <svg viewBox="0 0 24 24" style="width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>' +
       '</div>';
 
     document.body.appendChild(popup);
@@ -873,5 +875,6 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
 
   setTimeout(createPopup, 7000);
 })();
+
 
 })();
