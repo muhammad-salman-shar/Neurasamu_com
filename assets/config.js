@@ -21,7 +21,7 @@ const SITE_CONFIG = {
       "samulab": "https://github.com/neurasamu-ai/Samu-Lab/releases/download/SaMu_Lab/SaMu.Lab.apk",
       "samuchat": "https://github.com/neurasamu-ai/Samu-Chat/releases/download/SaMu_Chat/SaMu.Chat.apk",
       "nsmvb": "https://github.com/muhammad-salman-shar/nsm-ai/actions/runs/41320511138/artifacts/13089001745",
-      "sltasker": "https://github.com/muhammad-salman-shar/sl-tasker/actions/runs/41049361320/artifacts/12974106344"
+      "sltasker": "https://github.com/muhammad-salman-shar/sl-tasker/actions/runs/44511273161/artifacts/14523983171"
     }
   },
   "SOCIALS": [
@@ -152,22 +152,44 @@ const SITE_CONFIG = {
     {
       "id": "sltasker",
       "name": "SL Tasker",
-      "tagline": "Gamified Productivity · System",
+      "tagline": "RPG Hunter System · Gamified",
       "category": "Productivity · Gamification",
       "platform": "Android",
       "status": "released",
       "iconSvg": "<path d=\"M8 21h8M12 17v4M17 4H7v5a5 5 0 0 0 10 0V4zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3\"/>",
-      "short": "Turn your life into a System. Gamified tasks, penalties, streaks, and focus blockers inspired by Solo Leveling.",
-      "about": "⚔️ SL TASKER — Turn your life into a System.\n\nEvery task is a quest. Every miss is a penalty. Level up by doing — not dreaming.\n\nInspired by Solo Leveling, SL Tasker transforms your real-life productivity into a Hunter's journey. Create quests, earn EP, protect your HP, climb the ranks from E to S.\n\n━━━━━━━━━━━━━━━━━━\n\n🎯 QUESTS (TASKS)\nMedium, Hard, or Critical difficulty. Single-day or repeating. Locked until scheduled time — no cheating. START a timer with floating bubble for Hard/Critical quests. Complete Medium quests instantly with haptic feedback.\n\n🩸 PENALTY SYSTEM\nMiss a task → lose HP every minute. HP drops below 50 → Penalty Dungeon opens. Restore HP only by earning EP through real tasks.\n\n🔥 STREAKS\nDaily streak with milestone bonuses at 3, 7, 14, 30, 60, 100, 365 days. Skip a day, streak resets.\n\n⏰ ALARMS\nDismiss with EASY, PIN, or MATH challenges. Full-screen swipe gestures. Custom sounds. 5-minute pre-alerts. Device-lock bypass if you forget.\n\n🛡️ FOCUS BLOCKER\nBlocks distracting apps via Accessibility. Triggered by Critical tasks or low HP. Test & Strict modes.\n\n🧠 AI HUB\nBring your own API key. Type in plain English → AI creates tasks and alarms automatically. Works with OpenAI, OpenRouter, Groq, or local models (SmolLM2, Gemma, Qwen). Chat and Agent modes.\n\n📊 HUNTER STATS\nLevel, rank (E→S), HP, EP, streak, activity feed. Share your player card as a PNG.\n\n🏆 DAILY QUESTS\n3 auto-generated challenges every day. Complete all 3 for Perfect Day bonus.\n\n📅 CALENDAR · 📱 WIDGET · 🎨 DARK + LIGHT THEMES\n\n━━━━━━━━━━━━━━━━━━\n\n✔️ No ads. No loot boxes. No noise.\n✔️ Offline-first. Your data stays on your device.\n✔️ Built for students, dreamers, and Hunters.\n\nThe System does not negotiate.\n\nDownload free → neurasamu.com",
+      "short": "A ruthless, RPG-inspired Hunter System. Turn real-life discipline into an addictive leveling journey where laziness hurts.",
+      "about": "<p>Most productivity apps are boring digital notebooks that let you tap a checkbox, lie to yourself, and go straight back to scrolling. SL Tasker is not a polite to-do list. It is a ruthless, RPG-inspired Hunter System built to turn your real-life discipline, study sessions, workouts, and daily grind into an addictive leveling journey where action makes you stronger and laziness actually hurts.</p>\n        \n        <p>The second you step inside, your routine stops feeling like a chore and starts feeling like a survival mission. Every goal becomes a quest, every completed timer earns you XP, and every excuse costs you health.</p>\n        \n        <p>Unlike ordinary task managers that let you mark a task done in one second without doing the work, SL Tasker refuses to let you cheat yourself. When you accept a mission, you have to actually launch the focus timer and stay locked in until the session finishes. Powered by a tamper-resistant monotonic clock engine, the timer cannot even be fooled by changing your phone time.</p>\n        \n        <p>You can classify your work into Normal, Hard, or Critical quests depending on how much they matter. If you miss a deadline or abandon a Critical mission, you do not just get a soft reminder you can swipe away. Your HP takes real damage, pushing your health bar down and dragging you straight toward the Penalty Dungeon.</p>\n        \n        <p>As you conquer quests, you earn XP, level up, and climb a ten-tier Hunter Rank System. Customize your Hunter profile, watch your stats climb, and build unstoppable consistency with Daily Quests.</p>\n        \n        <p>Because distraction is the biggest boss fight, SL Tasker packs a built-in App Blocker. Pick the distracting social media apps or games that usually steal your hours, start your quest, and the blocker locks them down completely until your timer hits zero. It also includes ruthless wake-up alarms engineered to kill the snooze habit forever with PIN-protected lock screens.</p>\n        \n        <p>Designed with a dark glassmorphism interface, SL Tasker looks like a futuristic combat HUD, complete with a Lite Glass battery-saver mode. The entire app is tightly engineered to around two megabytes, running local-first and offline with no forced accounts and no tracking.</p>\n        \n        <p>Stop waiting for random bursts of motivation that vanish by tomorrow morning. Turn your phone from your biggest distraction into your ultimate leveling weapon. Download SL Tasker right now and start building the strongest version of yourself today.</p>",
       "stats": {
         "rating": 4.9,
-        "reviews": "420",
-        "downloads": "1.8k+",
-        "shares": "156"
+        "reviews": "850",
+        "downloads": "5.2k+",
+        "shares": "410"
       }
     }
   ],
   "POSTS_DATA": [
+    {
+      "id": "sl-tasker-live",
+      "date": "2026-11-20",
+      "dateLabel": "November 20, 2026",
+      "category": "Release",
+      "title": "SL Tasker — Now Live",
+      "subtitle": "Turn your life into a System. The ruthless RPG Hunter System is here.",
+      "excerpt": "SL Tasker is not a polite to-do list. It is a ruthless, RPG-inspired Hunter System built to turn your real-life discipline into an addictive leveling journey.",
+      "body": "<p>Most productivity apps are boring digital notebooks. SL Tasker is different. It is a ruthless, RPG-inspired Hunter System built to turn your real-life discipline, study sessions, and workouts into an addictive leveling journey.</p><p>Every goal becomes a quest, every completed timer earns you XP, and every excuse costs you health. Miss a Critical mission and your HP takes real damage, dragging you toward the Penalty Dungeon.</p><p>Features include:</p><ul><li><strong>Tamper-Resistant Focus Timer:</strong> Cannot be fooled by changing your phone time.</li><li><strong>Ten-Tier Hunter Rank System:</strong> Climb from an unawakened beginner to an apex powerhouse.</li><li><strong>App Blocker:</strong> Locks distracting apps completely until your timer hits zero.</li><li><strong>Ruthless Alarms:</strong> PIN-protected lock screen alarms to kill the snooze habit.</li><li><strong>Dark Glassmorphism UI:</strong> Looks like a futuristic combat HUD, engineered to just ~2MB.</li></ul><p>Begin your awakening completely free. Turn your phone from your biggest distraction into your ultimate leveling weapon.</p>",
+      "tags": [
+        "Release",
+        "Productivity",
+        "Gamification",
+        "Solo Leveling"
+      ],
+      "downloadUrl": "https://github.com/muhammad-salman-shar/sl-tasker/actions/runs/44511273161/artifacts/14523983171",
+      "downloadLabel": "Download APK",
+      "seed": {
+        "likes": 420,
+        "shares": 112
+      }
+    },
     {
       "id": "nsm-1-1-launch",
       "date": "2026-11-05",
@@ -189,28 +211,6 @@ const SITE_CONFIG = {
       "seed": {
         "likes": 312,
         "shares": 98
-      }
-    },
-    {
-      "id": "sl-tasker-launch",
-      "date": "2026-10-31",
-      "dateLabel": "October 31, 2026",
-      "category": "Release",
-      "title": "SL Tasker — Turn your life into a System",
-      "subtitle": "A gamified productivity app inspired by Solo Leveling.",
-      "excerpt": "Every task is a quest. Every miss is a penalty. Level up your real life from Rank E to Rank S with focus timers, AI task creation, and app blocking.",
-      "body": "<p>Today we are releasing <strong>SL Tasker</strong> — a productivity system that treats your real life like a Hunter's journey.</p><p>Inspired by Solo Leveling, SL Tasker transforms your to-do list into a quest log. You create tasks based on difficulty (Medium, Hard, Critical), earn EP for completing them, and lose HP if you miss them. Drop below 50 HP and the Penalty Dungeon opens.</p><ul><li><strong>Quests:</strong> Start timers with a floating bubble, get haptic feedback, and lock tasks until scheduled.</li><li><strong>Alarms:</strong> Dismiss them using EASY, PIN, or MATH challenges so you can't sleep through them.</li><li><strong>Focus Blocker:</strong> Blocks distracting apps via Accessibility when you start a Critical quest or drop low on HP.</li><li><strong>AI Hub:</strong> Bring your own API key. Type in plain English, and AI creates tasks and alarms for you.</li><li><strong>Hunter Stats:</strong> Track your rank (E→S), HP, EP, and streaks. Share your player card as a PNG.</li></ul><p>It's offline-first, has no ads, and your data stays on your device.</p><p>The System does not negotiate. Download it now from the Store.</p>",
-      "tags": [
-        "Productivity",
-        "Gamification",
-        "Solo Leveling",
-        "Release"
-      ],
-      "downloadUrl": "https://github.com/muhammad-salman-shar/sl-tasker/actions/runs/41049361320/artifacts/12974106344",
-      "downloadLabel": "Download APK",
-      "seed": {
-        "likes": 189,
-        "shares": 52
       }
     },
     {
