@@ -1055,3 +1055,11 @@ body.menu-open #menuClose{ display:grid; }
 .hire-stat-value{font-family:var(--serif);font-weight:600;font-size:1.5rem;letter-spacing:-.02em;color:var(--ink);line-height:1}
 .hire-stat-label{font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
 @media(max-width:860px){.hire-grid{grid-template-columns:1fr}.hire-stats{flex-direction:row;flex-wrap:wrap}.hire-stat-card{flex:1;min-width:140px}}
+/* Testing form inside popup */
+.nsmvb-form{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.nsmvb-input{width:100%;padding:10px 14px;border-radius:8px;border:1px solid rgba(240,237,230,.2);background:rgba(0,0,0,.3);color:#F0EDE6;font-family:var(--sans);font-size:.85rem;transition:border-color .2s}
+.nsmvb-input::placeholder{color:rgba(240,237,230,.4)}
+.nsmvb-input:focus{outline:none;border-color:var(--accent)}
+.nsmvb-submit{width:100%;padding:10px 14px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-weight:600;font-size:.85rem;cursor:pointer;transition:background .2s}
+.nsmvb-submit:hover{background:#5FD4A8}
+.nsmvb-msg{font-size:.75rem;color:#4CB68E;margin-top:4px;display:none}

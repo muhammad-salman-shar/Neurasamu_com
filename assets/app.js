@@ -819,7 +819,7 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
 
   if (window.location.pathname.indexOf('/store') !== -1) return;
 
-  var DISMISS_KEY = 'sltasker-popup-dismissed-v1.2';
+  var DISMISS_KEY = 'sltasker-testing-popup-v1';
   var DISMISS_DAYS = 7;
 
   try {
@@ -834,11 +834,10 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
     if (document.querySelector('.nsmvb-popup')) return;
 
     var popup = document.createElement('div');
-    popup.className = 'nsmvb-popup'; // Reusing existing CSS
+    popup.className = 'nsmvb-popup';
     popup.setAttribute('role', 'dialog');
-    popup.setAttribute('aria-label', 'New release: SL Tasker v1.2');
+    popup.setAttribute('aria-label', 'Apply for SL Tasker Play Store testing');
     
-    // Sword icon for SL Tasker
     var iconSvg = '<path d="M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/>';
     
     popup.innerHTML =
@@ -849,10 +848,14 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
         '<svg viewBox="0 0 24 24">' + iconSvg + '</svg>' +
       '</div>' +
       '<div class="nsmvb-content">' +
-        '<div class="nsmvb-badge">Version 1.2</div>' +
-        '<h3>Try SL Tasker</h3>' +
-        '<p>Turn your life into a System. The ruthless RPG Hunter System is now live.</p>' +
-        '<a href="/store/#sltasker" class="nsmvb-cta">Try it now <svg viewBox="0 0 24 24" style="width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>' +
+        '<div class="nsmvb-badge">Beta Testing</div>' +
+        '<h3>Join the SL Tasker Beta</h3>' +
+        '<p>We are inviting early testers for the Play Store release. Enter your Gmail below and we will send you the testing link.</p>' +
+        '<form class="nsmvb-form" id="betaForm">' +
+          '<input type="email" class="nsmvb-input" id="betaEmail" placeholder="Your Gmail address" required>' +
+          '<button type="submit" class="nsmvb-submit">Apply for Testing</button>' +
+          '<p class="nsmvb-msg" id="betaMsg">Request received! Check your email soon.</p>' +
+        '</form>' +
       '</div>';
 
     document.body.appendChild(popup);
@@ -861,6 +864,32 @@ if (copyBtn) copyBtn.addEventListener('click', async () => {
       popup.classList.add('nsmvb-leaving');
       try { localStorage.setItem(DISMISS_KEY, String(Date.now())); } catch(e){}
       setTimeout(function(){ try { popup.remove(); } catch(e){} }, 400);
+    });
+
+    var form = popup.querySelector('#betaForm');
+    var msg = popup.querySelector('#betaMsg');
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email = popup.querySelector('#betaEmail').value.trim();
+      if (!email) return;
+
+      // Send via mailto: to the owner
+      var subject = encodeURIComponent('SL Tasker Play Store Beta Request');
+      var body = encodeURIComponent('Hey NeuraSaMu,
+
+I want to test SL Tasker on the Play Store.
+
+My Gmail: ' + email + '
+
+Please send the testing link.');
+      window.location.href = 'mailto:neurasamuai@gmail.com?subject=' + subject + '&body=' + body;
+
+      // Show success message and hide form
+      msg.style.display = 'block';
+      popup.querySelector('.nsmvb-input').style.display = 'none';
+      popup.querySelector('.nsmvb-submit').style.display = 'none';
+      try { localStorage.setItem(DISMISS_KEY, String(Date.now())); } catch(e){}
     });
 
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

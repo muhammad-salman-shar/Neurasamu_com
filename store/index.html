@@ -309,6 +309,10 @@
             Download APK
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg>
           </a>
+          <a class="btn btn--ghost app-test-btn" id="modalTest" href="#" style="display:none" aria-label="Apply for Play Store testing">
+            Apply for Testing
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
         </div>
 
         <div class="app-stats">
@@ -581,6 +585,16 @@
       document.getElementById('appModalTitle').textContent = app.name;
       document.getElementById('modalTagline').textContent = app.tagline;
       document.getElementById('modalCategory').textContent = app.platform + ' · ' + app.category;
+
+      var testBtn = document.getElementById('modalTest');
+      if (testBtn) {
+        if (app.id === 'sltasker') {
+          testBtn.style.display = 'inline-flex';
+          testBtn.href = 'mailto:neurasamuai@gmail.com?subject=SL%20Tasker%20Play%20Store%20Beta%20Request&body=Hey%20NeuraSaMu,%0A%0AI%20want%20to%20test%20SL%20Tasker%20on%20the%20Play%20Store.%0A%0AMy%20Gmail:%20[ENTER_YOUR_GMAIL_HERE]%0A%0APlease%20send%20the%20testing%20link.';
+        } else {
+          testBtn.style.display = 'none';
+        }
+      }
 
       var dlBtn = document.getElementById('modalDownload');
       var dlLink = (SITE_CONFIG.LINKS && SITE_CONFIG.LINKS.apps && SITE_CONFIG.LINKS.apps[app.id]) || '';
